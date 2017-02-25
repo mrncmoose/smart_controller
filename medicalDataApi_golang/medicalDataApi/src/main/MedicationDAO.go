@@ -23,10 +23,8 @@ func GetMedicationForPerson(dbh sql.DB, patId string ) (MedicationsType, error) 
 	medType.PatientName = fName + " " + lName
 	query = "select scriptId, issuedDate, expiredDate, medName from med_system_medications where patientId=" + patId +
 		" order by medName"
-	rows, errx := DoSql(dbh, query)
+	rows, errx := DoSql(dbh, query, "Error getting medications for patient" )
 	if errx != nil {
-		log.Println("Error getting medications for patient: " + err.Error())
-		log.Println(query)
 		return *medType, err
 	}
 	var meds []Medication
@@ -85,6 +83,7 @@ func SaveMedication(dbh sql.DB, med Medication, patId string) (int, error) {
 			expireT = expire.Format(mysqlTimeFormat)
 		} else {
 			log.Println("Bad time format for expire date: " + med.ExpiredDate)
+			expireT = "null"
 		}
 		var issueT string
 		issue, err := time.Parse(time.RFC3339, med.IssuedDate)
@@ -92,14 +91,24 @@ func SaveMedication(dbh sql.DB, med Medication, patId string) (int, error) {
 			issueT = issue.Format(mysqlTimeFormat)
 		} else {
 			log.Println("Bad time format for issue date: " + med.IssuedDate)
+			issueT = "null"
 		}
 		insertQuery := "insert into med_system_medications (patientId, scriptId, issuedDate, expiredDate, medName) " +
-			"values (" + patId+ ", '" + med.ScriptId + "', '" +
-			issueT + "', '" + expireT + "', '" + med.MedName + "')"
-		err = DoUpdateSql(dbh, insertQuery)
+			"values (" + patId+ ", '" + med.ScriptId + "', "
+		if issueT == "null" {
+			insertQuery += issueT + ", "
+		} else {
+			insertQuery += "'" + issueT + "', "
+		}
+		if expireT == "null" {
+			insertQuery += expireT + ", "
+		} else {
+			insertQuery += "'" + expireT + "', "
+		}
+		insertQuery += "'" + med.MedName + "')"
+		err = DoExecSql(dbh, insertQuery, "Unable to insert medication")
 		if err != nil {
-			log.Println("Unable to insert with error: " + err.Error())
-			log.Println(insertQuery)
+			return -1, err
 		}
 		lastInsertId, err := GetLastInserId(dbh)
 		return lastInsertId, err

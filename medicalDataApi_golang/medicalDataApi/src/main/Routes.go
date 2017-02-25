@@ -81,4 +81,38 @@ var routes = Routes{
     	"/LocationManager/Patient/latitude/{lat}/longitude/{long}/floor/{floor}/LocationError/{locErr}",
     	PatientLocationManager,
     },
+    Route{
+    	"CreateCarePlan",
+    	"POST",
+    	"/CarePlan",
+    	CreateCarePlan,   	
+    },
+    // The following is a dummy route used only for independent demo's.
+    // It will be deprecated as soon as the video demo's using the IPS are running
+    Route{
+     	"NextPatient",
+    	"GET",
+    	"/demo/NextPatient/{patientId}",
+    	NextPatient,   	
+    },
+    // this is only used for independent demo's w/o the IPS.
+    // it will be deprecated
+    Route {
+    	"AddPatientToQue",
+    	"POST",
+    	"/demo/AddPatientToQue",
+    	HandleAddPatientToQueue,
+    },
+    Route {
+    	"CreateObservation",
+    	"POST",
+    	"/Observation",
+    	HandleCreateObservation,
+    },
+    Route {
+    	"GetObservations",
+    	"GET",
+    	"/Observations/{patient_id:[0-9]+}",
+    	GetObservations,
+    },
 }

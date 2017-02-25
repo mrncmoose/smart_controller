@@ -5,44 +5,60 @@ package main
 import (
 	"log"
 	"fmt"
+	"time"
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
 )
 type DatabaseConnectionPrameters struct {
-	databaseName string
-	user string
-	password string
-	ipAddress string
-	port string	
+	DatabaseName string	`json:"databaseName"`
+	User string			`json:"user"`
+	Password string		`json:"password"`
+	IpAddress string	`json:"ipAddress"`
+	Port string			`json:"port"`
+	MaxOpenConns int	`json:"maxOpenConns"`
+	ConnMaxLifetime int64	`json:"connMaxLifetime"`
 }
 
+var dbh *sql.DB
+
 func NewDBH(dbConPram DatabaseConnectionPrameters) (*sql.DB, error) {
-	connectStr := dbConPram.user + ":" + dbConPram.password + "@tcp(" + dbConPram.ipAddress + ":" + dbConPram.port + ")/" + dbConPram.databaseName
+	connectStr := dbConPram.User + ":" + dbConPram.Password + "@tcp(" + dbConPram.IpAddress + ":" + dbConPram.Port + ")/" + dbConPram.DatabaseName
 //	fmt.Println("opening with connection string: " + connectStr)
 	dbh, err := sql.Open("mysql", connectStr)
 	if err != nil {
-		errStr := "Error connecting to mysql on: " + dbConPram.ipAddress + " with error: " + err.Error()
+		errStr := "Error connecting to mysql on: " + dbConPram.IpAddress + " with error: " + err.Error()
 		fmt.Println(errStr)
-		return nil, err
+		return dbh, err
 	}
 	if(dbh != nil) {
+		dbh.SetMaxOpenConns(dbConPram.MaxOpenConns)
+		var conMaxLife time.Duration = time.Duration(dbConPram.ConnMaxLifetime) * time.Millisecond
+		dbh.SetConnMaxLifetime(conMaxLife)
 		log.Print("database initialzed")
 	}
 	return dbh, nil
 }
 
-func DoSql(dbh sql.DB, query string) (*sql.Rows, error) {
+func DoSql(dbh sql.DB, query string, errorMessage string) (*sql.Rows, error) {
 //	fmt.Println("attempting query")
 		rows, err := dbh.Query(query)
 		if err != nil {
-			log.Println("Error in query")
+			log.Println(errorMessage)
+			log.Println("Error in query: " + query)
+			log.Println("error message: " + err.Error())
+			rows.Close()
 		}
 //		fmt.Println("About to return from DoSql")
 		return rows, err
 }
 
-func DoUpdateSql(dbh sql.DB, query string)  (error) {
+func DoExecSql(dbh sql.DB, query string, errorMessage string)  (error) {
 	_, err := dbh.Exec(query)
+	if err != nil {
+		log.Println(errorMessage)
+		log.Println("Error in query:" + query)
+		log.Println("error message: " + err.Error())
+	}
 	return err
 }
 

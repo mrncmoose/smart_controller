@@ -27,14 +27,14 @@ func AddAllergiesForPatient(dbh sql.DB, allergy AllergyInputType) (error) {
 		// is this allready in the db?
 		var allId int
 		whereClause := " where patientId=" + allergy.PatientId + " and allergyTo='" + al.AllergyTo + "'"
-		query := "select id as N from med_system_allergies" + whereClause
+		query := "select allergy_id as N from med_system_allergies" + whereClause
 		err = dbh.QueryRow(query).Scan(&allId)
 		switch {
 			case err == sql.ErrNoRows || err == nil:
-				query = "replace into med_system_allergies (id, patientId, addedDate, allergyTo, severity, emrId) " + 
+				query = "replace into med_system_allergies (allergy_id, patientId, addedDate, allergyTo, severity, emrId) " + 
 					"values(" + strconv.Itoa(allId) + ", " + patentId + " ,'" + addedTo + 
 					"', '" + al.AllergyTo + "', '" + al.Severity + "', '" + emrName + "')";
-				err = DoUpdateSql(dbh, query)
+				err = DoExecSql(dbh, query, "Error getting allergy Id: ")
 				if err != nil {
 					return err
 				}
@@ -55,9 +55,8 @@ func GetAllergiesForDeviceId(dbh sql.DB, deviceId string) (AllergiesType, error)
 		areaId int
 		patientId int
 	)
-	rows, err := DoSql(dbh, sql)
+	rows, err := DoSql(dbh, sql, "Failed to find allergy")
 	if err != nil {
-		log.Println("DoQuery failed.")
 		return *at, err
 	}
 	if rows != nil {
@@ -72,9 +71,8 @@ func GetAllergiesForDeviceId(dbh sql.DB, deviceId string) (AllergiesType, error)
 	}
 	sql = "select patientId from med_system_area_use where areaId=" + strconv.Itoa(areaId)
 	
-	rows2, err2 := DoSql(dbh, sql)
+	rows2, err2 := DoSql(dbh, sql, "Unable to get patient id for the areaId provided")
 	if err2 != nil {
-		log.Println("DoQuery failed.")
 		return *at, err2
 	}
 	if rows != nil {
@@ -93,7 +91,7 @@ func GetAllergiesForDeviceId(dbh sql.DB, deviceId string) (AllergiesType, error)
 }
 
 func GetAllergiesForPatient(dbh sql.DB, patientId int) (AllergiesType, error) {
-	log.Println("Attempting to get allergies for patientId " + strconv.Itoa(patientId))
+//	log.Println("Attempting to get allergies for patientId " + strconv.Itoa(patientId))
 	query := "select fName, lName from med_system_patient where patientId=" + strconv.Itoa(patientId)
 	var (
 		fName string
@@ -108,9 +106,8 @@ func GetAllergiesForPatient(dbh sql.DB, patientId int) (AllergiesType, error) {
 	allergyType.PatientName = fName + " " + lName
 	log.Println("Found patient: " + allergyType.PatientName)
 	sql2 := "select addedDate, allergyTo, severity from med_system_allergies where patientId=" + strconv.Itoa(patientId)
-	alRows, err := DoSql(dbh, sql2)
+	alRows, err := DoSql(dbh, sql2, "Unable to get addedDate for patientId")
 	if err != nil {
-		log.Println("Query failed: " + sql2)
 		return allergyType, err
 	}
 	if alRows != nil {

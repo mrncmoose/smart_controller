@@ -8,29 +8,29 @@ import (
     "io"
 	"log"
     "github.com/gorilla/mux"
-    "database/sql"
+//    "database/sql"
 	"strconv"
-)
-
-var mydbp = DatabaseConnectionPrameters { 
-	databaseName: "moosewaredata",
-	user: "moosewareinc",
-	password: "mo800ose",
-	ipAddress: "192.168.99.100",
-	port: "32770"}
-
-var (
-	dbh sql.DB
+	"os"
 )
 
 const maxReadBytes = 1048576
 const internalServerError = 500
 
 func init() {
+	file, configFileErr := os.Open("dbconfig.json")
+	if configFileErr != nil {
+		log.Panicln("Can not open dbconfig.json config file.")
+	}
+	decoder := json.NewDecoder(file)
+	mydbp := DatabaseConnectionPrameters{}
+	err := decoder.Decode(&mydbp)
+	if err != nil {
+		log.Println("error reading config: " + err.Error())
+		log.Panicln("Unable to read database configuration file (dbconfig.json)")
+	}
 	log.Println("getting new database handler")
-	dbhx, xerr := NewDBH(mydbp)
-	dbh = *dbhx
-	if xerr != nil {
+	dbh, err = NewDBH(mydbp)	//database hanlder, dbh, declared in DatabaseHelper as global
+	if err != nil {
 		log.Fatal("oops.... Database handler didn't initialize")
 	}
 }
@@ -60,7 +60,7 @@ func AllergiesCreate(w http.ResponseWriter, r *http.Request) {
         }
     }
     fmt.Printf("Allergy to write out: %v\n", allergy)
-	nfgErr := AddAllergiesForPatient(dbh, allergy)
+	nfgErr := AddAllergiesForPatient(*dbh, allergy)
 	if(nfgErr != nil) {
 		log.Print(nfgErr)
 		w.WriteHeader(422)
@@ -80,7 +80,7 @@ func AllergiesRead(w http.ResponseWriter, r *http.Request) {
     patientId := vars["patient_id"]
     deviceId := vars["device_id"]
     if len(deviceId) != 0 {
-    	allergies, err := GetAllergiesForDeviceId(dbh, deviceId)
+    	allergies, err := GetAllergiesForDeviceId(*dbh, deviceId)
     	if err != nil {
     		w.WriteHeader(http.StatusNotFound)
     		log.Println(err)
@@ -91,7 +91,7 @@ func AllergiesRead(w http.ResponseWriter, r *http.Request) {
     	}
     } else if len(patientId) != 0 {
     	myPatId, err := strconv.Atoi(patientId)
-    	allergies, err := GetAllergiesForPatient(dbh, myPatId)
+    	allergies, err := GetAllergiesForPatient(*dbh, myPatId)
     	if err != nil {
     		w.WriteHeader(http.StatusNotFound)
     		log.Println(err)    		
@@ -107,7 +107,8 @@ func GetPatient(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json; charset=UTF-8")
     vars := mux.Vars(r)
     patientId, _ := strconv.Atoi(vars["patient_id"])
-	pat, err := GetPatientById(dbh, patientId)
+    log.Println("About to call get patient by id...")
+	pat, err := GetPatientById(*dbh, patientId)
 	if err != nil {
     	w.WriteHeader(http.StatusNotFound)
     	log.Println(err)
@@ -137,7 +138,7 @@ func CreatePatient(w http.ResponseWriter, r *http.Request) {
 	    }
     }
     if len(pat.EmrSystemName) > 1 {
-		patId, err := UpsertPatient(dbh, pat, pat.EmrSystemName)
+		patId, err := UpsertPatient(*dbh, pat, pat.EmrSystemName)
 		retPat := new(PatientIdType)
 		retPat.PatientId = strconv.Itoa(patId);
 		if err != nil {
@@ -160,7 +161,7 @@ func GetMedication(w http.ResponseWriter, r *http.Request) {
 	patientId := vars["patient_id"]
 	deviceId := vars["device_id"]
 	if len(patientId) > 0 {
-		myMeds, err := GetMedicationForPerson(dbh, patientId)
+		myMeds, err := GetMedicationForPerson(*dbh, patientId)
 		if err != nil {
 			w.WriteHeader(internalServerError) // internal server error
 			log.Println("Error getting medications for patient id: " + patientId)
@@ -171,7 +172,7 @@ func GetMedication(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if len(deviceId) > 0 {
-		myMeds, err := GetMedicationForDeviceId(dbh, deviceId)
+		myMeds, err := GetMedicationForDeviceId(*dbh, deviceId)
 		if err != nil {
 			w.WriteHeader(internalServerError) // internal server error
 			log.Println("Error getting medications for device id: " + deviceId)
@@ -206,7 +207,7 @@ func CreateMedication(w http.ResponseWriter, r *http.Request) {
     var medIdList = new(MedicationsCreated)
     var loopErr error
     for _, theMed := range medList {
-	 	medId, loopErr := SaveMedication(dbh, theMed, patId)   	
+	 	medId, loopErr := SaveMedication(*dbh, theMed, patId)   	
 		if loopErr != nil {
 			w.WriteHeader(internalServerError) // internal server error
 			log.Println("Error creating medications: " + err.Error())
@@ -228,7 +229,7 @@ func LocationManager(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
 	var deviceId = vars["device_id"]
 	if len(deviceId) > 0 {
-		patLoc, err := GetPatientForDeviceLocation(dbh, deviceId)
+		patLoc, err := GetPatientForDeviceLocation(*dbh, deviceId)
 		if err != nil {
 			 w.WriteHeader(internalServerError)
 			 log.Println("Error getting patient for location: " + err.Error())
@@ -249,7 +250,7 @@ func PatientLocationManager(w http.ResponseWriter, r *http.Request) {
 	patLocReq.LatStr = vars["lat"]
 	patLocReq.LongitudeStr = vars["long"]
 	patLocReq.LocationErrorStr = vars["locErr"]
-	patLoc, err := GetPatientForLocation(dbh, *patLocReq)
+	patLoc, err := GetPatientForLocation(*dbh, *patLocReq)
 	if err != nil {
 		w.WriteHeader(internalServerError)
 	} else {
@@ -258,4 +259,113 @@ func PatientLocationManager(w http.ResponseWriter, r *http.Request) {
 	    	panic(err)
 	    }
 	}
+}
+
+func CreateCarePlan (w http.ResponseWriter, r *http.Request) {
+	var meds MedicationsType
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+    body, err := ioutil.ReadAll(io.LimitReader(r.Body, maxReadBytes))
+    if err != nil {
+    	log.Println("Error reading Care Plan JSON: " + err.Error())
+        panic(err)
+    }
+    if err := r.Body.Close(); err != nil {
+    	log.Println("Error closing request: " + err.Error())
+        panic(err)
+    }
+    if err := json.Unmarshal(body, &meds); err != nil {
+        w.WriteHeader(422) // unprocessable entity
+	   if err := json.NewEncoder(w).Encode(err); err != nil {
+	        panic(err)
+	    }
+    }
+    // magic to save care plan here
+}
+// Nov 13, 2016
+// This function needs to be deprecated soon.  The IPS is functioning and this no longer has value
+func NextPatient(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	vars := mux.Vars(r)
+	dwq, err := GetNextPatient(*dbh, vars["patientId"])
+	if err != nil {
+		w.WriteHeader(internalServerError)
+	} else {
+		w.WriteHeader(http.StatusOK)
+	    if err := json.NewEncoder(w).Encode(dwq); err != nil {
+	    	panic(err)
+	    }	
+	}
+}
+
+func HandleAddPatientToQueue(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	var patQueReq = new(PatientQueueRequest)
+    body, err := ioutil.ReadAll(io.LimitReader(r.Body, maxReadBytes))
+    if err != nil {
+    	log.Println("Error reading AddPatiantToQue JSON: " + err.Error())
+        panic(err)
+    }
+    if err := r.Body.Close(); err != nil {
+    	log.Println("Error closing request: " + err.Error())
+        panic(err)
+    }
+    if err := json.Unmarshal(body, &patQueReq); err != nil {
+        w.WriteHeader(422) // unprocessable entity
+	   if err := json.NewEncoder(w).Encode(err); err != nil {
+	        panic(err)
+	    }
+    } else {
+		err = AddPatientToQueue(*dbh, *patQueReq)
+		if(err != nil) {
+			w.WriteHeader(internalServerError)
+		}
+    }
+}
+
+func HandleCreateObservation(w http.ResponseWriter, r *http.Request) {
+	var obs ObservationType
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+    body, err := ioutil.ReadAll(io.LimitReader(r.Body, maxReadBytes))
+    if err != nil {
+    	log.Println("Error reading observation JSON: " + err.Error())
+        panic(err)
+    }
+    if err := r.Body.Close(); err != nil {
+    	log.Println("Error closing request: " + err.Error())
+        panic(err)
+    }
+    if err := json.Unmarshal(body, &obs); err != nil {
+        w.WriteHeader(422) // unprocessable entity
+	   if err := json.NewEncoder(w).Encode(err); err != nil {
+	        panic(err)
+	    }
+    }
+    err = AddObservation(*dbh, obs)
+    
+    if err != nil {
+		w.WriteHeader(internalServerError)
+    } else {
+    	w.WriteHeader(http.StatusCreated)
+    }
+}
+
+func GetObservations(w http.ResponseWriter, r *http.Request) {
+//	var obs ObservationDisplay
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	vars := mux.Vars(r)
+	patientId, err := strconv.Atoi(vars["patient_id"])
+	if err!=nil {
+		log.Println("Unparseable patient ID.  All patient ID's are integers")
+		panic(err)
+	}
+	obs, err := GetObservationsForPatientId(*dbh, patientId)
+		if err != nil {
+		w.WriteHeader(internalServerError)
+	} else {
+		w.WriteHeader(http.StatusOK)
+	    if err := json.NewEncoder(w).Encode(obs); err != nil {
+	    	panic(err)
+	    }	
+	}
+
 }

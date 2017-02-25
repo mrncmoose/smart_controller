@@ -12,9 +12,10 @@ func GetPatientById(dbh sql.DB, patientId int) (Patient, error) {
 	query := "select fName, lName, bDate, gender, emrSystemsListId from med_system_patient where patientId=" + strconv.Itoa(patientId)
 	myPat := new(Patient)
 	myPat.PatientId = strconv.Itoa(patientId)
+	log.Println("About to call get patient query...")
 	err := dbh.QueryRow(query).Scan(&myPat.Fname, &myPat.Lname, &myPat.Bdate, &myPat.Gender, &myPat.EmrPatientId)
 	if err != nil {
-		log.Println("DoQuery failed with error: " + err.Error())
+		log.Println("Get patient query failed with error: " + err.Error())
 		return *myPat, err
 	}
 	return *myPat, nil
@@ -25,9 +26,8 @@ func GetPatientByName(dbh sql.DB, fName string, lName string, bDate string) (Pat
 	query := "select patientId, fName, lName, contact, bDate. emrSystemsListId from med_system_patient where " +
 		"fName='" + fName + "' and lName='" + lName + "' and bDate='" + bDate + "'"
 	myPat := new(Patient)
-	rows, err := DoSql(dbh, query)
+	rows, err := DoSql(dbh, query, "Error trying to find patient")
 	if err != nil {
-		log.Println("Error trying to find patient with error: " + err.Error())
 		return *myPat, err
 	}
 	if rows != nil {
@@ -57,9 +57,8 @@ func UpdatePatientEMRdata(dbh sql.DB, patient Patient, emrSystem string) (error)
 	if( nPat > 0 ) {
 		query = "insert into med_system_emrSystemList (patientId, emrPatientId, emrSystemName) values (" +
 		patient.PatientId + ", '" + patient.EmrPatientId + "', '" + patient.EmrSystemName + "')";
-		err = DoUpdateSql(dbh, query)
+		err = DoExecSql(dbh, query, "Unable to save EMR id's" )
 		if err != nil {
-			log.Println("Unable to save EMR id's")
 			return err
 		}
 	}
@@ -86,19 +85,18 @@ func UpsertPatient(dbh sql.DB, patient Patient, emrSystem string) (int, error) {
 		// 1st, find out if this patient is allready in the db.  match name + birthdata + gender
 		var nPatients int
 		whereClause := "where fName='" +
-			patient.Fname + "' and lName='" + patient.Lname + "' and gender='" +
-			patient.Gender + "' and bDate='" + patient.Bdate + "'"
+			patient.Fname + "' and lName='" + patient.Lname + "' and gender=$1" +
+			" and bDate='" + patient.Bdate + "'"
 		query = "select count(fName) as N from med_system_patient " + whereClause
-		err = dbh.QueryRow(query).Scan(&nPatients)
+		err = dbh.QueryRow(query, patient.Gender).Scan(&nPatients)
 		if err == nil && nPatients == 0 {
 			query = "insert into med_system_patient (fName, lName, bDate, gender, emrSystemsListId) " +
 				"values ('" + patient.Fname + "', '" + patient.Lname + "', '" +				
-				patient.Bdate + "', '" + 	patient.Gender + "', " +
+				patient.Bdate + "', $1, " +
 				strconv.Itoa(emrId) + ")"
-			err = DoUpdateSql(dbh, query)		
+			_, err = dbh.Exec(query, patient.Gender)
+//			err = DoExecSql(dbh, query, "unable to insert patient")		
 			if err != nil {
-				fmt.Println("error in query?: " + query)
-				log.Println("unable to insert patient with error: " + err.Error())
 				return -1, err
 			}
 			err = UpdatePatientEMRdata(dbh, patient, emrSystem)
