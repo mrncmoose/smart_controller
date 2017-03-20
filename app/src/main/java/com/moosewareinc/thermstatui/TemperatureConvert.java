@@ -11,6 +11,6 @@ public class TemperatureConvert {
     }
 
     public float fToC(float f) {
-        return f/1.8f - 32;
+        return (f - 32)/1.8f;
     }
 }
