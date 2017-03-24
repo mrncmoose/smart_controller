@@ -34,7 +34,7 @@ import java.util.TimerTask;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String url = "http://10.0.0.21:5000";
+    private static final String url = "http://192.168.42.1:5000";
     private static final String currentTempResource = "/thermal/api/v1.0/current_temp";
     private static final String eventsResource = "/thermal/api/v1.0/events";
     private TextView onTempText;
