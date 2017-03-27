@@ -15,10 +15,12 @@ Parts list:
 1. DS18B20 temperature sensor (others may be substituted). This project used SunFounder’s PC board to eliminate the need for a breadboard or other circuit board to hold the DS18B20.
 1. Jbtek 4 Channel DC 5V Relay module
 1. Jumper wires (20)
-1. #6-32 x 3/8 pan head screws (4)
-1. M2.5 x 4mm pan head screws (10)
+1. (4) #6-32 x 3/8 pan head screws 
+1. (10) M2.5 x 4mm pan head screws 
 1. Case for Raspberry PI, relay and temperature sensor boards.  The STL files are posted as part of this project.  Note:  you may need 2 of the middle spacers.  
 1. Android smart phone with Android 4.4 or higher 
+
+The case base parts are bonded together.  One of the charateristics of ABS is it desolves in acetone.  A few drops bonds the lower case parts together. The cover is held on with the 4 #6 screws.
 
 ## Wiring up the devices
 
@@ -49,3 +51,13 @@ Basic article on controlling the relays:
 Quick & dirty how to get the temperature value:
 <http://raspberrywebserver.com/gpio/connecting-a-temperature-sensor-to-gpio.html>
 
+The lower case 3D print in process:
+![](http://moosewareinc.com//portfolio/images/3dprinted-parts/RaspberryPiControllerCase.jpeg)
+
+Note the bosses have printed/molded threads and are fileted for stress relief.
+
+The assembled unit:  
+![](http://moosewareinc.com//portfolio/images/3dprinted-parts/TControllerCompleted.jpeg)
+
+Installed and working:
+![](http://moosewareinc.com//portfolio/images/3dprinted-parts/smart_thermostat_installed.jpeg)
