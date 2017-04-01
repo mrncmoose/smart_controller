@@ -13,8 +13,10 @@ The case is 3D printed with ABS.  One of the advantages of printing in ABS is th
 Parts list:
 1. Raspberry PI model B
 1. DS18B20 temperature sensor (others may be substituted). This project used SunFounder’s PC board to eliminate the need for a breadboard or other circuit board to hold the DS18B20.
-1. Jbtek 4 Channel DC 5V Relay module
+1. Jbtek 4 Channel DC 5V Relay module.  Make sure these are contact style.
 1. (20) Jumper wires 
+1. 5mm Blue LED
+1. 270 ohm 1/4 Watt resistor
 1. (4) #6-32 x 3/8 pan head screws 
 1. (10) M2.5 x 4mm pan head screws 
 1. Case for Raspberry PI, relay and temperature sensor boards.  The STL files are posted as part of this project.  Note:  you may need 2 of the middle spacers.  
@@ -38,7 +40,9 @@ for pin ID’s on Raspberry, see:
 <tr><td>7</td><td>GPIO4</td><td>DS18b20 temperature: SIG</td></tr>
 <tr><td>9</td><td></td><td>DS18b20 temperature: GND</td></tr>
 <tr><td>11</td><td>GPIO17</td><td>Relay board: IN1</td></tr>
+<tr><td>12</td><td>GPIO18</td><td>Status LED</td></tr>
 <tr><td>13</td><td>GPIO27</td><td>Relay board: IN2</td></tr>
+<tr><td>14</td><td></td><td>Status LED GND</td></tr>
 <tr><td>15</td><td>GPIO22</td><td>Relay board: IN3</td></tr>
 <tr><td>19</td><td>GPIO10</td><td>Relay board: IN4</td></tr>
 </tr></table>
