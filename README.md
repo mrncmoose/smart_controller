@@ -61,3 +61,7 @@ The assembled unit:
 
 Installed and working:
 ![](http://moosewareinc.com//portfolio/images/3dprinted-parts/smart_thermostat_installed.jpeg)
+
+A screen shot of the User Interface (UI)
+![](http://moosewareinc.com//portfolio/images/Screenshot_1491054776.png)
+
