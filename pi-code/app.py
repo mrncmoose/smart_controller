@@ -2,7 +2,12 @@
 from flask import Flask, jsonify, request
 import re
 import os
+import ConfigParser
 import json
+
+
+Config = ConfigParser.ConfigParser()
+Config.read("config.ini")
 
 # load the kernel modules needed to handle the sensor
 os.system('modprobe w1-gpio')
@@ -18,10 +23,11 @@ events = [
 			'when':u'2017-03-12 18:00',
  			'temperature':20
  		},
- 	'off':{
+ 	    'off':{
 			'when':u'2017-03-12 18:00',
  			'temperature':-42
- 		}
+ 		},
+    'current_timestamp':u'2017-03-27 14:41:00'
  	},
  	{
  		'on':
@@ -29,10 +35,11 @@ events = [
  			'when':u'2017-03-13 06:00',
  			'temperature':21
  		},
- 	'off':{
+ 	    'off':{
  			'when':u'2017-03-13 11:00',
  			'temperature':-40
- 			}
+ 			},
+        'current_timestamp':u'2017-03-27 14:41:00'
  	}
 ]
 
@@ -66,8 +73,10 @@ def get_events():
 
 @app.route('/thermal/api/v1.0/current_temp', methods=['GET'])
 def get_current_temp():
-    current_temp = getCurrentTemp('/sys/bus/w1/devices/28-04167527baff')
-    return jsonify({'current_temp': current_temp})
+#    current_temp = getCurrentTemp('/sys/bus/w1/devices/28-04167527baff')
+	tempPath = Config.get("ControlVars", "TempSensorId")
+	current_temp = getCurrentTemp(tempPath)
+	return jsonify({'current_temp': current_temp})
 
 @app.route('/thermal/api/v1.0/events', methods=['POST'])
 def create_events():
@@ -80,6 +89,9 @@ def create_events():
             except:
                 abort(500)
 	json_data_file.close()
+	currentTimeStamp = events[0]['current_timestamp']
+	print("Setting date to: " + currentTimeStamp)
+	os.system('sudo date --set=\'' + currentTimeStamp + '\'')
 	return jsonify({'events': events});
 
 if __name__ == '__main__':

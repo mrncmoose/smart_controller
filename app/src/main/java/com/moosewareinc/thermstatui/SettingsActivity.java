@@ -11,7 +11,9 @@ import android.os.Bundle;
 import android.view.View;
 //import android.widget.DatePicker;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -27,14 +29,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static android.widget.Switch.*;
+
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String url = "http://192.168.42.1:5000";
+//    private static final String url = "http://192.168.99.100:5000";
+
     private static final String currentTempResource = "/thermal/api/v1.0/current_temp";
     private static final String eventsResource = "/thermal/api/v1.0/events";
     private TextView onTempText;
@@ -48,14 +55,25 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private Button setOnTimeButton;
     private Button setOffDateButton;
     private Button setOffTimeButton;
+    private Switch fOrCswitch;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private Timer getTempTimer;
+    private boolean isActive;
+    private boolean isF;
+    private TemperatureConvert tc;
 
+    public SettingsActivity() {
+        super();
+        tc = new TemperatureConvert();
+        isF = false;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // get the current time so we can send it to the controller
+
+        isActive = true;
         setContentView(R.layout.activity_settings);
-        //TODO:  get current values & populate
         onTempText = (TextView) findViewById(R.id.onTempText);
         onDateText = (TextView) findViewById(R.id.onDateText);
         onTimeText = (TextView) findViewById(R.id.onTimeText);
@@ -67,12 +85,22 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         setOnTimeButton = (Button) findViewById(R.id.setOnTimeButton);
         setOffDateButton = (Button) findViewById(R.id.setOffDateButton);
         setOffTimeButton = (Button) findViewById(R.id.setOffTimeButton);
+        fOrCswitch = (Switch) findViewById(R.id.tempScale);
 
         setOnDateButton.setOnClickListener(this);
         setOnTimeButton.setOnClickListener(this);
         setOffDateButton.setOnClickListener(this);
         setOffTimeButton.setOnClickListener(this);
-
+        fOrCswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton  buttonView, boolean isChecked) {
+                if (isChecked) {
+                    isF = true;
+                } else {
+                    isF = false;
+                }
+            }
+        });;
+        fOrCswitch.setChecked(isF);
         getTempTimer = new Timer();
         TimerTask t = new TimerTask() {
 
@@ -87,17 +115,41 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void loadCurrentTemp() {
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, url+currentTempResource, null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            String temp = "Current temp: " + response.getString("current_temp") + "C";
-                            currentTempText.setText(temp);
-                        } catch(Exception e) {
+        if(isActive) {
+            JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                    (Request.Method.GET, url + currentTempResource, null, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                String temp;
+                                float currentTemp = Float.parseFloat(response.getString("current_temp"));
+                                if (isF) {
+                                    currentTemp = tc.cToF(currentTemp);
+                                    temp = String.format("Current temp: %1$.2f F", currentTemp);
+                                } else {
+                                    temp = "Current temp: " + response.getString("current_temp") + " C";
+                                }
+                                currentTempText.setText(temp);
+                            } catch (Exception e) {
+                                AlertDialog ad = new AlertDialog.Builder(SettingsActivity.this).create();
+                                ad.setTitle("Error getting current temperature");
+                                ad.setMessage("Error getting current temperature: " + e.getMessage());
+                                ad.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                ad.show();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            String errMsg = "Error getting current temp: " + error.toString();
                             AlertDialog ad = new AlertDialog.Builder(SettingsActivity.this).create();
                             ad.setTitle("Error getting current temperature");
-                            ad.setMessage("Error getting current temperature: " + e.getMessage());
+                            ad.setMessage(errMsg);
                             ad.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
@@ -106,24 +158,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                                     });
                             ad.show();
                         }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        String errMsg = "Error getting current temp: " + error.toString();
-                        AlertDialog ad = new AlertDialog.Builder(SettingsActivity.this).create();
-                        ad.setTitle("Error getting current temperature");
-                        ad.setMessage(errMsg);
-                        ad.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                        ad.show();
-                    }
-                });
-        RequestQueSingleton.getmInstance(this).addToRequestQueue(jsObjRequest);
+                    });
+            RequestQueSingleton.getmInstance(this).addToRequestQueue(jsObjRequest);
+        }
     }
 
     private void loadCurrentEvent() {
@@ -139,13 +176,14 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                             String onDateTime[] = parseDateTime(onObj.getString("when"));
                             onDateText.setText(onDateTime[0]);
                             onTimeText.setText(onDateTime[1]);
-                            onTempText.setText(onTemp);
+                            //TODO:  check the temp scale & convert as needed.
+                            onTempText.setText(convertedTemp(onTemp));
                             JSONObject offObj = jevent.getJSONObject("off");
                             String offTemp = offObj.getString("temperature");
                             String offDateTime[] = parseDateTime(offObj.getString("when"));
                             offDateText.setText(offDateTime[0]);
                             offTimeText.setText(offDateTime[1]);
-                            offTempText.setText(offTemp);
+                            offTempText.setText(convertedTemp(offTemp));
                         } catch(Exception e) {
                             AlertDialog ad = new AlertDialog.Builder(SettingsActivity.this).create();
                             ad.setTitle("Error getting thermal events");
@@ -182,21 +220,30 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         // assemble and send the event JSON message to the controller
         String offDateTime = offDateText.getText().toString() + " " + offTimeText.getText().toString();
         String onDateTime = onDateText.getText().toString() + " " + onTimeText.getText().toString();
+        Calendar nowC = Calendar.getInstance();
+        int year = nowC.get(Calendar.YEAR);
+        int month = nowC.get(Calendar.MONTH) + 1; //Jan --> 0, so add one
+        int dayOfMonth = nowC.get(Calendar.DAY_OF_MONTH);
+        int hour = nowC.get(Calendar.HOUR_OF_DAY);
+        int minute = nowC.get(Calendar.MINUTE);
+        int second = nowC.get(Calendar.SECOND);
         try {
             JSONArray jArray = new JSONArray();
             JSONObject jObj = new JSONObject();
             JSONObject onObj = new JSONObject();
             onObj.put("when", onDateTime);
-            onObj.put("temperature", onTempText.getText().toString());
+            onObj.put("temperature", convertedTemp(onTempText.getText().toString()));
             JSONObject offObj = new JSONObject();
             offObj.put("when", offDateTime);
-            offObj.put("temperature", offTempText.getText().toString());
+            offObj.put("temperature", convertedTemp(offTempText.getText().toString()));
             JSONObject events = new JSONObject();
             events.put("on", onObj);
             events.put("off", offObj);
+            String timeStamp = String.format("%d-%02d-%02d %02d:%02d:%02d", year, month, dayOfMonth, hour, minute, second);
+            events.put("current_timestamp", timeStamp);
             jArray.put(events);
             jObj.put("events", jArray);
-        JsonObjectRequest jsonObjRequest = new JsonObjectRequest
+            JsonObjectRequest jsonObjRequest = new JsonObjectRequest
                 (Request.Method.POST, url + eventsResource, jObj, new Response.Listener<JSONObject>()
                 {
                     @Override
@@ -238,6 +285,17 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     public String[] parseDateTime(String dt) {
         String dateTime[] = dt.split(" ");
         return  dateTime;
+    }
+
+    //Convert set point tempatures.
+    // The controller works in deg C only. So convert to C if the user has selected F
+    public String convertedTemp(String tempetureValue) {
+        String retVal = tempetureValue;
+        if(isF) {
+            float tempVal = tc.fToC(Float.parseFloat(tempetureValue));
+            retVal = String.format("%1$.2f", tempVal);
+        }
+        return retVal;
     }
 
     @Override
@@ -304,5 +362,29 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     }, mHour, mMinute, false);
             timePickerDialog.show();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.isActive = true;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.isActive = false;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        this.isActive = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        this.isActive=false;
     }
 }

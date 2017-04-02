@@ -1,1 +1,1 @@
-[{"on": {"temperature": "18", "when": "2017-03-18 12:00"}, "off": {"temperature": "-25", "when": "2017-03-20 18:02"}}]
+[{"on": {"when": "2017-04-01 11:00", "temperature": "42"}, "current_timestamp": "2017-04-01 14:19:10", "off": {"when": "2017-04-02 21:00", "temperature": "-42.78"}}]

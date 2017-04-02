@@ -62,6 +62,7 @@ relay1 = 17
 relay2 = 27
 relay3 = 22
 relay4 = 10
+statusLight = 18
 
 # The script as below using BCM GPIO 00..nn numbers
 GPIO.setmode(GPIO.BCM)
@@ -71,12 +72,14 @@ GPIO.setup(relay1, GPIO.OUT)
 GPIO.setup(relay2, GPIO.OUT)
 GPIO.setup(relay3, GPIO.OUT)
 GPIO.setup(relay4, GPIO.OUT)
+GPIO.setup(statusLight, GPIO.OUT)
 
 #initialize to off
 GPIO.output(relay1, GPIO.HIGH)
 GPIO.output(relay2, GPIO.HIGH)
 GPIO.output(relay3, GPIO.HIGH)
 GPIO.output(relay4, GPIO.HIGH)
+GPIO.output(statusLight, GPIO.LOW)
 
 TempWindow = Config.getfloat("ControlVars", "TempWindow")
 OnTempAdder = Config.getfloat("ControlVars", "OnTempAdder")
@@ -102,8 +105,10 @@ while (True):
     if FurnaceState:
         print "Furnance ON"
         GPIO.output(relay1, GPIO.LOW)
+        GPIO.output(statusLight, GPIO.LOW)
     else:
         print "Furnance off"
         GPIO.output(relay1, GPIO.HIGH)
+        GPIO.output(statusLight, GPIO.HIGH)
     sleep(DelayTime)
         
