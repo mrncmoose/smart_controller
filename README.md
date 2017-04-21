@@ -33,9 +33,10 @@ for pin ID’s on Raspberry, see:
 <table><tr>
 <td>Physical pin</td>
 <td>BCM/GPIO #</td>
-<td>Connected to</td>
+<td>Connected to</td></tr>
 <tr><td>1</td><td></td><td>DS18b20 temperature: VCC (3.3V)</td></tr>
 <tr><td>2</td><td></td><td>Relay board VCC (5V)</td></tr>
+<tr><td>4</td><td></td><td>Reserved for PIR motion sensor 5V+</td></tr>
 <tr><td>6</td><td></td><td>Relay board GND</td></tr>
 <tr><td>7</td><td>GPIO4</td><td>DS18b20 temperature: SIG</td></tr>
 <tr><td>9</td><td></td><td>DS18b20 temperature: GND</td></tr>
@@ -44,11 +45,14 @@ for pin ID’s on Raspberry, see:
 <tr><td>13</td><td>GPIO27</td><td>Relay board: IN2</td></tr>
 <tr><td>14</td><td></td><td>Status LED GND</td></tr>
 <tr><td>15</td><td>GPIO22</td><td>Relay board: IN3</td></tr>
+<tr><td>16</td><td>GPIO16</td><td>Reserved for PIR motion sensor</td></tr>
 <tr><td>19</td><td>GPIO10</td><td>Relay board: IN4</td></tr>
-</tr></table>
+<tr><td>20</td><td></td><td>Reserved for PIR motion sensor GND</td></tr>
+</table>
 
-Old pinout of Raspberry PI:
-![](https://elementztechblog.files.wordpress.com/2014/09/raspberry-pi-gpio.png)
+Pinout of Raspberry PI:
+![](https://az835927.vo.msecnd.net/sites/iot/Resources/images/PinMappings/RP2_Pinout.png)
+
 Basic article on controlling the relays:
 <https://elementztechblog.wordpress.com/2014/09/09/controlling-relay-boards-using-raspberrypi/>
 
