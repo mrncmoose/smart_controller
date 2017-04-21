@@ -27,10 +27,7 @@ The case base parts are bonded together.  One of the charateristics of ABS is it
 ## Wiring up the devices
 
 Pin out:
-for pin ID’s on Raspberry, see:
-<https://elementztechblog.wordpress.com/2014/09/09/controlling-relay-boards-using-raspberrypi/>
-<https://pinout.xyz/pinout/pin19_gpio10#>
-<table><tr>
+<table border=1><tr>
 <td>Physical pin</td>
 <td>BCM/GPIO #</td>
 <td>Connected to</td></tr>
