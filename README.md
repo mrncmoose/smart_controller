@@ -14,8 +14,9 @@ Parts list:
 1. Raspberry PI model B
 1. DS18B20 temperature sensor (others may be substituted). This project used SunFounder’s PC board to eliminate the need for a breadboard or other circuit board to hold the DS18B20.
 1. Jbtek 4 Channel DC 5V Relay module.  Make sure these are contact style.
+1. HC-SR501 PIR MOTION DETECTOR
 1. (20) Jumper wires 
-1. 5mm Blue LED
+1. (2) 5mm Blue LED
 1. 270 ohm 1/4 Watt resistor
 1. (4) #6-32 x 3/8 pan head screws 
 1. (10) M2.5 x 4mm pan head screws 
@@ -33,7 +34,7 @@ Pin out:
 <td>Connected to</td></tr>
 <tr><td>1</td><td></td><td>DS18b20 temperature: VCC (3.3V)</td></tr>
 <tr><td>2</td><td></td><td>Relay board VCC (5V)</td></tr>
-<tr><td>4</td><td></td><td>Reserved for PIR motion sensor 5V+</td></tr>
+<tr><td>4</td><td></td><td>PIR motion sensor 5V+</td></tr>
 <tr><td>6</td><td></td><td>Relay board GND</td></tr>
 <tr><td>7</td><td>GPIO4</td><td>DS18b20 temperature: SIG</td></tr>
 <tr><td>9</td><td></td><td>DS18b20 temperature: GND</td></tr>
@@ -42,9 +43,9 @@ Pin out:
 <tr><td>13</td><td>GPIO27</td><td>Relay board: IN2</td></tr>
 <tr><td>14</td><td></td><td>Status LED GND</td></tr>
 <tr><td>15</td><td>GPIO22</td><td>Relay board: IN3</td></tr>
-<tr><td>16</td><td>GPIO16</td><td>Reserved for PIR motion sensor</td></tr>
+<tr><td>16</td><td>GPIO23</td><td>PIR motion sensor</td></tr>
 <tr><td>19</td><td>GPIO10</td><td>Relay board: IN4</td></tr>
-<tr><td>20</td><td></td><td>Reserved for PIR motion sensor GND</td></tr>
+<tr><td>20</td><td></td><td>PIR motion sensor GND</td></tr>
 </table>
 
 Pinout of Raspberry PI:
