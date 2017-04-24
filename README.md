@@ -51,6 +51,11 @@ Pin out:
 Pinout of Raspberry PI:
 ![](https://az835927.vo.msecnd.net/sites/iot/Resources/images/PinMappings/RP2_Pinout.png)
 
+PIR motion sensor data sheet:
+<https://www.mpja.com/download/31227sc.pdf/>
+
+Turn the senitivity pot (on left) to max (clockwise) to detect motion ~7m away.
+
 Basic article on controlling the relays:
 <https://elementztechblog.wordpress.com/2014/09/09/controlling-relay-boards-using-raspberrypi/>
 
