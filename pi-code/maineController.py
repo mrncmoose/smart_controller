@@ -8,10 +8,20 @@ import re
 import ConfigParser
 import json
 import RPi.GPIO as GPIO
+import logging
+import logging.handlers
 
 # load the kernel modules needed to handle the sensor
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
+LOG_FILENAME = 'themeralController.log'
+eventLogger = logging.getLogger('EventLogger')
+eventLogger.setLevel(logging.DEBUG)
+logFormatter = logging.Formatter('%(levelname)s\t%(asctime)s\t%(message)s')
+logHandler = logging.handlers.RotatingFileHandler(LOG_FILENAME, maxBytes=20000000, backupCount=2 )
+logHandler.setFormatter(logFormatter)
+eventLogger.addHandler(logHandler)
+
 def getCurrentTemp(sensorPath):
     # append the device file name to get the absolute path of the sensor 
     devicefile = sensorPath + '/w1_slave'
@@ -26,20 +36,24 @@ def getCurrentTemp(sensorPath):
     tempVal = round(float(tempStr[1])/1000, 1)
     tempRetVal = 0
     if "YES" in crc:
-        print "Temperature: " + str(tempVal) + " C"
+        eventLogger.info("Temperature\t " + str(tempVal))
         tempRetVal = tempVal
     else:
         tempRetVal = 0
-        print "Got bad crc reading temperture sensor"
+        eventLogger.warn("Got bad crc reading temperture sensor")
     return tempRetVal;
 
 def getSetTemp(eventsJsonFile):
     # read the settings json file
-    with open(eventsJsonFile) as json_data_file:
-        data = json.load(json_data_file)    
-    json_data_file.close()
+    try:
+        with open(eventsJsonFile) as json_data_file:
+            data = json.load(json_data_file)
+        json_data_file.close()
+    except:
+        e = sys.exc_info()[0]
+        eventLogger.warn("Unable to open events file w/ setpoints with exception " + str(e))
     now = time.localtime()
-    print "Current time is: " + strftime("%B %d, %Y %H:%M:%S", now)
+#    print "Current time is: " + strftime("%B %d, %Y %H:%M:%S", now)
     for e in data:
         setTemp = -40
         onDate = time.strptime(str(e['on']['when']), "%Y-%m-%d %H:%M")
@@ -47,12 +61,11 @@ def getSetTemp(eventsJsonFile):
         setTempOn = float(e['on']['temperature'])
         setTempOff = float(e['off']['temperature'])
         if (now >= onDate) and (now <= offDate):
-#            print "Set on temp to: " + str(setTempOn)
+            eventLogger.info("Set on temp to: " + str(setTempOn))
             setTemp = setTempOn
             return setTempOn
-#            print "Set on temp to: " + str(setTemp)
         if offDate <= now:
-            print "Set off temp to: " + str(setTempOff)
+            eventLogger.info("Set off temp to: " + str(setTempOff))
             setTemp = setTempOff
     return setTemp;
 
@@ -94,20 +107,20 @@ devicePath = Config.get("ControlVars", "TempSensorId")
 while (True):
     tempVal = getCurrentTemp(SensorPath)
     onTemp = getSetTemp("furnanceEvent.json")
-    print "Temperature settings: " + str(onTemp)
+    eventLogger.info("Temperature settings\t" + str(onTemp))
     if tempVal < onTemp: 
         FurnaceState = True
     else:
         FurnaceState = False
     if tempVal >= maxTemp:
         FurnaceState = False
-        print "Max temperature exceded!"
+        eventLogger.warn("Max temperature exceded!")
     if FurnaceState:
-        print "Furnance ON"
+        eventLogger.info("Furnance ON")
         GPIO.output(relay1, GPIO.LOW)
         GPIO.output(statusLight, GPIO.LOW)
     else:
-        print "Furnance off"
+        eventLogger.debug("Furnance off")
         GPIO.output(relay1, GPIO.HIGH)
         GPIO.output(statusLight, GPIO.HIGH)
     sleep(DelayTime)
