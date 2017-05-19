@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<data-source id="mysql5-15bb679f576-36477692c8bc9d55" provider="mysql" driver="mysql5" name="MySQL - moosewaredata" save-password="true" show-system-objects="true" read-only="false">
+		<connection host="localhost" port="32770" server="" database="moosewaredata" url="jdbc:mysql://localhost:32770/moosewaredata" user="moosewareinc" password="HgtecBFMVxNl8w==" type="dev">
+			<network-handler type="PROXY" id="socks_proxy" enabled="false" save-password="false">
+				<property name="socks-port" value="1080"/>
+			</network-handler>
+			<network-handler type="CONFIG" id="mysql_ssl" enabled="false" save-password="false">
+				<property name="ssl.public.key.retrieve" value="false"/>
+				<property name="ssl.verify.server" value="true"/>
+				<property name="ssl.require" value="false"/>
+			</network-handler>
+			<network-handler type="TUNNEL" id="ssh_tunnel" enabled="false" save-password="false">
+				<property name="sshConnectTimeout" value="10000"/>
+				<property name="port" value="22"/>
+				<property name="authType" value="PASSWORD"/>
+			</network-handler>
+		</connection>
+	</data-source>
+</data-sources>
