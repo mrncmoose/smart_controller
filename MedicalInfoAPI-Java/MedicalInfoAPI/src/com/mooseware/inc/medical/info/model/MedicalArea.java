@@ -19,6 +19,8 @@ public class MedicalArea implements Serializable {
 	private String floor;
 	@Column(columnDefinition="POLYGON", nullable=false)
 	private LatLong[] location;
+	//NOTE:  for POC, each room has only one beacon
+	private Beacon beacon;
 	private static final long serialVersionUID = 1L;
 
 	public MedicalArea() {
@@ -52,6 +54,12 @@ public class MedicalArea implements Serializable {
 
 	public void setLocation(LatLong[] location) {
 		this.location = location;
+	}
+	public Beacon getBeacon() {
+		return beacon;
+	}
+	public void setBeacon(Beacon beacon) {
+		this.beacon = beacon;
 	}
    
 }

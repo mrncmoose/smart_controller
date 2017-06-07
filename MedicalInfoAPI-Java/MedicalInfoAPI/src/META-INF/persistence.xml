@@ -7,6 +7,7 @@
 		<class>com.mooseware.inc.medical.info.model.MedicalAreaOfUse</class>
 		<class>com.mooseware.inc.medical.info.model.ReasonForVisit</class>
 		<class>com.mooseware.inc.medical.info.model.PossitionCorrection</class>
+		<class>com.mooseware.inc.medical.info.model.Beacon</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:32770/moosewaredata"/>
 			<property name="javax.persistence.jdbc.user" value="mooswareinc"/>

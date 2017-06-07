@@ -1,6 +1,6 @@
 package com.moosewarei.inc.medical.info.api;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 
 //import java.io.InputStream;
@@ -16,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.mooseware.inc.medical.info.model.Beacon;
 import com.mooseware.inc.medical.info.model.MedicalArea;
 import com.mooseware.inc.medical.info.model.MedicalAreaOfUse;
 import com.mooseware.inc.medical.info.model.Patient;
@@ -127,14 +128,65 @@ public class MedicalInfoLocation extends MedicalInfoBase {
 			} else {
 				res = "No patient found in room " + ma.getName();
 				logg.error(res);
-				return Response.status(Status.BAD_REQUEST).entity(res).build();
+				//return Response.status(Status.BAD_REQUEST).entity(res).build();
+				return Response.status(Status.BAD_REQUEST).build();
 			}
 		} catch (Exception e) {
 			logg.error("Unable to find area for coordinates of: " + latitude + " " + longitude);
 			res = "No area of use found for " + latitude + " " + longitude;
-			return Response.status(Status.BAD_REQUEST).entity(res).build();					
+			//return Response.status(Status.BAD_REQUEST).entity(res).build();
+			return Response.status(Status.BAD_REQUEST).build();
 		}
 		return Response.status(200).entity(gson.toJson(p)).build();
+	}
+	
+	/**
+	 * Returns the patient resources for the patient with in 1.5m of the beacon.
+	 * Distance is selected on the ipad via Apple's location manager
+	 */
+	@GET
+	@Path("/LocationManager/Beacon/{uuid}/major/{major:[0-9]+}/minor/{minor:[0-9]+}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getPatientInRoom(@PathParam("uuid") String beaconUuid,
+									@PathParam("major") String major,
+									@PathParam("minor") String minor) {
+		String sql = "select * from BEACON where uuid='" + beaconUuid +
+				"' and major=" + major + " and minor=" + minor;
+		try {
+			Query q = em.createNativeQuery(sql, Beacon.class);
+			Beacon b = (Beacon) q.getSingleResult();
+			sql = "select MEDICALAREAID, FLOOR, NAME from MEDICALAREA where BEACON_BEACONID=" + b.getBeaconId();
+			q= em.createNativeQuery(sql, MedicalArea.class);
+			MedicalArea ma = (MedicalArea) q.getSingleResult();
+			ma.setBeacon(b);
+			sql = "select * from MEDICALAREAOFUSE where MEDAREA_MEDICALAREAID=" + ma.getMedicalAreaId();
+			q = em.createNativeQuery(sql, MedicalAreaOfUse.class);
+			MedicalAreaOfUse mau = (MedicalAreaOfUse) q.getSingleResult();
+			return Response.status(Status.OK).entity(gson.toJson(mau.getPatient())).build();
+		} catch (Exception e) {
+			logg.error("Error getting beacon: " + e.getMessage());
+			logg.error("SQL: " + sql);
+		}
+		return Response.status(Status.BAD_REQUEST).build();
+	}
+	
+	/**
+	 * 
+	 * @return all of the active UUID's  Apple's iBeacons use these to define regions
+	 */
+	@GET
+	@Path("/LocationManager/Beacon/")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getRegions() {
+		String sql = "select * from BEACON order by UUID, MAJOR, MINOR";
+		try {
+			Query q = em.createNativeQuery(sql, Beacon.class);
+			List<?> beaconList = q.getResultList();
+			return Response.status(Status.OK).entity(gson.toJson(beaconList)).build();
+		} catch(Exception e) {
+			logg.error("Error attempting to get beacon list: " + e.getMessage());
+		}		
+		return Response.status(Status.BAD_REQUEST).build();
 	}
 	
 	@DELETE

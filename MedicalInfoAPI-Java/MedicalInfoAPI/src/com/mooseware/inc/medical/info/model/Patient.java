@@ -20,6 +20,7 @@ public class Patient implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer patientId;
+
 	@Column(nullable=false)
 	private String givenName;
 	@Column(nullable=false)
@@ -56,5 +57,10 @@ public class Patient implements Serializable {
 	public void setFamilyName(String familyName) {
 		this.familyName = familyName;
 	}
+	
+	public Integer getPatientId() {
+		return patientId;
+	}
+
 
 }
