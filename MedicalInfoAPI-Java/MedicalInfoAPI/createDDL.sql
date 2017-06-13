@@ -11,7 +11,7 @@ CREATE TABLE EMRSYSTEM (EMRID INTEGER AUTO_INCREMENT NOT NULL, BASEURL VARCHAR(2
 ENGINE=INNODB;
 
 drop table if exists BEACON;
-CREATE TABLE BEACON (BEACONID INTEGER AUTO_INCREMENT NOT NULL, MAJOR INTEGER NOT NULL, MINOR INTEGER NOT NULL, UUID VARCHAR(255) NOT NULL, PRIMARY KEY (BEACONID))
+CREATE TABLE BEACON (BEACONID INTEGER AUTO_INCREMENT NOT NULL, MAJOR INTEGER NOT NULL, MINOR INTEGER NOT NULL, UUID VARCHAR(255) NOT NULL, NAME VARCHAR(255), PRIMARY KEY (BEACONID))
 ENGINE=INNODB;
 
 drop table if exists MEDICALAREA;
@@ -49,8 +49,8 @@ insert into EMRSYSTEM (BASEURL, EMRNAME) values('https://open-ic.epic.com/FHIR/a
 insert into PATIENT (GIVENNAME, FAMILYNAME, EMRSYSTEM_EMRID) values ('Jason', 'Argonaut', (select EMRID from EMRSYSTEM where EMRNAME='Epic sandbox'));
 insert into PATIENT (GIVENNAME, FAMILYNAME, EMRSYSTEM_EMRID) values ('Jessica', 'Argonaut', (select EMRID from EMRSYSTEM where EMRNAME='Epic sandbox'));
 insert into PATIENT (GIVENNAME, FAMILYNAME, EMRSYSTEM_EMRID) values ('Flapjacks', 'Ragsdale', (select EMRID from EMRSYSTEM where EMRNAME='Epic sandbox'));
-insert into PATIENT (GIVENNAME, FAMILYNAME, EMRSYSTEM_EMRID) values ('Pancakes', 'Ragsdale', (select EMRID from EMRSYSTEM where EMRNAME='Epic sandbox'));
-insert into PATIENT (GIVENNAME, FAMILYNAME, EMRSYSTEM_EMRID) values ('Ragsdale','Waffles', (select EMRID from EMRSYSTEM where EMRNAME='Epic sandbox'));
+-- insert into PATIENT (GIVENNAME, FAMILYNAME, EMRSYSTEM_EMRID) values ('Pancakes', 'Ragsdale', (select EMRID from EMRSYSTEM where EMRNAME='Epic sandbox'));
+-- insert into PATIENT (GIVENNAME, FAMILYNAME, EMRSYSTEM_EMRID) values ('Waffles','Ragsdale', (select EMRID from EMRSYSTEM where EMRNAME='Epic sandbox'));
 insert into PATIENT (GIVENNAME, FAMILYNAME, EMRSYSTEM_EMRID) values ('Bacon', 'Ragsdale', (select EMRID from EMRSYSTEM where EMRNAME='Epic sandbox'));
 insert into PATIENT (GIVENNAME, FAMILYNAME, EMRSYSTEM_EMRID) values ('Emily', 'Williams', (select EMRID from EMRSYSTEM where EMRNAME='Epic sandbox'));
 insert into PATIENT (GIVENNAME, FAMILYNAME, EMRSYSTEM_EMRID) values ('James', 'Kirk', (select EMRID from EMRSYSTEM where EMRNAME='Epic sandbox'));

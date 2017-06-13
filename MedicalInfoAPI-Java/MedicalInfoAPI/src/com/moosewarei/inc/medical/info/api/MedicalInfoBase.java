@@ -1,5 +1,9 @@
 package com.moosewarei.inc.medical.info.api;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 import javax.persistence.EntityManager;
 
 import org.slf4j.Logger;
@@ -27,4 +31,14 @@ public class MedicalInfoBase {
 		em.close();
 	}
 
+	public String readJson(InputStream incomingData) throws Exception{
+		StringBuilder sb = new StringBuilder();
+		BufferedReader in = new BufferedReader(new InputStreamReader(incomingData));
+		String line = null;
+		while ((line = in.readLine()) != null) {
+			sb.append(line);
+		}
+		return sb.toString();
+	}
+	
 }

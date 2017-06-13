@@ -1,11 +1,13 @@
 package com.moosewarei.inc.medical.info.api;
 
+import java.io.InputStream;
 //import java.util.ArrayList;
 import java.util.List;
 
 //import java.io.InputStream;
 
 import javax.persistence.Query;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 //import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -141,7 +143,7 @@ public class MedicalInfoLocation extends MedicalInfoBase {
 	}
 	
 	/**
-	 * Returns the patient resources for the patient with in 1.5m of the beacon.
+	 * Returns the patient resources for the patient at this beacon.
 	 * Distance is selected on the ipad via Apple's location manager
 	 */
 	@GET
@@ -172,13 +174,14 @@ public class MedicalInfoLocation extends MedicalInfoBase {
 	
 	/**
 	 * 
-	 * @return all of the active UUID's  Apple's iBeacons use these to define regions
+	 * @return all of the active UUID's  Apple's iBeacons use UUID's to define regions. 
+	 * Apple's API's will return all iBeacons in a 'region.'  Separate rooms or areas may have different major/minor
 	 */
 	@GET
 	@Path("/LocationManager/Beacon/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getRegions() {
-		String sql = "select * from BEACON order by UUID, MAJOR, MINOR";
+		String sql = "select * from BEACON order by UUID, MAJOR, MINOR, NAME";
 		try {
 			Query q = em.createNativeQuery(sql, Beacon.class);
 			List<?> beaconList = q.getResultList();
@@ -205,6 +208,33 @@ public class MedicalInfoLocation extends MedicalInfoBase {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 		return Response.status(Status.ACCEPTED).build();
+	}
+	
+	//Add or update a beacon to the beacon list.
+	@POST
+	@Path("/BeaconManager/Beacon")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addBeacon(InputStream incomingData) {
+		try {
+			Beacon inBeacon = gson.fromJson(readJson(incomingData), Beacon.class);
+			if(inBeacon.getBeaconId() != 0) {
+				Beacon tempB = em.find(Beacon.class, inBeacon.getBeaconId());
+				tempB.setMajor(inBeacon.getMajor());
+				tempB.setMinor(inBeacon.getMinor());
+				tempB.setUuid(inBeacon.getUuid());
+				tempB.setName(inBeacon.getName());
+				em.getTransaction().begin();
+				em.merge(tempB);
+				em.getTransaction().commit();
+				em.close();				
+			} else {
+				save(inBeacon.getBeaconId(), inBeacon);
+			}
+			return Response.status(Status.ACCEPTED).build();
+		} catch (Exception e) {
+			logg.error("Unable to save beacon with message: " + e.getMessage());
+		}				
+		return Response.status(Status.BAD_REQUEST).build();
 	}
 	
 	@POST
