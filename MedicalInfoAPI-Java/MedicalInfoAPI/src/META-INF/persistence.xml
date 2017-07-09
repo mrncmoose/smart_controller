@@ -9,10 +9,18 @@
 		<class>com.mooseware.inc.medical.info.model.PossitionCorrection</class>
 		<class>com.mooseware.inc.medical.info.model.Beacon</class>
 		<properties>
+		<!-- for GCP mysql instance with connection name:  medicalinfoapi:us-east1:medical-info -->
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://104.196.7.5:3306/medicalinfo"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.password" value="mo!800ose"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+		
+		<!-- local host docker db
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:32770/moosewaredata"/>
 			<property name="javax.persistence.jdbc.user" value="mooswareinc"/>
 			<property name="javax.persistence.jdbc.password" value="mo800ose"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+		 -->
 		</properties>
 	</persistence-unit>
 </persistence>
