@@ -10,7 +10,14 @@ FROM tomcat:8.5.13-jre8
 # CATALINA_BASE:   /usr/local/tomcat
 # CATALINA_HOME:   /usr/local/tomcat
 
-WORKDIR /usr/local/tomcat
+# configure for SSL
+COPY ./server.xml /usr/local/tomcat/conf/server.xml
+
+ENV DB_HOST="127.0.0.1" \
+	DB_PASSWORD="mo!800ose" \
+	DB_USER="proxyuser"
+
+WORKDIR /usr/local/tomcat/conf
 
 # If the deploy by file copy works on GCP, this will not be needed.
 #ADD ./tomcat-users.xml /usr/local/tomcat/conf/
@@ -21,5 +28,8 @@ WORKDIR /usr/local/tomcat
 # TODO:  rename war file to just 'MedicalInfoAPI'.  The entire WAR file name is part of the URL.
 COPY ./target/MedicalInfoAPI-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/
 
-EXPOSE 8080
+# create the SSL certs
+RUN $JAVA_HOME/bin/keytool -genkeypair -noprompt -alias tomcat -dname "CN=backtothepatient.com, OU=ID, O=BackToThePatient, L=Moose, S=NY, C=US" -keyalg RSA -keystore $CATALINA_HOME/conf/localhost-rsa.jks -storepass changeit -keypass changeit
+
+EXPOSE 8080 8443
 

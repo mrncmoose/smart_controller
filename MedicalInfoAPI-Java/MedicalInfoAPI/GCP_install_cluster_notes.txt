@@ -1,0 +1,51 @@
+# see:
+# https://cloud.google.com/container-engine/docs/tutorials/hello-node
+# and 
+# https://cloud.google.com/sql/docs/mysql/connect-container-engine
+gcloud container clusters get-credentials medical-info-cluster  --zone us-east1-b --project medicalinfoapi
+
+mysql db instance ID:   medical-info
+	location:  us-east1-d
+
+gcloud config set project medicalinfoapi
+gcloud config set compute/zone us-east1-b
+PROJECT_ID="$(gcloud config get-value project)"
+
+#docker image build here if needed ....
+
+# create container cluster in the UI w/ 2 small vCPUs
+# gcloud container clusters create medical-info-cluster --num-nodes=3
+
+
+#db user 'proxyuser', pass:  mo!800ose
+ gcloud sql users create proxyuser cloudsqlproxy~% --instance=medical-info
+
+
+gcloud sql instances describe medical-info
+# connectionName: medicalinfoapi:us-east1:medical-info
+
+# may need to delete secret first...
+# kubectl delete secret cloudsql-instance-credentials
+# need to fire up the local proxy 1st.  
+kubectl create secret generic cloudsql-instance-credentials --from-file=credentials.json=./medicalInfoAPI-b2a3c8172da9.json
+
+# kubectl delete secret cloudsql-db-credentials
+kubectl create secret generic cloudsql-db-credentials --from-literal=username=proxyuser --from-literal=password='mo!800ose'
+
+# if needed, delete any deployment.extensions that may already exisit
+#  kubectl delete deployments.extensions "medical-info-api"
+kubectl create -f ./cloud_sql_proxy.yaml
+
+
+#end of db setup...
+
+#create and run the deployment...
+# not sure if this should be 'medical-info-api-mn' from the above yaml file.
+# this is working at the moment, so ....
+kubectl run medical-info-api-v1 --image=us.gcr.io/medicalinfoapi/medical_api-tomcat_v1:v1 --port 8080
+
+#expose the service
+kubectl expose deployment medical-info-api-mn --type=LoadBalancer --port 8080
+
+#to find out the public IP address:
+kubectl get service
