@@ -10,7 +10,7 @@ FROM tomcat:8.5.13-jre8
 # CATALINA_BASE:   /usr/local/tomcat
 # CATALINA_HOME:   /usr/local/tomcat
 
-# configure for SSL
+# configure for SSL?  Is this needed for the non-ssl version?
 COPY ./server.xml /usr/local/tomcat/conf/server.xml
 
 ENV DB_HOST="127.0.0.1" \
@@ -29,7 +29,7 @@ WORKDIR /usr/local/tomcat/conf
 COPY ./target/MedicalInfoAPI-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/
 
 # create the SSL certs
-RUN $JAVA_HOME/bin/keytool -genkeypair -noprompt -alias tomcat -dname "CN=backtothepatient.com, OU=ID, O=BackToThePatient, L=Moose, S=NY, C=US" -keyalg RSA -keystore $CATALINA_HOME/conf/localhost-rsa.jks -storepass changeit -keypass changeit
+#RUN $JAVA_HOME/bin/keytool -genkeypair -noprompt -alias tomcat -dname "CN=backtothepatient.com, OU=ID, O=BackToThePatient, L=Moose, S=NY, C=US" -keyalg RSA -keystore $CATALINA_HOME/conf/localhost-rsa.jks -storepass changeit -keypass changeit
 
-EXPOSE 8080 8443
+EXPOSE 8080
 

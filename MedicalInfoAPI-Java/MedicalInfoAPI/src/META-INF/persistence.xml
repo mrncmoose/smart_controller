@@ -23,7 +23,7 @@
 	-->
 		
 		<!-- local host docker db -->
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.0.0.10:32770/moosewaredata"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.0.0.7:32770/moosewaredata"/>
 			<property name="javax.persistence.jdbc.user" value="mooswareinc"/>
 			<property name="javax.persistence.jdbc.password" value="mo800ose"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
