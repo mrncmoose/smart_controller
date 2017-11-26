@@ -3,6 +3,8 @@ package com.mooseware.inc.medical.info.model;
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
+import java.sql.Date;
+
 import javax.persistence.*;
 
 import org.eclipse.persistence.annotations.ExistenceChecking;
@@ -25,6 +27,8 @@ public class Patient implements Serializable {
 	private String givenName;
 	@Column(nullable=false)
 	private String familyName;
+	@Column(nullable=false)
+	private Date birthDate;
 	@JoinColumn(nullable=false)
 	private EmrSystem emrSystem;
 	
@@ -40,6 +44,14 @@ public class Patient implements Serializable {
 
 	public Patient() {
 		super();
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
 
 	public String getGivenName() {

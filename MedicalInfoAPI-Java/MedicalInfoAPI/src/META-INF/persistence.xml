@@ -6,8 +6,12 @@
 		<class>com.mooseware.inc.medical.info.model.MedicalArea</class>
 		<class>com.mooseware.inc.medical.info.model.MedicalAreaOfUse</class>
 		<class>com.mooseware.inc.medical.info.model.ReasonForVisit</class>
-		<class>com.mooseware.inc.medical.info.model.PossitionCorrection</class>
 		<class>com.mooseware.inc.medical.info.model.Beacon</class>
+		<class>com.mooseware.inc.medical.info.model.Medication</class>
+		<class>com.mooseware.inc.medical.info.model.Doctor</class>
+		<class>com.mooseware.inc.geospatical.DosageInstructions</class>
+		<class>com.mooseware.inc.medical.info.model.Timing</class>
+		<class>com.mooseware.inc.medical.info.model.DatePeriod</class>
 		<properties>
 		<!-- for GCP mysql instance with connection name:  medicalinfoapi:us-east1:medical-info -->
 			<!-- When running outside a GCP container. -->
