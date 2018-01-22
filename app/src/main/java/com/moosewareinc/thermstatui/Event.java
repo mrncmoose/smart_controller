@@ -13,7 +13,7 @@ public class Event {
         return on;
     }
 
-    public void setOn(On on) throws Exception {
+    public void setOn(On on) {
         this.on = on;
     }
 
@@ -21,7 +21,7 @@ public class Event {
         return off;
     }
 
-    public void setOff(Off off) throws Exception{
+    public void setOff(Off off) {
         this.off = off;
     }
 

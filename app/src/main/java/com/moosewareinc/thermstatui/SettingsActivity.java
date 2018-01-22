@@ -3,7 +3,7 @@ package com.moosewareinc.thermstatui;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-//import android.os.CountDownTimer;
+import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
@@ -22,7 +22,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-//import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,17 +31,17 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-//import java.util.HashMap;
-//import java.util.Map;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-//import static android.widget.Switch.*;
+import static android.widget.Switch.*;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
 //    private static final String url = "http://192.168.42.1:5000";
-    private static final String url = "http://10.0.0.9:5000";
+    private static final String url = "http://10.0.0.16:5000";
 
     private static final String currentTempResource = "/thermal/api/v1.0/current_temp";
     private static final String eventsResource = "/thermal/api/v1.0/events";
@@ -218,18 +218,16 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public String DateAmPmToStr(String dateStr) throws Exception {
-        SimpleDateFormat sdfAmPm = new SimpleDateFormat("yyyy-MM-dd hh:mm aa");
-        Date date = sdfAmPm.parse(dateStr);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        return sdf.format(date);
-//        Calendar cal = Calendar.getInstance();
-//        cal.setTime(date);
-//        return String.format("%d-%02d-%02d:%02d",
-//                cal.get(Calendar.YEAR),
-//                cal.get(Calendar.MONTH),
-//                cal.get(Calendar.DAY_OF_MONTH),
-//                cal.get(Calendar.HOUR_OF_DAY),
-//                cal.get(Calendar.MINUTE));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm aa");
+        Date date = sdf.parse(dateStr);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return String.format("%d-%02d-%02d %02d:%02d",
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH),
+                cal.get(Calendar.HOUR_OF_DAY),
+                cal.get(Calendar.MINUTE));
     }
 
     public void setEvent(View view) {
@@ -237,6 +235,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             // assemble and send the event JSON message to the controller
             String offDateTime = DateAmPmToStr(offDateText.getText().toString() + " " + offTimeText.getText().toString());
             String onDateTime = DateAmPmToStr(onDateText.getText().toString() + " " + onTimeText.getText().toString());
+            validateDates(onDateTime, offDateTime);
             Calendar nowC = Calendar.getInstance();
             int year = nowC.get(Calendar.YEAR);
             int month = nowC.get(Calendar.MONTH) + 1; //Jan --> 0, so add one
@@ -292,6 +291,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
         catch (Exception e) {
+            e.printStackTrace();
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
@@ -306,12 +306,13 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         Date date = sdf.parse(dt);
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        String timeStr = String.format("%tr", cal);
+//        String timeStr = String.format("%tr", cal);
+        SimpleDateFormat timeOnly = new SimpleDateFormat("hh:mm aa");
+        String timeStr = timeOnly.format(date);
     // Calendar .MONTH returns 0-->Jan, so need to add 1
         String dateStr = String.format("%1$04d-%2$02d-%3$02d", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
         dateTime[0] = dateStr;
         dateTime[1] = timeStr;
-//            String dateTime[] = dt.split(" ");
         return  dateTime;
     }
 
@@ -322,6 +323,34 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         if(isF) {
             float tempVal = tc.fToC(Float.parseFloat(tempetureValue));
             retVal = String.format("%1$.2f", tempVal);
+        }
+        return retVal;
+    }
+
+    public void validateDates(String onDateStr, String offDateStr) throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date onDate = sdf.parse(onDateStr);
+        Date offDate = sdf.parse(offDateStr);
+        Date currentTime = Calendar.getInstance().getTime();
+        if(offDate.before(onDate)) {
+            throw new Exception("Hey Stupid:  Off date is before on date.");
+        }
+
+        if(currentTime.before(offDate)) {
+            throw new Exception("Hey Stupid:  Off date is in the past.");
+        }
+    }
+
+    public String formatTimeAmPm(int hour, int minutes) {
+        String retVal = String.format("%02d:%02d AM", hour, minutes);;
+        if (hour == 0) {
+            retVal = String.format("%02d:%02d AM", 12, minutes);
+        }
+        if (hour > 12) {
+            retVal = String.format("%02d:%02d PM", hour-12, minutes);
+        }
+        if (hour == 12) {
+            retVal = String.format("%02d:%02d PM", hour, minutes);
         }
         return retVal;
     }
@@ -353,8 +382,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                         public void onTimeSet(TimePicker view, int hourOfDay,
                                               int minute)
                         {
-                            String timeStr = String.format("%02d:%02d", hourOfDay, minute);
-                            onTimeText.setText(timeStr);
+//                            String timeStr = String.format("%02d:%02d", hourOfDay, minute);
+                            onTimeText.setText(formatTimeAmPm(hourOfDay, minute));
                         }
                     }, mHour, mMinute, false);
             timePickerDialog.show();
@@ -384,8 +413,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                         public void onTimeSet(TimePicker view, int hourOfDay,
                                               int minute)
                         {
-                            String timeStr = String.format("%02d:%02d", hourOfDay, minute);
-                            offTimeText.setText(timeStr);
+//                            String timeStr = String.format("%02d:%02d", hourOfDay, minute);
+                            offTimeText.setText(formatTimeAmPm(hourOfDay, minute));
                         }
                     }, mHour, mMinute, false);
             timePickerDialog.show();

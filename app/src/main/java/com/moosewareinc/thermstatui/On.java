@@ -19,17 +19,17 @@ public class On {
     }
 
     public String getWhen() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return sdf.format(when);
-    //    return when;
+        //    return when;
     }
 
     public void setWhen(String whenStr) throws Exception {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         this.when = sdf.parse(whenStr);
         Date currentTime = Calendar.getInstance().getTime();
         if(when.before(currentTime)) {
-            throw new Exception("Set time is in the past.");
+            throw new Exception("Warning: Set time: " + whenStr + " is in the past.");
         }
     }
 
@@ -44,6 +44,5 @@ public class On {
     private Float temperature;
     private String temperatureScale;
     private Date when;
-
 
 }
