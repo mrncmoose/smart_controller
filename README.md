@@ -60,7 +60,7 @@ Turn the time delay pot (on right) to min (counter clockwise) so the motion dete
 
 The as delivered motion sensors did not have a jumper for trigger selection.  It only had solder pads.  The high setting was used by soldering a jumper inplace.
 
-R^4 thermal rise curve:  <https://media.licdn.com/media/gcrc/dms/image/C4E12AQHuyTSePf1r8w/article-cover_image-shrink_600_2000/0?e=2125872000&v=beta&t=J2mREmPVFGIso2KNVW91QMjNrqgTlkCHlPvqXzgLMbI/>
+R^4 thermal rise curve:  ![](<https://media.licdn.com/media/gcrc/dms/image/C4E12AQHuyTSePf1r8w/article-cover_image-shrink_600_2000/0?e=2125872000&v=beta&t=J2mREmPVFGIso2KNVW91QMjNrqgTlkCHlPvqXzgLMbI)
 
 Basic article on controlling the relays:
 <https://elementztechblog.wordpress.com/2014/09/09/controlling-relay-boards-using-raspberrypi/>
