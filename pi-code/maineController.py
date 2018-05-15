@@ -10,6 +10,7 @@ import json
 import RPi.GPIO as GPIO
 import logging
 import logging.handlers
+from ThermalPrediction import PredictDeltaTemp
 
 # load the kernel modules needed to handle the sensor
 os.system('modprobe w1-gpio')
@@ -22,6 +23,11 @@ logHandler = logging.handlers.RotatingFileHandler(LOG_FILENAME, maxBytes=2000000
 logHandler.setFormatter(logFormatter)
 eventLogger.addHandler(logHandler)
 
+def getTimeToTemp():
+    #the following is wrong:
+    uot = PredictDeltaTemp.thermalCalculations
+    return uot.deltaTemp(self, 1000)
+    
 def getCurrentTemp(sensorPath):
     # append the device file name to get the absolute path of the sensor 
     devicefile = sensorPath + '/w1_slave'
