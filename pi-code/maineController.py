@@ -66,6 +66,11 @@ def getSetTemp(eventsJsonFile):
         offDate = time.strptime(str(e['off']['when']), "%Y-%m-%d %H:%M")
         setTempOn = float(e['on']['temperature'])
         setTempOff = float(e['off']['temperature'])
+#TODO:  check how much time is needed to get to the specified temp
+# and add it to the onDate
+
+#TODO:  Use the motion sensor to check if anyone is in the building
+# Wait for a configurable number of minutes before shutting down.
         if (now >= onDate) and (now <= offDate):
             eventLogger.info("Set on temp to: " + str(setTempOn))
             setTemp = setTempOn
