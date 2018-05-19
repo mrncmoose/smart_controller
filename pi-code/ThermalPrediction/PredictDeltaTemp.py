@@ -35,5 +35,4 @@ class thermalCalculations:
                 sec = sec + 10
             else:
                 sec = sec - 10
-
         return sec
