@@ -24,9 +24,10 @@ logHandler.setFormatter(logFormatter)
 eventLogger.addHandler(logHandler)
 
 def getTimeToTemp():
-    #the following is wrong:
+    # updating to correct method
     uot = PredictDeltaTemp.thermalCalculations
-    return uot.deltaTemp(self, 1000)
+    dT = getSetTemp("furnanceEvent.json") - getCurrentTemp(SensorPath)
+    return uot.secondsToTemp(self, dT)
     
 def getCurrentTemp(sensorPath):
     # append the device file name to get the absolute path of the sensor 
