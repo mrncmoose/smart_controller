@@ -1,0 +1,60 @@
+2018-06-22 14:13:36,801 - Mike - DEBUG - Calling doubler
+2018-06-22 14:13:36,801 - George - DEBUG - Calling doubler
+2018-06-22 14:13:36,801 - Mike - DEBUG - doubler function executing
+2018-06-22 14:13:36,801 - George - DEBUG - doubler function executing
+2018-06-22 14:13:36,801 - Wanda - DEBUG - Calling doubler
+2018-06-22 14:13:36,801 - Mike - DEBUG - doubler function ended with: 0
+2018-06-22 14:13:36,801 - George - DEBUG - doubler function ended with: 2
+2018-06-22 14:13:36,801 - Dingbat - DEBUG - Calling doubler
+2018-06-22 14:13:36,801 - Wanda - DEBUG - doubler function executing
+2018-06-22 14:13:36,801 - Nina - DEBUG - Calling doubler
+2018-06-22 14:13:36,801 - Dingbat - DEBUG - doubler function executing
+2018-06-22 14:13:36,801 - Wanda - DEBUG - doubler function ended with: 4
+2018-06-22 14:13:36,801 - Nina - DEBUG - doubler function executing
+2018-06-22 14:13:36,801 - Dingbat - DEBUG - doubler function ended with: 6
+2018-06-22 14:13:36,816 - Nina - DEBUG - doubler function ended with: 8
+2018-06-22 14:14:10,874 - Mike - DEBUG - Calling doubler
+2018-06-22 14:14:10,874 - George - DEBUG - Calling doubler
+2018-06-22 14:14:10,874 - Mike - DEBUG - doubler function executing
+2018-06-22 14:14:10,874 - Wanda - DEBUG - Calling doubler
+2018-06-22 14:14:10,874 - George - DEBUG - doubler function executing
+2018-06-22 14:14:10,874 - Mike - DEBUG - doubler function ended with: 0
+2018-06-22 14:14:10,874 - Wanda - DEBUG - doubler function executing
+2018-06-22 14:14:10,874 - Dingbat - DEBUG - Calling doubler
+2018-06-22 14:14:10,874 - George - DEBUG - doubler function ended with: 2
+2018-06-22 14:14:10,874 - Wanda - DEBUG - doubler function ended with: 4
+2018-06-22 14:14:10,874 - Nina - DEBUG - Calling doubler
+2018-06-22 14:14:10,874 - Dingbat - DEBUG - doubler function executing
+2018-06-22 14:14:10,874 - Nina - DEBUG - doubler function executing
+2018-06-22 14:14:10,874 - Dingbat - DEBUG - doubler function ended with: 6
+2018-06-22 14:14:10,874 - Nina - DEBUG - doubler function ended with: 8
+2018-06-22 14:16:30,263 - Mike - DEBUG - Calling doubler
+2018-06-22 14:16:30,263 - Mike - DEBUG - doubler function executing
+2018-06-22 14:16:30,263 - Mike - DEBUG - doubler function ended with: 0
+2018-06-22 14:16:30,263 - George - DEBUG - Calling doubler
+2018-06-22 14:16:30,263 - Wanda - DEBUG - Calling doubler
+2018-06-22 14:16:30,263 - George - DEBUG - doubler function executing
+2018-06-22 14:16:30,263 - Wanda - DEBUG - doubler function executing
+2018-06-22 14:16:30,263 - Dingbat - DEBUG - Calling doubler
+2018-06-22 14:16:30,263 - George - DEBUG - doubler function ended with: 2
+2018-06-22 14:16:30,263 - Nina - DEBUG - Calling doubler
+2018-06-22 14:16:30,263 - Wanda - DEBUG - doubler function ended with: 4
+2018-06-22 14:16:30,263 - Dingbat - DEBUG - doubler function executing
+2018-06-22 14:16:30,263 - Nina - DEBUG - doubler function executing
+2018-06-22 14:16:30,263 - Dingbat - DEBUG - doubler function ended with: 6
+2018-06-22 14:16:30,263 - Nina - DEBUG - doubler function ended with: 8
+2018-06-22 14:17:24,148 - Mike - DEBUG - Calling doubler
+2018-06-22 14:17:24,148 - George - DEBUG - Calling doubler
+2018-06-22 14:17:24,164 - Mike - DEBUG - doubler function executing
+2018-06-22 14:17:24,164 - George - DEBUG - doubler function executing
+2018-06-22 14:17:24,164 - Wanda - DEBUG - Calling doubler
+2018-06-22 14:17:24,164 - Mike - DEBUG - doubler function ended with: 0
+2018-06-22 14:17:24,164 - George - DEBUG - doubler function ended with: 2
+2018-06-22 14:17:24,164 - Dingbat - DEBUG - Calling doubler
+2018-06-22 14:17:24,164 - Wanda - DEBUG - doubler function executing
+2018-06-22 14:17:24,164 - Nina - DEBUG - Calling doubler
+2018-06-22 14:17:24,164 - Dingbat - DEBUG - doubler function executing
+2018-06-22 14:17:24,164 - Wanda - DEBUG - doubler function ended with: 4
+2018-06-22 14:17:24,164 - Nina - DEBUG - doubler function executing
+2018-06-22 14:17:24,164 - Dingbat - DEBUG - doubler function ended with: 6
+2018-06-22 14:17:24,164 - Nina - DEBUG - doubler function ended with: 8

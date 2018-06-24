@@ -49,6 +49,21 @@ def getCurrentTemp(sensorPath):
         eventLogger.warn("Got bad crc reading temperture sensor")
     return tempRetVal;
 
+def isMotionDetected(motionPin):
+    # look to see if there has been any motion for the last 30 minutes
+    # Time out value should be configurable
+    value=GPIO.input(motion_pin)  
+    if value!=0:                             #to read the value of a GPIO pin
+      GPIO.output(led_pin,GPIO.HIGH)                #turn on led
+      time.sleep(2)        #delay 2ms
+      print "LED on"                           #print information
+    else:
+      GPIO.output(led_pin,GPIO.LOW)                #turn off led
+      time.sleep(2)       #delay 2ms
+      print "LED off"                         #print information
+
+    return false;
+
 def getSetTemp(eventsJsonFile):
     # read the settings json file
     try:
@@ -87,6 +102,7 @@ relay2 = 27
 relay3 = 22
 relay4 = 10
 statusLight = 18
+motionSensorPin = 35
 
 # The script as below using BCM GPIO 00..nn numbers
 GPIO.setmode(GPIO.BCM)
@@ -97,6 +113,7 @@ GPIO.setup(relay2, GPIO.OUT)
 GPIO.setup(relay3, GPIO.OUT)
 GPIO.setup(relay4, GPIO.OUT)
 GPIO.setup(statusLight, GPIO.OUT)
+GPIO.setup(motionSensorPin, GPIO.IN)
 
 #initialize to off
 GPIO.output(relay1, GPIO.HIGH)
