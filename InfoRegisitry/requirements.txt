@@ -1,0 +1,3 @@
+slalchemy
+psycpg2
+Flask
