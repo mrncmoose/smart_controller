@@ -1,0 +1,12 @@
+<h1>{{customer.name}}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'customer' customer.id %}" method="post">
+{% csrf_token %}
+{% for customer in customer.choice_set.all %}
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ customer.id }}">
+    <label for="choice{{ forloop.counter }}">{{ customer.name }}</label><br>
+{% endfor %}
+<input type="submit" value="Customer">
+</form>
