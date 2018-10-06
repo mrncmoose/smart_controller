@@ -4,7 +4,7 @@ import re
 import os
 import ConfigParser
 import json
-
+from ThermalPrediction import PredictDeltaTemp
 
 Config = ConfigParser.ConfigParser()
 Config.read("config.ini")
@@ -63,6 +63,14 @@ def getCurrentTemp(sensorPath):
         tempRetVal = -99
         print("Got bad crc reading temperture sensor")
     return tempRetVal;
+
+@app.route('/thermal/api/v1.0/time_to_temp', methods=['GET'])
+def get_time_to_temp():
+	tCalc = PredictDeltaTemp.thermalCalculations
+	tempPath = Config.get("ControlVars", "TempSensorId")
+	dT = events[0]['on']['temperature'] - getCurrentTemp(tempPath)
+	secondsToTemp = tCalc.secondsToTemp(self, dT)
+	return jsonify({'seconds_to_temp': 42})
 
 @app.route('/thermal/api/v1.0/events', methods=['GET'])
 def get_events():
