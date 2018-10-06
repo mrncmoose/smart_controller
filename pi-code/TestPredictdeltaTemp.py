@@ -16,13 +16,13 @@ class Test(unittest.TestCase):
         uot = PredictDeltaTemp.thermalCalculations
         secsToTemp = uot.secondsToTemp(self, 8.8)
         print('Secs to temp:', secsToTemp, ' for 8.8C delta')
-        self.assertAlmostEqual(5000, secsToTemp , -2, 'Inorrect number of seconds to temp')
+        self.assertAlmostEqual(5000, secsToTemp , -2, 'Incorrect number of seconds to temp')
 
     def testSecToTempLarger(self):
         uot = PredictDeltaTemp.thermalCalculations
         secsToTemp = uot.secondsToTemp(self, 20)
         print('Secs to temp:', secsToTemp, ' for 20C delta')
-        self.assertAlmostEqual(8500, secsToTemp , -2, 'Inorrect number of seconds to temp')
+        self.assertAlmostEqual(8500, secsToTemp , -2, 'Incorrect number of seconds to temp')
         
     def testdeltaTemp(self):
         uot = PredictDeltaTemp.thermalCalculations
