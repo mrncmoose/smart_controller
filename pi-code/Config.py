@@ -15,7 +15,7 @@ TempWindow= 1.0
 
 #The number of seconds of no motion detected after the set start time to shut the furnace down.
 # will want 900 (15 minutes) in prod.  Test much shorter
-motionTimeOutSeconds = 60
+motionTimeOutSeconds = 45
 
 #TempSensorId: /sys/bus/w1/devices/28-04167527baff
 TempSensorId = '/sys/bus/w1/devices/28-0118410e8eff'

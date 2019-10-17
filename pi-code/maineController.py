@@ -29,6 +29,12 @@ isMotionDetected = False
 isMotionTimedOut = False
 isHeating = False
 isPreHeating = False
+offTime = datetime.datetime.now() + datetime.timedelta(seconds=30) 
+# A boolean of if the Furnace should be turned on/off.  False -->  off
+FurnaceState = False
+isMotionDetected = False
+deltaTime = 0
+
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 # Set relay pins as output
@@ -46,13 +52,6 @@ GPIO.output(relay3, GPIO.HIGH)
 GPIO.output(relay4, GPIO.HIGH)
 GPIO.output(statusLight, GPIO.LOW)
 
-maxTemp = MaxTemp
-
-# A boolean of if the Furnace should be turned on/off.  False -->  off
-FurnaceState = False
-isMotionDetected = False
-deltaTime = 0
-
 def preHeatCheck(targetTime, setTemp):
     secondsToTemp = getSecondsToTemp(setTemp, getCurrentTemp(TempSensorId))
     timeToTemp = datetime.datetime.now() - datetime.timedelta(seconds=secondsToTemp)
@@ -62,20 +61,21 @@ def preHeatCheck(targetTime, setTemp):
         isPreHeating = False
 
 def motionAction(motionStartTime):
-    deltaTime = 0
+    global isMotionDetected
+    global offTime
+    global deltaTime
     if GPIO.input(motionSensorInPin)==1:
         eventLogger.debug("-------->> Motion detected! <<------------")
+        isMotionDetected = True
         GPIO.output(statusLight, GPIO.HIGH)
         deltaTime = (datetime.datetime.now()-motionStartTime).total_seconds()
         eventLogger.debug("Seconds between motion: {0}".format(deltaTime))
         GPIO.output(statusLight, 1)
-    if(deltaTime < motionTimeOutSeconds):
         motionStartTime = datetime.datetime.now()
-        isMotionDetected = True
-    else:
+    if deltaTime >= motionTimeOutSeconds:
         GPIO.output(statusLight, 0)
         isMotionDetected = False
-        eventLogger.debug('No motion in {0} seconds.'.format(deltaTime))         
+        deltaTime = 0
     return motionStartTime
 
 def getSecondsToTemp(setTemp, currentTemp):
@@ -105,6 +105,7 @@ def getCurrentTemp(sensorPath):
 
 def getSetTemp(eventsJsonFile):
     # read the settings json file
+    global isMotionDetected
     try:
         with open(eventsJsonFile) as json_data_file:
             data = json.load(json_data_file)
@@ -112,38 +113,45 @@ def getSetTemp(eventsJsonFile):
     except:
         e = sys.exc_info()[0]
         eventLogger.warn("Unable to open events file w/ setpoints with exception " + str(e))
-    now = datetime.datetime.now()   
+    now = datetime.datetime.now()
+    global offTime
     for e in data:
-        setTemp = -40
         onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%d %H:%M")
 #        offDate = time.strptime(str(e['off']['when']), "%Y-%m-%d %H:%M")
         setTempOn = float(e['on']['temperature'])
         setTempOff = float(e['off']['temperature'])
+        setTemp = setTempOff
         secondsToTemp = getSecondsToTemp(setTempOn, getCurrentTemp(TempSensorId))
-        onDate = onDate - datetime.timedelta(seconds=secondsToTemp)
-        eventLogger.info("Updated datetime to get to temperature: " + onDate.strftime("%Y-%m-%d %H:%M:%S"))
-# Check for motion only after the onDate + MotionDelayTime
-        if (now >= onDate and isMotionDetected):
-            eventLogger.info("Set on temp to: " + str(setTempOn))
-            setTemp = setTempOn
-            return setTempOn
-        else:
-            eventLogger.info("Set off temp to: " + str(setTempOff))
+        adjustedOnDate = onDate - datetime.timedelta(seconds=secondsToTemp)
+        eventLogger.info("Turn on by to get to temperature: {0}".format(adjustedOnDate.strftime("%Y-%m-%d %H:%M:%S")))
+        eventLogger.info("Current off time: {0}".format(offTime.strftime("%Y-%m-%d %H:%M:%S")))
+        if offTime > now:
+            eventLogger.info("Set off temp to: {0}C".format(setTempOff))
             setTemp = setTempOff
+            return setTemp
+
+        if adjustedOnDate <= now:
+            eventLogger.info("Preheating to: {0}C ".format(setTempOn))
+            setTemp = setTempOn
+
+        if onDate >= now and offTime <= now and isMotionDetected:
+            setTemp = setTempOn
+            eventLogger.info("Holding at temp: {0}C".format(setTemp))
+            offTime = now + datetime.timedelta(seconds=motionTimeOutSeconds)        
+
     return setTemp
-    
+        
  
 while (True):
     tempVal = getCurrentTemp(TempSensorId)
     startTime = motionAction(startTime)    
     onTemp = getSetTemp("furnanceEvent.json")
-    eventLogger.info("Temperature settings\t{0{".format(onTemp))
-    eventLogger .info("Seconds since last motion {0} and timeout value of {1}".format(deltaTime, motionTimeOutSeconds))
+    eventLogger.info("Temperature set point\t{0}".format(onTemp))
     if (tempVal < (onTemp - TempWindow)): 
         FurnaceState = True
     if tempVal > (onTemp + TempWindow):
         FurnaceState = False
-    if tempVal >= maxTemp:
+    if tempVal >= MaxTemp:
         FurnaceState = False
         eventLogger.warn("Max temperature exceeded!")
     #If the current temperature is at or above the set temperature
