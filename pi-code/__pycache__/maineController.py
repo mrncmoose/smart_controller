@@ -8,6 +8,7 @@ from time import sleep, strftime
 import re
 import json
 import RPi.GPIO as GPIO
+#from gpiozero import MotionSensor, LED
 import logging
 import logging.handlers
 
@@ -25,60 +26,33 @@ logHandler = logging.handlers.RotatingFileHandler(LOG_FILENAME, maxBytes=2000000
 logHandler.setFormatter(logFormatter)
 eventLogger.addHandler(logHandler)
 startTime = datetime.datetime.now()
+motionTimeOutSeconds = 15
 isMotionDetected = False
 isMotionTimedOut = False
 isHeating = False
 isPreHeating = False
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
-# Set relay pins as output
-GPIO.setup(relay1, GPIO.OUT)
-GPIO.setup(relay2, GPIO.OUT)
-GPIO.setup(relay3, GPIO.OUT)
-GPIO.setup(relay4, GPIO.OUT)
-GPIO.setup(statusLight, GPIO.OUT)
-GPIO.setup(motionSensorInPin, GPIO.IN)
- 
-#initialize to off
-GPIO.output(relay1, GPIO.HIGH)
-GPIO.output(relay2, GPIO.HIGH)
-GPIO.output(relay3, GPIO.HIGH)
-GPIO.output(relay4, GPIO.HIGH)
-GPIO.output(statusLight, GPIO.LOW)
 
-maxTemp = MaxTemp
-
-# A boolean of if the Furnace should be turned on/off.  False -->  off
-FurnaceState = False
-isMotionDetected = False
-deltaTime = 0
-
-def preHeatCheck(targetTime, setTemp):
-    secondsToTemp = getSecondsToTemp(setTemp, getCurrentTemp(TempSensorId))
-    timeToTemp = datetime.datetime.now() - datetime.timedelta(seconds=secondsToTemp)
-    if timeToTemp <= datetime.datetime.now() and setTemp < getCurrentTemp(TempSensorId):
-        isPreHeating = True
-    else:
-        isPreHeating = False
-
-def motionAction(motionStartTime):
-    deltaTime = 0
-    if GPIO.input(motionSensorInPin)==1:
-        eventLogger.debug("-------->> Motion detected! <<------------")
-        GPIO.output(statusLight, GPIO.HIGH)
-        deltaTime = (datetime.datetime.now()-motionStartTime).total_seconds()
-        eventLogger.debug("Seconds between motion: {0}".format(deltaTime))
-        GPIO.output(statusLight, 1)
+def motionAction(startTime):
+    print("Motion detected function called")
+    deltaTime = (datetime.datetime.now()-startTime).total_seconds()
+    print("Seconds between motion: {0}".format(deltaTime))
+    GPIO.output(statusLedPin, 1)
     if(deltaTime < motionTimeOutSeconds):
-        motionStartTime = datetime.datetime.now()
-        isMotionDetected = True
+        startTime = datetime.datetime.now()
     else:
-        GPIO.output(statusLight, 0)
-        isMotionDetected = False
-        eventLogger.debug('No motion in {0} seconds.'.format(deltaTime))         
-    return motionStartTime
+        GPIO.output(statusLedPin, 0)
+        print('No motion in {0} seconds.'.format(deltaTime))          
+    return startTime
 
-def getSecondsToTemp(setTemp, currentTemp):
+def motionTimedOut():
+    myNow = datetime.datetime.now()
+    deltaTime = (myNow - lastMotionTime).total_seconds()
+    if deltaTime > motionTimeOutSeconds:
+        eventLogger.info('Motion timed out after ' + deltaTime + ' seconds')
+        return True
+    return False
+
+def getTimeToTemp(setTemp, currentTemp):
     # updating to correct method
     dT = setTemp - currentTemp
     return thermalCalculations.secondsToTemp(dTemp=dT)
@@ -119,44 +93,90 @@ def getSetTemp(eventsJsonFile):
 #        offDate = time.strptime(str(e['off']['when']), "%Y-%m-%d %H:%M")
         setTempOn = float(e['on']['temperature'])
         setTempOff = float(e['off']['temperature'])
-        secondsToTemp = getSecondsToTemp(setTempOn, getCurrentTemp(TempSensorId))
+        secondsToTemp = getTimeToTemp(setTempOn, getCurrentTemp(SensorPath))
         onDate = onDate - datetime.timedelta(seconds=secondsToTemp)
         eventLogger.info("Updated datetime to get to temperature: " + onDate.strftime("%Y-%m-%d %H:%M:%S"))
 # Check for motion only after the onDate + MotionDelayTime
-        if (now >= onDate and isMotionDetected):
+        if (now >= onDate):
             eventLogger.info("Set on temp to: " + str(setTempOn))
             setTemp = setTempOn
             return setTempOn
         else:
             eventLogger.info("Set off temp to: " + str(setTempOff))
             setTemp = setTempOff
-    return setTemp
-    
+    return setTemp;
+
+
+
+# The script as below using BCM GPIO 00..nn numbers
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
  
+# Set relay pins as output
+GPIO.setup(relay1, GPIO.OUT)
+GPIO.setup(relay2, GPIO.OUT)
+GPIO.setup(relay3, GPIO.OUT)
+GPIO.setup(relay4, GPIO.OUT)
+GPIO.setup(statusLight, GPIO.OUT)
+GPIO.setup(motionSensorInPin, GPIO.IN)
+ 
+#initialize to off
+GPIO.output(relay1, GPIO.HIGH)
+GPIO.output(relay2, GPIO.HIGH)
+GPIO.output(relay3, GPIO.HIGH)
+GPIO.output(relay4, GPIO.HIGH)
+GPIO.output(statusLight, GPIO.LOW)
+
+#TempWindow = Config.TempWindow
+#OnTempAdder = Config.OnTempAdder
+#DelayTime = Config.DelayTime
+maxTemp = MaxTemp
+SensorPath = TempSensorId
+motionTimeOutSeconds = MotionDelaySeconds
+
+# A boolean of if the furnance should be turned on/off.  False -->  off
+FurnaceState = False
+
+# V1.0:  Only use one thermal sensor.
+devicePath = TempSensorId
+isMotionDetected = False
+deltaTime = 0
 while (True):
-    tempVal = getCurrentTemp(TempSensorId)
-    startTime = motionAction(startTime)    
+    tempVal = getCurrentTemp(SensorPath)
+    if GPIO.input(motionSensorInPin)==1:
+        eventLogger.debug("Motion detected.")
+        GPIO.output(statusLight, GPIO.HIGH)
+        startTime = motionAction(startTime)
+        deltaTime = (datetime.datetime.now()-startTime).total_seconds()
+        if(deltaTime < motionTimeOutSeconds):
+            startTime = datetime.datetime.now()
+            isMotionDetected = True
+    else:
+        GPIO.output(statusLight, GPIO.LOW)
+        eventLogger.info('No motion in {0} seconds.'.format(deltaTime))
+        isMotionDetected = False         
+    
     onTemp = getSetTemp("furnanceEvent.json")
-    eventLogger.info("Temperature settings\t{0{".format(onTemp))
+    eventLogger.info("Temperature settings\t" + str(onTemp))
     eventLogger .info("Seconds since last motion {0} and timeout value of {1}".format(deltaTime, motionTimeOutSeconds))
-    if (tempVal < (onTemp - TempWindow)): 
+    if (tempVal < (onTemp - TempWindow)) and isMotionDetected: 
         FurnaceState = True
     if tempVal > (onTemp + TempWindow):
         FurnaceState = False
     if tempVal >= maxTemp:
         FurnaceState = False
-        eventLogger.warn("Max temperature exceeded!")
+        eventLogger.warn("Max temperature exceded!")
     #If the current temperature is at or above the set temperature
     # and there has not been any motion in motionTimeOutSeconds
     # turn furnace off.
-    eventLogger.debug("Motion detected flag: {0}".format(isMotionDetected))
+    eventLogger.debug("Motion detected flag: " + str(isMotionDetected))
         
     if FurnaceState:
-        eventLogger.info("Furnace ON")
+        eventLogger.info("Furnance ON")
         GPIO.output(relay1, GPIO.LOW)
 #         GPIO.output(statusLight, GPIO.LOW)
     else:
-        eventLogger.debug("Furnace off")
+        eventLogger.debug("Furnance off")
         GPIO.output(relay1, GPIO.HIGH)
 
     sleep(DelayTime)

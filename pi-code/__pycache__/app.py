@@ -72,11 +72,9 @@ def getCurrentTemp(sensorPath):
 def get_time_to_temp():
 	tCalc = PredictDeltaTemp.thermalCalculations
 	tempPath = TempSensorId
-	setTemp = events[0]['on']['temperature']
-	currentTemp = getCurrentTemp(tempPath)
-	dT =  setTemp - currentTemp
+	dT = events[0]['on']['temperature'] - getCurrentTemp(tempPath)
 	secondsToTemp = tCalc.secondsToTemp(dT)
-	return jsonify({'seconds_to_temp': secondsToTemp, 'temperature set point': setTemp, 'current temp': currentTemp})
+	return jsonify({'seconds_to_temp': 42})
 
 @app.route('/thermal/api/v1.0/events', methods=['GET'])
 def get_events():
@@ -109,17 +107,17 @@ def create_events():
 	return jsonify({'events': events});
 
 @app.route('/thermal/api/v1.0/isFurnaceOn', methods=['GET'])
-def get_furnance_on():
-	if GPIO.input(relay1) == 1:
+def get_furnance_status():
+	furnanceOn =  GPIO.input(relay1)
+	if furnanceOn == 1:
 		return jsonify({'isFurnanceOn': 'False'})
 	return jsonify({'isFurnanceOn': 'True'})
 
-@app.route('/thermal/api/v1.0/isMotion', methods=['GET'])
-def get_motion():
+@app.route('/thermal/api/v1.0/isMotionDetected', methods=['GET'])
+def get_motion_status():
 	if GPIO.input(motionSensorInPin) == 1:
-		return jsonify({'isMotion': 'False'})
-	return jsonify({'isMotion': 'True'})
-
+		return jsonify({'isMotionDetected': 'False'})
+	return jsonify({'isMotionDetected': 'True'})
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
