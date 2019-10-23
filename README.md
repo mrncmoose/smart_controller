@@ -1,10 +1,22 @@
 # Raspberry pi temperature controller notes
 
-The goal of this project is to provide a simple to use thermal controller for an infrared heating unit that can turn on/off at a specific, non-repeating date and time.  The physical location does not have internet access, so the unit must provide 100% of it’s own network connectivity. This is not difficult:  just configure the Raspberry PI to be a stand alone wireless access point and give it a static IP address. 
+The goal of this project is to provide a simple to use thermal controller for an infrared heating unit that can turn on/off at a specific, non-repeating date and time.  
+
+## Version 1 
+The physical location does not have internet access, so the unit must provide 100% of it’s own network connectivity. This is not difficult:  just configure the Raspberry PI to be a stand alone wireless access point and give it a static IP address. 
 
 Security is physical.  The steel sided building is basically a Faraday cage and there is no internet access inside. Therefore there is no requirement for authentication or encryption. Adding them would be a form of scope creep.  I'm not saying security isn't important: the device is physically secured.  Your location and circumstances may have different requirements and the Flask web application should be modified to include the correct level of security as needed, unless you want just want to ignore the lessons from Home Depot's break in through a HVAC system. 
 
-Also, the building is infrequently used.  There is no set schedule.  Therefore the device need only turn the heat on at a specific time and turn it off the rest of the time.  Therefore there is no repeat requirement.  Your circumstances may be different. If so, fork the code and add your needs.
+## Version 2
+The unit is intended to be connected to the internet.  The API is exposed to the brunt of the internet, so it must be made very secure, including limiting access. 
+
+TODO:  have the unit get SSL certs from Let's Encrypt for fully accepted SSL certs automatically updated.
+
+To make the use as simple as possible, new features
+* A predictive thermal rise curve is used to calculate the time to temperature.  The unit turns on the amount of time predicted before the use date time.  No more guessing at when to turn the heat on to to pre-heat the building and no wasted fuel if building isn't used.
+* A motion sensor is used to detect if there is any motion in the building.  If there is no motion by the motio time out value, the unit turns off.
+
+Given the building is infrequently used, there is no set schedule.  Therefore the device need only turn the heat on at a specific time and turn it off the rest of the time.  Therefore there is no repeat requirement.  Your circumstances may be different. If so, fork the code and add your needs.
 
 The same idea could be used for controlling air conditioning.  However, the relays used are not capable of handling the load of an AC unit.  An additional relay and some AC wiring would be required.
 
@@ -21,13 +33,19 @@ Parts list:
 1. (4) #6-32 x 3/8 pan head screws 
 1. (10) M2.5 x 4mm pan head screws 
 1. Case for Raspberry PI, relay and temperature sensor boards.  The STL files are posted as part of this project.  Note:  you may need 2 of the middle spacers.  
-1. Android smart phone with Android 4.4 or higher 
+1. Android smart phone with Android 4.4 or higher
+1. Apple iPhone with iOS 11 or higher
 
 The case base parts are bonded together.  One of the charateristics of ABS is it desolves in acetone.  A few drops bonds the lower case parts together. The cover is held on with the 4 #6 screws.
 
 ## Wiring up the devices
 
 Pin out:
+|Physical pin|BCM/GPIO|Connected to|
+|------------|--------|------------|
+|1||DS18b20 temperature: VCC (3.3V)|
+|2||Relay board VCC (5V)|
+
 <table border=1><tr>
 <td>Physical pin</td>
 <td>BCM/GPIO #</td>
