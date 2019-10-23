@@ -1,27 +1,35 @@
 #!/usr/bin/env python
 
 import os
-#import glob
+import sys
 import time
 import datetime
 from time import sleep, strftime
 import re
 import json
 import RPi.GPIO as GPIO
+import argparse
 import logging
 import logging.handlers
 
 from ThermalPrediction.PredictDeltaTemp import thermalCalculations
 from Config import *
 from StateKlass import MachineState
-from tkinter.constants import CURRENT
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--log_level", 
+                    help="The level of log messages to log", 
+                    default="INFO", 
+                    choices=['DEBUG', 'INFO', 'WARNING', 'ERROR'])
+args = parser.parse_args()
+print('Arg passed in: {0}'.format(args.log_level))
 
 # load the kernel modules needed to handle the sensor
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
 LOG_FILENAME = 'themeralController.log'
 eventLogger = logging.getLogger('EventLogger')
-eventLogger.setLevel(logging.DEBUG)
+eventLogger.setLevel(level = args.log_level)
 logFormatter = logging.Formatter('%(levelname)s\t%(asctime)s\t%(message)s')
 logHandler = logging.handlers.RotatingFileHandler(LOG_FILENAME, maxBytes=20000000, backupCount=2 )
 logHandler.setFormatter(logFormatter)
@@ -162,7 +170,7 @@ def getSetTemp(eventsJsonFile):
     except:
         GPIO.output(relay1, GPIO.HIGH)
         e = sys.exc_info()[0]
-        eventLogger.info("Unable to open events file w/ setpoints with exception " + str(e))
+        eventLogger.error("Unable to open events file w/ setpoints with exception " + str(e))
     now = datetime.datetime.now()
     for e in data:
         onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%d %H:%M")
