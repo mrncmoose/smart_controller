@@ -169,7 +169,11 @@ def getSetTemp(eventsJsonFile):
 #        offDate = time.strptime(str(e['off']['when']), "%Y-%m-%d %H:%M")
         setTempOn = float(e['on']['temperature'])
         setTempOff = float(e['off']['temperature'])
-        motionTimeOutSeconds = int(e['on']['motion_delay_seconds'])
+        try:
+            motionTimeOutSeconds = int(e['on']['motion_delay_seconds'])
+        except:
+            eventLogger.error('Unable to read motion time out seconds value.  Using value of 300.')
+            motionTimeOutSeconds = 300
         setTemp = setTempOff        
         targetOnTime = preHeatCheck(onDate, setTempOn)
         currentState = machineState.getCurrentState()
