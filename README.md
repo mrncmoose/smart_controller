@@ -41,30 +41,23 @@ The case base parts are bonded together.  One of the charateristics of ABS is it
 ## Wiring up the devices
 
 Pin out:
-|Physical pin|BCM/GPIO|Connected to|
-|------------|--------|------------|
-|1||DS18b20 temperature: VCC (3.3V)|
-|2||Relay board VCC (5V)|
 
-<table border=1><tr>
-<td>Physical pin</td>
-<td>BCM/GPIO #</td>
-<td>Connected to</td></tr>
-<tr><td>1</td><td></td><td>DS18b20 temperature: VCC (3.3V)</td></tr>
-<tr><td>2</td><td></td><td>Relay board VCC (5V)</td></tr>
-<tr><td>4</td><td></td><td>PIR motion sensor 5V+</td></tr>
-<tr><td>6</td><td></td><td>Relay board GND</td></tr>
-<tr><td>7</td><td>GPIO4</td><td>DS18b20 temperature: SIG</td></tr>
-<tr><td>9</td><td></td><td>DS18b20 temperature: GND</td></tr>
-<tr><td>11</td><td>GPIO17</td><td>Relay board: IN1</td></tr>
-<tr><td>12</td><td>GPIO18</td><td>Status LED</td></tr>
-<tr><td>13</td><td>GPIO27</td><td>Relay board: IN2</td></tr>
-<tr><td>14</td><td></td><td>Status LED GND</td></tr>
-<tr><td>15</td><td>GPIO22</td><td>Relay board: IN3</td></tr>
-<tr><td>16</td><td>GPIO23</td><td>PIR motion sensor</td></tr>
-<tr><td>19</td><td>GPIO10</td><td>Relay board: IN4</td></tr>
-<tr><td>20</td><td></td><td>PIR motion sensor GND</td></tr>
-</table>
+| Physical pin | BCM/GPIO | Connected to                    |
+|--------------|----------|---------------------------------|
+| 1            |          | DS18b20 temperature: VCC (3.3V) |
+| 2            |          | Relay board VCC (5V)            |
+| 4            |          | PIR motion sensor 5V+           |
+| 6            |          | Relay board GND |
+| 7            | GPIO4    | DS18b20 temperature: SIG |
+| 9            |          | DS18b20 temperature: GND |
+| 11           | GPIO17   | Relay board: IN1 |
+| 12           | GPIO18   | Status LED       |
+| 13           | GPIO27   | Relay board: IN2 |
+| 14           |          | Status LED GND |
+| 15           | GPIO22   | Relay board: IN3 |
+| 16           | GPIO23   | PIR motion sensor |
+| 19           | GPIO10   | Relay board: IN4 |
+| 20           |          | PIR motion sensor GND |
 
 Pinout of Raspberry PI:
 ![](https://az835927.vo.msecnd.net/sites/iot/Resources/images/PinMappings/RP2_Pinout.png)
