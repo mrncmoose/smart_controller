@@ -60,16 +60,16 @@ Pin out:
 | 20           |          | PIR motion sensor GND |
 
 Pinout of Raspberry PI:
-![](https://az835927.vo.msecnd.net/sites/iot/Resources/images/PinMappings/RP2_Pinout.png)
+![](https://www.raspberrypi.org/documentation/usage/gpio/images/gpio-numbers-pi2.png)
 
 PIR motion sensor fact and how-to sheet:
 <http://henrysbench.capnfatz.com/henrys-bench/arduino-sensors-and-input/arduino-hc-sr501-motion-sensor-tutorial/>
 
-Turn the senitivity pot (on left) to max (clockwise) to detect motion ~7m away.
+Turn the sensitivity pot (on left) to max (clockwise) to detect motion ~7m away.
 
-Turn the time delay pot (on right) to min (counter clockwise) so the motion detector's time delay is ~3 seconds.  Never set any time parameter to less than 6 seconds becuase it will only cause confussion due to false positives and negatives.  The reason is the motion sensor will not change state while it is in a time delay.
+Turn the time delay pot (on right) to min (counter clockwise) so the motion detector's time delay is ~3 seconds.  Never set any time parameter to less than 6 seconds because it will only cause confusion due to false positives and negatives.  The reason is the motion sensor will not change state while it is in a time delay.
 
-The as delivered motion sensors did not have a jumper for trigger selection.  It only had solder pads.  The high setting was used by soldering a jumper inplace.
+The as delivered motion sensors did not have a jumper for trigger selection.  It only had solder pads.  The high setting was used by soldering a jumper in place.
 
 Basic article on controlling the relays:
 <https://elementztechblog.wordpress.com/2014/09/09/controlling-relay-boards-using-raspberrypi/>
