@@ -25,7 +25,8 @@ events = [
 		'on':
 		{
 			'when':u'2017-03-12 18:00',
- 			'temperature':20
+ 			'temperature':20,
+ 			'motion_delay_seconds':120
  		},
  	    'off':{
 			'when':u'2017-03-12 18:00',
@@ -37,7 +38,8 @@ events = [
  		'on':
  		{
  			'when':u'2017-03-13 06:00',
- 			'temperature':21
+ 			'temperature':21,
+ 			'motion_timeout_seconds':120
  		},
  	    'off':{
  			'when':u'2017-03-13 11:00',
@@ -105,7 +107,7 @@ def create_events():
 	json_data_file.close()
 	currentTimeStamp = events[0]['current_timestamp']
 	print("Setting date to: " + currentTimeStamp)
-	os.system('sudo date --set=\'' + currentTimeStamp + '\'')
+#	os.system('sudo date --set=\'' + currentTimeStamp + '\'')
 	return jsonify({'events': events});
 
 @app.route('/thermal/api/v1.0/isFurnaceOn', methods=['GET'])

@@ -15,7 +15,8 @@ TempWindow= 1.0
 
 #The number of seconds of no motion detected after the set start time to shut the furnace down.
 # will want 900 (15 minutes) in prod.  Test much shorter
-motionTimeOutSeconds = 30
+#FTD 2019-10-23, moved to JSON event message
+#motionTimeOutSeconds = 45
 
 #The number of hours for a given pre-heat window.  
 #The predicted start time + this value is allowed before a motion must be sensed.

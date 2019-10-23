@@ -17,3 +17,7 @@ class MachineState:
     def getCurrentState(self):
         return self.states[self.currentState]
     
+    #TODO:  work out what parameters are needed to determine if the state should change
+    def getNextState(self):
+        pass
+    

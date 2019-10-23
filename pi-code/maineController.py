@@ -34,6 +34,7 @@ machineState.changeState('Off')
 # A boolean of if the Furnace should be turned on/off.  False -->  off
 FurnaceState = False
 deltaTime = 0
+motionTimeOutSeconds = 900
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
@@ -58,6 +59,7 @@ targetTime is when the system is expected to be at the set temperature
 setTemp is the targeted temperature.
 '''
 def preHeatCheck(targetTime, setTemp):
+    global PreHeatHours
     now = datetime.datetime.now()
     secondsToTemp = getSecondsToTemp(setTemp, getCurrentTemp(TempSensorId))
     timeToTemp = targetTime - datetime.timedelta(seconds=secondsToTemp)
@@ -75,16 +77,17 @@ def motionAction(motionStartTime):
     global isMotionDetected
     global deltaTime
     global machineState
+    global motionTimeOutSeconds
     
     if GPIO.input(motionSensorInPin)==1:
-        eventLogger.debug("-------->> Motion detected! <<------------")
+        eventLogger.info("-------->> Motion detected! <<------------")
         motionStartTime = datetime.datetime.now()
         deltaTime = 0
         isMotionDetected = True
         GPIO.output(statusLight, GPIO.HIGH)
     else:
         deltaTime = (datetime.datetime.now()-motionStartTime).total_seconds()
-        eventLogger.info("Seconds between motion: {0}".format(deltaTime))
+        eventLogger.info("Seconds between motion: {0} with timeout of {1} seconds".format(deltaTime, motionTimeOutSeconds))
             
     if deltaTime >= motionTimeOutSeconds:
         GPIO.output(statusLight, GPIO.LOW)
@@ -129,7 +132,8 @@ def resetEvents():
             'on':
             {
                 'when':u'1999-04-01 18:00',
-                 'temperature':-42
+                 'temperature':-42,
+                 'motion_delay_seconds':30
              },
              'off':{
                 'when':u'2017-04-01 18:00',
@@ -149,6 +153,8 @@ def resetEvents():
 def getSetTemp(eventsJsonFile):
     global isMotionDetected
     global machineState
+    global motionTimeOutSeconds
+    
     try:
         with open(eventsJsonFile) as json_data_file:
             data = json.load(json_data_file)
@@ -163,12 +169,13 @@ def getSetTemp(eventsJsonFile):
 #        offDate = time.strptime(str(e['off']['when']), "%Y-%m-%d %H:%M")
         setTempOn = float(e['on']['temperature'])
         setTempOff = float(e['off']['temperature'])
+        motionTimeOutSeconds = int(e['on']['motion_delay_seconds'])
         setTemp = setTempOff        
         targetOnTime = preHeatCheck(onDate, setTempOn)
         currentState = machineState.getCurrentState()
 
-        eventLogger.info("Set temp: {0}C\t on temp: {1}C\t On time: {2}\t Target Time: {3}".format(setTemp, setTempOn, onDate, targetOnTime))
-        eventLogger.info("Current machine state: {0}".format(currentState))
+        eventLogger.debug("on temp: {0}C\t On time: {1}\t Target Time: {2}".format(setTemp, setTempOn, onDate, targetOnTime))
+        eventLogger.debug("Current machine state: {0}".format(currentState))
         
         if currentState == 'Heating' and not isMotionDetected:
             resetEvents()
