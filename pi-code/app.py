@@ -1,10 +1,11 @@
 #!flask/bin/python
-from flask import Flask, jsonify, request, Response
+from flask import Flask, jsonify, request, Response, abort
 from functools import wraps
 import re
 import os
 import RPi.GPIO as GPIO
 import json
+import datetime
 from ThermalPrediction import PredictDeltaTemp
 
 from Config import *
@@ -131,14 +132,23 @@ def create_events():
 	if not request.json:
 	    abort(400)
 	events = request.json['events']
+	for event in events:
+		try:
+			onDate = datetime.datetime.strptime(str(event['on']['when']), "%Y-%m-%d %H:%M")
+			onTemp = float(event['on']['temperature'])
+			offTemp = float(event['off']['temperature'])
+			motionDelaySecs = int(event['on']['motion_delay_seconds'])			
+		except:
+			print('Data type problem with json message.')
+			abort(410)
 	with open(eventsFileName, 'w') as json_data_file:
             try:
                 json.dump(events, json_data_file, ensure_ascii=False)
             except:
                 abort(500)
 	json_data_file.close()
-	currentTimeStamp = events[0]['current_timestamp']
-	print("Setting date to: " + currentTimeStamp)
+#	currentTimeStamp = events[0]['current_timestamp']
+#	print("Setting date to: " + currentTimeStamp)
 #	os.system('sudo date --set=\'' + currentTimeStamp + '\'')
 	return jsonify({'events': events});
 
@@ -158,4 +168,5 @@ def get_motion():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', ssl_context=('cert.pem', 'key.pem'))
+#    app.run(host='0.0.0.0', port=443, ssl_context=('cert.pem', 'key.pem'))
+	app.run(host='0.0.0.0', port=5001)

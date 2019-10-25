@@ -60,7 +60,7 @@ Pin out:
 | 20           |          | PIR motion sensor GND |
 
 Pinout of Raspberry PI:
-![](https://www.raspberrypi.org/documentation/usage/gpio/images/gpio-numbers-pi2.png)
+<https://www.raspberrypi.org/documentation/usage/gpio/>
 
 PIR motion sensor fact and how-to sheet:
 <http://henrysbench.capnfatz.com/henrys-bench/arduino-sensors-and-input/arduino-hc-sr501-motion-sensor-tutorial/>
@@ -76,6 +76,13 @@ Basic article on controlling the relays:
 
 Quick & dirty how to get the temperature value:
 <http://raspberrywebserver.com/gpio/connecting-a-temperature-sensor-to-gpio.html>
+
+##Security setups:
+###Fail2ban:
+<https://pimylifeup.com/raspberry-pi-fail2ban/>
+
+###Port forwarding:
+<https://pimylifeup.com/raspberry-pi-port-forwarding/>
 
 The lower case 3D print in process:
 ![](http://moosewareinc.com//portfolio/images/3dprinted-parts/RaspberryPiControllerCase.jpeg)

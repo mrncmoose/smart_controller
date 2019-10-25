@@ -174,7 +174,6 @@ def getSetTemp(eventsJsonFile):
     now = datetime.datetime.now()
     for e in data:
         onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%d %H:%M")
-#        offDate = time.strptime(str(e['off']['when']), "%Y-%m-%d %H:%M")
         setTempOn = float(e['on']['temperature'])
         setTempOff = float(e['off']['temperature'])
         try:
