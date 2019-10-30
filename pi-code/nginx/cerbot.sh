@@ -8,4 +8,4 @@ sudo certbot register -m mrncmoose@gmail.com --agree-tos
 sudo certbot run -d trainingtstat.hopto.org --nginx -m mrncmoose@gmail.com --agree-tos --test-cert 
 
 # renew cert
-sudo certbot renew -d trainingtstat.hopto.org --nginx -m mrncmoose@gmail.com --agree-tos --test-cert --dry-run
+sudo certbot certonly -d trainingtstat.hopto.org --nginx -m mrncmoose@gmail.com --agree-tos --test-cert --dry-run

@@ -1,3 +1,5 @@
+sudo mkdir /var/www/html/.well-known
+sudo mkdir /var/www/html/.well-known/acme-challenge
 echo '---> Installing python requirements <--------'
 pip3 install -r requirements.txt
 echo '---> Installing GPIO library <----------'

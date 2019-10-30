@@ -10,8 +10,6 @@ Security is physical.  The steel sided building is basically a Faraday cage and 
 ## Version 2
 The unit is intended to be connected to the internet.  The API is exposed to the brunt of the internet, so it must be made very secure, including limiting access. 
 
-TODO:  have the unit get SSL certs from Let's Encrypt for fully accepted SSL certs automatically updated.
-
 To make the use as simple as possible, new features
 * A predictive thermal rise curve is used to calculate the time to temperature.  The unit turns on the amount of time predicted before the use date time.  No more guessing at when to turn the heat on to to pre-heat the building and no wasted fuel if building isn't used.
 * A motion sensor is used to detect if there is any motion in the building.  If there is no motion by the motio time out value, the unit turns off.

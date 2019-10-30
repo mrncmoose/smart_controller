@@ -1,3 +1,4 @@
+sudo systemctl stop nginx
 pid=$(<maineController.pid)
 kill $pid
 pid=$(<webApp.pid)
