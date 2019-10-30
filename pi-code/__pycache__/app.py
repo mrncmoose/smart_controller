@@ -1,11 +1,9 @@
 #!flask/bin/python
-from flask import Flask, jsonify, request, Response, abort
-from functools import wraps
+from flask import Flask, jsonify, request
 import re
 import os
 import RPi.GPIO as GPIO
 import json
-import datetime
 from ThermalPrediction import PredictDeltaTemp
 
 from Config import *
@@ -27,8 +25,7 @@ events = [
 		'on':
 		{
 			'when':u'2017-03-12 18:00',
- 			'temperature':20,
- 			'motion_delay_seconds':120
+ 			'temperature':20
  		},
  	    'off':{
 			'when':u'2017-03-12 18:00',
@@ -40,8 +37,7 @@ events = [
  		'on':
  		{
  			'when':u'2017-03-13 06:00',
- 			'temperature':21,
- 			'motion_timeout_seconds':120
+ 			'temperature':21
  		},
  	    'off':{
  			'when':u'2017-03-13 11:00',
@@ -50,33 +46,6 @@ events = [
         'current_timestamp':u'2017-03-27 14:41:00'
  	}
 ]
-def cToF(tempVal):
-    return tempVal * 1.8 +32
-
-def fToC(tempVal):    
-    return (tempVal - 32)/1.8
-
-def check_auth(username, password):
-    """This function is called to check if a username /
-    password combination is valid.
-    """
-    return username == 'admin' and password == 'secret'
-
-def authenticate():
-    """Sends a 401 response that enables basic auth"""
-    return Response(
-    'Could not verify your access level for that URL.\n'
-    'You have to login with proper credentials', 401,
-    {'WWW-Authenticate': 'Basic realm="Login Required"'})
-
-def requires_auth(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        auth = request.authorization
-        if not auth or not check_auth(auth.username, auth.password):
-            return authenticate()
-        return f(*args, **kwargs)
-    return decorated
 
 def getCurrentTemp(sensorPath):
     # append the device file name to get the absolute path of the sensor
@@ -100,18 +69,14 @@ def getCurrentTemp(sensorPath):
     return tempRetVal;
 
 @app.route('/thermal/api/v1.0/time_to_temp', methods=['GET'])
-@requires_auth
 def get_time_to_temp():
 	tCalc = PredictDeltaTemp.thermalCalculations
 	tempPath = TempSensorId
-	setTemp = events[0]['on']['temperature']
-	currentTemp = getCurrentTemp(tempPath)
-	dT =  setTemp - currentTemp
+	dT = events[0]['on']['temperature'] - getCurrentTemp(tempPath)
 	secondsToTemp = tCalc.secondsToTemp(dT)
-	return jsonify({'seconds_to_temp': secondsToTemp, 'temperature set point': setTemp, 'current temp': currentTemp})
+	return jsonify({'seconds_to_temp': 42})
 
 @app.route('/thermal/api/v1.0/events', methods=['GET'])
-@requires_auth
 def get_events():
 	with open(eventsFileName) as json_data_file:
             events = json.load(json_data_file)
@@ -119,7 +84,6 @@ def get_events():
 	return jsonify({'events': events})
 
 @app.route('/thermal/api/v1.0/current_temp', methods=['GET'])
-@requires_auth
 def get_current_temp():
 #    current_temp = getCurrentTemp('/sys/bus/w1/devices/28-04167527baff')
 	tempPath = TempSensorId
@@ -127,46 +91,33 @@ def get_current_temp():
 	return jsonify({'current_temp': current_temp})
 
 @app.route('/thermal/api/v1.0/events', methods=['POST'])
-@requires_auth
 def create_events():
 	if not request.json:
 	    abort(400)
 	events = request.json['events']
-	for event in events:
-		try:
-			onDate = datetime.datetime.strptime(str(event['on']['when']), "%Y-%m-%d %H:%M")
-			onTemp = float(event['on']['temperature'])
-			offTemp = float(event['off']['temperature'])
-			motionDelaySecs = int(event['on']['motion_delay_seconds'])			
-		except:
-			print('Data type problem with json message.')
-			abort(410)
 	with open(eventsFileName, 'w') as json_data_file:
             try:
                 json.dump(events, json_data_file, ensure_ascii=False)
             except:
                 abort(500)
 	json_data_file.close()
-#	currentTimeStamp = events[0]['current_timestamp']
-#	print("Setting date to: " + currentTimeStamp)
-#	os.system('sudo date --set=\'' + currentTimeStamp + '\'')
+	currentTimeStamp = events[0]['current_timestamp']
+	print("Setting date to: " + currentTimeStamp)
+	os.system('sudo date --set=\'' + currentTimeStamp + '\'')
 	return jsonify({'events': events});
 
 @app.route('/thermal/api/v1.0/isFurnaceOn', methods=['GET'])
-@requires_auth
-def get_furnance_on():
-	if GPIO.input(relay1) == 1:
+def get_furnance_status():
+	furnanceOn =  GPIO.input(relay1)
+	if furnanceOn == 1:
 		return jsonify({'isFurnanceOn': 'False'})
 	return jsonify({'isFurnanceOn': 'True'})
 
-@app.route('/thermal/api/v1.0/isMotion', methods=['GET'])
-@requires_auth
-def get_motion():
+@app.route('/thermal/api/v1.0/isMotionDetected', methods=['GET'])
+def get_motion_status():
 	if GPIO.input(motionSensorInPin) == 1:
-		return jsonify({'isMotion': 'False'})
-	return jsonify({'isMotion': 'True'})
-
+		return jsonify({'isMotionDetected': 'False'})
+	return jsonify({'isMotionDetected': 'True'})
 
 if __name__ == '__main__':
-#    app.run(host='0.0.0.0', port=443, ssl_context=('cert.pem', 'key.pem'))
-	app.run(host='0.0.0.0', port=5001)
+    app.run(debug=True, host='0.0.0.0')
