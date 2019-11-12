@@ -2,26 +2,32 @@
 
 The goal of this project is to provide a simple to use thermal controller for an infrared heating unit that can turn on/off at a specific, non-repeating date and time.  
 
+The building is infrequently used and there is no set schedule.  Therefore the device need only turn the heat on at a specific time and turn it off the rest of the time.  There is no repeat or low heat to keep from freezing requirement.  
+
+Your circumstances may be different. If so, fork the code and add your needs.
+
 ## Version 1 
 The physical location does not have internet access, so the unit must provide 100% of it’s own network connectivity. This is not difficult:  just configure the Raspberry PI to be a stand alone wireless access point and give it a static IP address. 
 
 Security is physical.  The steel sided building is basically a Faraday cage and there is no internet access inside. Therefore there is no requirement for authentication or encryption. Adding them would be a form of scope creep.  I'm not saying security isn't important: the device is physically secured.  Your location and circumstances may have different requirements and the Flask web application should be modified to include the correct level of security as needed, unless you want just want to ignore the lessons from Home Depot's break in through a HVAC system. 
 
 ## Version 2
-The unit is intended to be connected to the internet.  The API is exposed to the brunt of the internet, so it must be made very secure, including limiting access. 
+The unit is intended to be connected to the internet.  The API is hidden behind a reverse proxy.  An industrial hardened reverse proxy is added such that the API is not directly exposed to the internet.
 
-To make the use as simple as possible, new features
+## Version 3
+Add RabbitMQ for offline and scalability
+Add Dynamic regression analysis for thermal rise calcs.
+
+To make things as simple as possible, new features
 * A predictive thermal rise curve is used to calculate the time to temperature.  The unit turns on the amount of time predicted before the use date time.  No more guessing at when to turn the heat on to to pre-heat the building and no wasted fuel if building isn't used.
-* A motion sensor is used to detect if there is any motion in the building.  If there is no motion by the motio time out value, the unit turns off.
-
-Given the building is infrequently used, there is no set schedule.  Therefore the device need only turn the heat on at a specific time and turn it off the rest of the time.  Therefore there is no repeat requirement.  Your circumstances may be different. If so, fork the code and add your needs.
+* A motion sensor is used to detect if there is any motion in the building.  If there is no motion by the motion time out value, the unit turns off.
 
 The same idea could be used for controlling air conditioning.  However, the relays used are not capable of handling the load of an AC unit.  An additional relay and some AC wiring would be required.
 
 The case is 3D printed with ABS.  One of the advantages of printing in ABS is the parts may be bonded with acetone.  I did just this for the lower half of the case.  The top cover is held on by 4) #6-32 x 3/8 screws.  The middle spacer has threads molded/printed in for this.
 
 Parts list:
-1. Raspberry PI model B
+1. Raspberry PI model B or Zero W with Raspbian Buster
 1. DS18B20 temperature sensor (others may be substituted). This project used SunFounder’s PC board to eliminate the need for a breadboard or other circuit board to hold the DS18B20.
 1. Jbtek 4 Channel DC 5V Relay module.  Make sure these are contact style.
 1. HC-SR501 PIR MOTION DETECTOR
