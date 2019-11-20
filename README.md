@@ -14,13 +14,15 @@ Security is physical.  The steel sided building is basically a Faraday cage and 
 ## Version 2
 The unit is intended to be connected to the internet.  The API is hidden behind a reverse proxy.  An industrial hardened reverse proxy is added such that the API is not directly exposed to the internet.
 
-## Version 3
-Add RabbitMQ for offline and scalability
-Add Dynamic regression analysis for thermal rise calcs.
-
 To make things as simple as possible, new features
 * A predictive thermal rise curve is used to calculate the time to temperature.  The unit turns on the amount of time predicted before the use date time.  No more guessing at when to turn the heat on to to pre-heat the building and no wasted fuel if building isn't used.
 * A motion sensor is used to detect if there is any motion in the building.  If there is no motion by the motion time out value, the unit turns off.
+
+
+## Version 3
+* Add RabbitMQ for offline and scalability
+* Add Dynamic regression analysis for thermal rise calcs.
+
 
 The same idea could be used for controlling air conditioning.  However, the relays used are not capable of handling the load of an AC unit.  An additional relay and some AC wiring would be required.
 

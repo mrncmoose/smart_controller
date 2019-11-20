@@ -145,12 +145,12 @@ class ViewController: UIViewController {
             .responseJSON { response in
                 if response.result.isFailure {
                     let err = response.result.error
-                    let alert = UIAlertController(title: "Error", message: "Error attempting to save thermal events: " + (err?.localizedDescription)!, preferredStyle: UIAlertControllerStyle.alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                    let alert = UIAlertController(title: "Error", message: "Error attempting to save thermal events: " + (err?.localizedDescription)!, preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                 } else {
-                    let alert = UIAlertController(title: "Set Event", message: "Successfully saved thermal event", preferredStyle: UIAlertControllerStyle.alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                    let alert = UIAlertController(title: "Set Event", message: "Successfully saved thermal event", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                 }
         }
@@ -160,7 +160,7 @@ class ViewController: UIViewController {
         self.timer = Timer.scheduledTimer(timeInterval: timerVal, target: self, selector: #selector(self.updateCountdown), userInfo: nil, repeats: true)
     }
 
-    func updateCountdown() {
+    @objc func updateCountdown() {
         loadCurrentTemp()
     }
 }
