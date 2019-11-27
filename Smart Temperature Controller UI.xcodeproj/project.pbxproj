@@ -1,0 +1,812 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9689911B7BC13A0B75E894EE /* Pods_Smart_Temperature_Controller_UI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABCEE494B3C4BF43612DF1C6 /* Pods_Smart_Temperature_Controller_UI.framework */; };
+		BC1571002384A85D00719F66 /* controllerSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC1570FF2384A85D00719F66 /* controllerSettings.plist */; };
+		BC5B8717237DE558002D3916 /* Icon-App-76x76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5B8707237DE557002D3916 /* Icon-App-76x76@2x.png */; };
+		BC5B8718237DE558002D3916 /* Icon-App-29x29@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5B8708237DE557002D3916 /* Icon-App-29x29@1x.png */; };
+		BC5B8719237DE558002D3916 /* Icon-App-40x40@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5B8709237DE557002D3916 /* Icon-App-40x40@1x.png */; };
+		BC5B871A237DE558002D3916 /* Icon-App-20x20@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5B870A237DE557002D3916 /* Icon-App-20x20@1x.png */; };
+		BC5B871B237DE558002D3916 /* Icon-App-83.5x83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5B870B237DE557002D3916 /* Icon-App-83.5x83.5@2x.png */; };
+		BC5B871C237DE558002D3916 /* Icon-App-20x20@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5B870C237DE557002D3916 /* Icon-App-20x20@3x.png */; };
+		BC5B871D237DE558002D3916 /* ItunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5B870D237DE557002D3916 /* ItunesArtwork@2x.png */; };
+		BC5B871E237DE558002D3916 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = BC5B870E237DE557002D3916 /* Contents.json */; };
+		BC5B871F237DE558002D3916 /* Icon-App-20x20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5B870F237DE557002D3916 /* Icon-App-20x20@2x.png */; };
+		BC5B8720237DE558002D3916 /* Icon-App-29x29@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5B8710237DE557002D3916 /* Icon-App-29x29@3x.png */; };
+		BC5B8721237DE558002D3916 /* Icon-App-40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5B8711237DE557002D3916 /* Icon-App-40x40@2x.png */; };
+		BC5B8722237DE558002D3916 /* Icon-App-60x60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5B8712237DE557002D3916 /* Icon-App-60x60@3x.png */; };
+		BC5B8723237DE558002D3916 /* Icon-App-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5B8713237DE557002D3916 /* Icon-App-60x60@2x.png */; };
+		BC5B8724237DE558002D3916 /* Icon-App-76x76@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5B8714237DE557002D3916 /* Icon-App-76x76@1x.png */; };
+		BC5B8725237DE558002D3916 /* Icon-App-40x40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5B8715237DE558002D3916 /* Icon-App-40x40@3x.png */; };
+		BC5B8726237DE558002D3916 /* Icon-App-29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC5B8716237DE558002D3916 /* Icon-App-29x29@2x.png */; };
+		BCA596A92365EC5C008F34C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA596A82365EC5C008F34C4 /* AppDelegate.swift */; };
+		BCA596AB2365EC5C008F34C4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA596AA2365EC5C008F34C4 /* ViewController.swift */; };
+		BCA596AE2365EC5C008F34C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCA596AC2365EC5C008F34C4 /* Main.storyboard */; };
+		BCA596B02365EC5D008F34C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCA596AF2365EC5D008F34C4 /* Assets.xcassets */; };
+		BCA596B32365EC5D008F34C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCA596B12365EC5D008F34C4 /* LaunchScreen.storyboard */; };
+		BCA596BE2365EC5D008F34C4 /* Smart_Temperature_Controller_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA596BD2365EC5D008F34C4 /* Smart_Temperature_Controller_UITests.swift */; };
+		BCA596C92365EC5D008F34C4 /* Smart_Temperature_Controller_UIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA596C82365EC5D008F34C4 /* Smart_Temperature_Controller_UIUITests.swift */; };
+		D8466BCA6E87C0778EF275FC /* Pods_Smart_Temperature_Controller_UIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4C1A8289F335DFF1D63C9C7 /* Pods_Smart_Temperature_Controller_UIUITests.framework */; };
+		F76B97AFAD749FEC1D9D22C4 /* Pods_Smart_Temperature_Controller_UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D09BD827C3C1D744E972C3C5 /* Pods_Smart_Temperature_Controller_UITests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BCA596BA2365EC5D008F34C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BCA5969D2365EC5C008F34C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BCA596A42365EC5C008F34C4;
+			remoteInfo = "Smart Temperature Controller UI";
+		};
+		BCA596C52365EC5D008F34C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BCA5969D2365EC5C008F34C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BCA596A42365EC5C008F34C4;
+			remoteInfo = "Smart Temperature Controller UI";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		207E1348F99B5E1435A04238 /* Pods-Smart Temperature Controller UI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Smart Temperature Controller UI.release.xcconfig"; path = "Target Support Files/Pods-Smart Temperature Controller UI/Pods-Smart Temperature Controller UI.release.xcconfig"; sourceTree = "<group>"; };
+		49141DF8D22D439E0584A1F1 /* Pods-Smart Temperature Controller UI-Smart Temperature Controller UIUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Smart Temperature Controller UI-Smart Temperature Controller UIUITests.debug.xcconfig"; path = "Target Support Files/Pods-Smart Temperature Controller UI-Smart Temperature Controller UIUITests/Pods-Smart Temperature Controller UI-Smart Temperature Controller UIUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		702A6436D6760D8142729CA4 /* Pods-Smart Temperature Controller UI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Smart Temperature Controller UI.debug.xcconfig"; path = "Target Support Files/Pods-Smart Temperature Controller UI/Pods-Smart Temperature Controller UI.debug.xcconfig"; sourceTree = "<group>"; };
+		785588379B74B623C438F02C /* Pods-Smart Temperature Controller UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Smart Temperature Controller UITests.debug.xcconfig"; path = "Target Support Files/Pods-Smart Temperature Controller UITests/Pods-Smart Temperature Controller UITests.debug.xcconfig"; sourceTree = "<group>"; };
+		ABCEE494B3C4BF43612DF1C6 /* Pods_Smart_Temperature_Controller_UI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Smart_Temperature_Controller_UI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE6001A7B2F6A1CC794A7958 /* Pods-Smart Temperature Controller UIUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Smart Temperature Controller UIUITests.release.xcconfig"; path = "Target Support Files/Pods-Smart Temperature Controller UIUITests/Pods-Smart Temperature Controller UIUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B28799A9D2EB2A756FE07C88 /* Pods-Smart Temperature Controller UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Smart Temperature Controller UITests.release.xcconfig"; path = "Target Support Files/Pods-Smart Temperature Controller UITests/Pods-Smart Temperature Controller UITests.release.xcconfig"; sourceTree = "<group>"; };
+		B2C44D72652D2D977F9767C2 /* Pods-Smart Temperature Controller UI-Smart Temperature Controller UIUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Smart Temperature Controller UI-Smart Temperature Controller UIUITests.release.xcconfig"; path = "Target Support Files/Pods-Smart Temperature Controller UI-Smart Temperature Controller UIUITests/Pods-Smart Temperature Controller UI-Smart Temperature Controller UIUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B4C1A8289F335DFF1D63C9C7 /* Pods_Smart_Temperature_Controller_UIUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Smart_Temperature_Controller_UIUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC1570FF2384A85D00719F66 /* controllerSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = controllerSettings.plist; sourceTree = "<group>"; };
+		BC5B8707237DE557002D3916 /* Icon-App-76x76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-76x76@2x.png"; sourceTree = "<group>"; };
+		BC5B8708237DE557002D3916 /* Icon-App-29x29@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-29x29@1x.png"; sourceTree = "<group>"; };
+		BC5B8709237DE557002D3916 /* Icon-App-40x40@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-40x40@1x.png"; sourceTree = "<group>"; };
+		BC5B870A237DE557002D3916 /* Icon-App-20x20@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-20x20@1x.png"; sourceTree = "<group>"; };
+		BC5B870B237DE557002D3916 /* Icon-App-83.5x83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-83.5x83.5@2x.png"; sourceTree = "<group>"; };
+		BC5B870C237DE557002D3916 /* Icon-App-20x20@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-20x20@3x.png"; sourceTree = "<group>"; };
+		BC5B870D237DE557002D3916 /* ItunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ItunesArtwork@2x.png"; sourceTree = "<group>"; };
+		BC5B870E237DE557002D3916 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
+		BC5B870F237DE557002D3916 /* Icon-App-20x20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-20x20@2x.png"; sourceTree = "<group>"; };
+		BC5B8710237DE557002D3916 /* Icon-App-29x29@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-29x29@3x.png"; sourceTree = "<group>"; };
+		BC5B8711237DE557002D3916 /* Icon-App-40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-40x40@2x.png"; sourceTree = "<group>"; };
+		BC5B8712237DE557002D3916 /* Icon-App-60x60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-60x60@3x.png"; sourceTree = "<group>"; };
+		BC5B8713237DE557002D3916 /* Icon-App-60x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-60x60@2x.png"; sourceTree = "<group>"; };
+		BC5B8714237DE557002D3916 /* Icon-App-76x76@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-76x76@1x.png"; sourceTree = "<group>"; };
+		BC5B8715237DE558002D3916 /* Icon-App-40x40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-40x40@3x.png"; sourceTree = "<group>"; };
+		BC5B8716237DE558002D3916 /* Icon-App-29x29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-29x29@2x.png"; sourceTree = "<group>"; };
+		BCA596A52365EC5C008F34C4 /* Smart Temperature Controller UI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smart Temperature Controller UI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCA596A82365EC5C008F34C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BCA596AA2365EC5C008F34C4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BCA596AD2365EC5C008F34C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BCA596AF2365EC5D008F34C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BCA596B22365EC5D008F34C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BCA596B42365EC5D008F34C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCA596B92365EC5D008F34C4 /* Smart Temperature Controller UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Smart Temperature Controller UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCA596BD2365EC5D008F34C4 /* Smart_Temperature_Controller_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Smart_Temperature_Controller_UITests.swift; sourceTree = "<group>"; };
+		BCA596BF2365EC5D008F34C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCA596C42365EC5D008F34C4 /* Smart Temperature Controller UIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Smart Temperature Controller UIUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCA596C82365EC5D008F34C4 /* Smart_Temperature_Controller_UIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Smart_Temperature_Controller_UIUITests.swift; sourceTree = "<group>"; };
+		BCA596CA2365EC5D008F34C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D09BD827C3C1D744E972C3C5 /* Pods_Smart_Temperature_Controller_UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Smart_Temperature_Controller_UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E29B0348728578691A533D4D /* Pods-Smart Temperature Controller UIUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Smart Temperature Controller UIUITests.debug.xcconfig"; path = "Target Support Files/Pods-Smart Temperature Controller UIUITests/Pods-Smart Temperature Controller UIUITests.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BCA596A22365EC5C008F34C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9689911B7BC13A0B75E894EE /* Pods_Smart_Temperature_Controller_UI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BCA596B62365EC5D008F34C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F76B97AFAD749FEC1D9D22C4 /* Pods_Smart_Temperature_Controller_UITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BCA596C12365EC5D008F34C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D8466BCA6E87C0778EF275FC /* Pods_Smart_Temperature_Controller_UIUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AFDE822FD2745E96198C88CC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				702A6436D6760D8142729CA4 /* Pods-Smart Temperature Controller UI.debug.xcconfig */,
+				207E1348F99B5E1435A04238 /* Pods-Smart Temperature Controller UI.release.xcconfig */,
+				49141DF8D22D439E0584A1F1 /* Pods-Smart Temperature Controller UI-Smart Temperature Controller UIUITests.debug.xcconfig */,
+				B2C44D72652D2D977F9767C2 /* Pods-Smart Temperature Controller UI-Smart Temperature Controller UIUITests.release.xcconfig */,
+				785588379B74B623C438F02C /* Pods-Smart Temperature Controller UITests.debug.xcconfig */,
+				B28799A9D2EB2A756FE07C88 /* Pods-Smart Temperature Controller UITests.release.xcconfig */,
+				E29B0348728578691A533D4D /* Pods-Smart Temperature Controller UIUITests.debug.xcconfig */,
+				AE6001A7B2F6A1CC794A7958 /* Pods-Smart Temperature Controller UIUITests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		B513D5EB4B6073E75B2CD6BA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ABCEE494B3C4BF43612DF1C6 /* Pods_Smart_Temperature_Controller_UI.framework */,
+				D09BD827C3C1D744E972C3C5 /* Pods_Smart_Temperature_Controller_UITests.framework */,
+				B4C1A8289F335DFF1D63C9C7 /* Pods_Smart_Temperature_Controller_UIUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BC5B8706237DE557002D3916 /* AppIcon.appiconset */ = {
+			isa = PBXGroup;
+			children = (
+				BC5B8707237DE557002D3916 /* Icon-App-76x76@2x.png */,
+				BC5B8708237DE557002D3916 /* Icon-App-29x29@1x.png */,
+				BC5B8709237DE557002D3916 /* Icon-App-40x40@1x.png */,
+				BC5B870A237DE557002D3916 /* Icon-App-20x20@1x.png */,
+				BC5B870B237DE557002D3916 /* Icon-App-83.5x83.5@2x.png */,
+				BC5B870C237DE557002D3916 /* Icon-App-20x20@3x.png */,
+				BC5B870D237DE557002D3916 /* ItunesArtwork@2x.png */,
+				BC5B870E237DE557002D3916 /* Contents.json */,
+				BC5B870F237DE557002D3916 /* Icon-App-20x20@2x.png */,
+				BC5B8710237DE557002D3916 /* Icon-App-29x29@3x.png */,
+				BC5B8711237DE557002D3916 /* Icon-App-40x40@2x.png */,
+				BC5B8712237DE557002D3916 /* Icon-App-60x60@3x.png */,
+				BC5B8713237DE557002D3916 /* Icon-App-60x60@2x.png */,
+				BC5B8714237DE557002D3916 /* Icon-App-76x76@1x.png */,
+				BC5B8715237DE558002D3916 /* Icon-App-40x40@3x.png */,
+				BC5B8716237DE558002D3916 /* Icon-App-29x29@2x.png */,
+			);
+			name = AppIcon.appiconset;
+			path = "icons/smart-t-stat-icon/ios/AppIcon.appiconset";
+			sourceTree = SOURCE_ROOT;
+		};
+		BCA5969C2365EC5C008F34C4 = {
+			isa = PBXGroup;
+			children = (
+				BCA596A72365EC5C008F34C4 /* Smart Temperature Controller UI */,
+				BCA596BC2365EC5D008F34C4 /* Smart Temperature Controller UITests */,
+				BCA596C72365EC5D008F34C4 /* Smart Temperature Controller UIUITests */,
+				BCA596A62365EC5C008F34C4 /* Products */,
+				AFDE822FD2745E96198C88CC /* Pods */,
+				B513D5EB4B6073E75B2CD6BA /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		BCA596A62365EC5C008F34C4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BCA596A52365EC5C008F34C4 /* Smart Temperature Controller UI.app */,
+				BCA596B92365EC5D008F34C4 /* Smart Temperature Controller UITests.xctest */,
+				BCA596C42365EC5D008F34C4 /* Smart Temperature Controller UIUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BCA596A72365EC5C008F34C4 /* Smart Temperature Controller UI */ = {
+			isa = PBXGroup;
+			children = (
+				BCA596A82365EC5C008F34C4 /* AppDelegate.swift */,
+				BCA596AA2365EC5C008F34C4 /* ViewController.swift */,
+				BCA596AC2365EC5C008F34C4 /* Main.storyboard */,
+				BCA596AF2365EC5D008F34C4 /* Assets.xcassets */,
+				BCA596B12365EC5D008F34C4 /* LaunchScreen.storyboard */,
+				BCA596B42365EC5D008F34C4 /* Info.plist */,
+				BC5B8706237DE557002D3916 /* AppIcon.appiconset */,
+				BC1570FF2384A85D00719F66 /* controllerSettings.plist */,
+			);
+			path = "Smart Temperature Controller UI";
+			sourceTree = "<group>";
+		};
+		BCA596BC2365EC5D008F34C4 /* Smart Temperature Controller UITests */ = {
+			isa = PBXGroup;
+			children = (
+				BCA596BD2365EC5D008F34C4 /* Smart_Temperature_Controller_UITests.swift */,
+				BCA596BF2365EC5D008F34C4 /* Info.plist */,
+			);
+			path = "Smart Temperature Controller UITests";
+			sourceTree = "<group>";
+		};
+		BCA596C72365EC5D008F34C4 /* Smart Temperature Controller UIUITests */ = {
+			isa = PBXGroup;
+			children = (
+				BCA596C82365EC5D008F34C4 /* Smart_Temperature_Controller_UIUITests.swift */,
+				BCA596CA2365EC5D008F34C4 /* Info.plist */,
+			);
+			path = "Smart Temperature Controller UIUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BCA596A42365EC5C008F34C4 /* Smart Temperature Controller UI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BCA596CD2365EC5D008F34C4 /* Build configuration list for PBXNativeTarget "Smart Temperature Controller UI" */;
+			buildPhases = (
+				49BFCCDD5BAA2EBA33491F70 /* [CP] Check Pods Manifest.lock */,
+				BCA596A12365EC5C008F34C4 /* Sources */,
+				BCA596A22365EC5C008F34C4 /* Frameworks */,
+				BCA596A32365EC5C008F34C4 /* Resources */,
+				119035CA54E907AD099C9C15 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Smart Temperature Controller UI";
+			productName = "Smart Temperature Controller UI";
+			productReference = BCA596A52365EC5C008F34C4 /* Smart Temperature Controller UI.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BCA596B82365EC5D008F34C4 /* Smart Temperature Controller UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BCA596D02365EC5D008F34C4 /* Build configuration list for PBXNativeTarget "Smart Temperature Controller UITests" */;
+			buildPhases = (
+				843E292C6E29EA3D68EBF83D /* [CP] Check Pods Manifest.lock */,
+				BCA596B52365EC5D008F34C4 /* Sources */,
+				BCA596B62365EC5D008F34C4 /* Frameworks */,
+				BCA596B72365EC5D008F34C4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BCA596BB2365EC5D008F34C4 /* PBXTargetDependency */,
+			);
+			name = "Smart Temperature Controller UITests";
+			productName = "Smart Temperature Controller UITests";
+			productReference = BCA596B92365EC5D008F34C4 /* Smart Temperature Controller UITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BCA596C32365EC5D008F34C4 /* Smart Temperature Controller UIUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BCA596D32365EC5D008F34C4 /* Build configuration list for PBXNativeTarget "Smart Temperature Controller UIUITests" */;
+			buildPhases = (
+				7135A5B9062FF841435C374E /* [CP] Check Pods Manifest.lock */,
+				BCA596C02365EC5D008F34C4 /* Sources */,
+				BCA596C12365EC5D008F34C4 /* Frameworks */,
+				BCA596C22365EC5D008F34C4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BCA596C62365EC5D008F34C4 /* PBXTargetDependency */,
+			);
+			name = "Smart Temperature Controller UIUITests";
+			productName = "Smart Temperature Controller UIUITests";
+			productReference = BCA596C42365EC5D008F34C4 /* Smart Temperature Controller UIUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BCA5969D2365EC5C008F34C4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = "Fred Dunaway";
+				TargetAttributes = {
+					BCA596A42365EC5C008F34C4 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+					BCA596B82365EC5D008F34C4 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = BCA596A42365EC5C008F34C4;
+					};
+					BCA596C32365EC5D008F34C4 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = BCA596A42365EC5C008F34C4;
+					};
+				};
+			};
+			buildConfigurationList = BCA596A02365EC5C008F34C4 /* Build configuration list for PBXProject "Smart Temperature Controller UI" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BCA5969C2365EC5C008F34C4;
+			productRefGroup = BCA596A62365EC5C008F34C4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BCA596A42365EC5C008F34C4 /* Smart Temperature Controller UI */,
+				BCA596B82365EC5D008F34C4 /* Smart Temperature Controller UITests */,
+				BCA596C32365EC5D008F34C4 /* Smart Temperature Controller UIUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BCA596A32365EC5C008F34C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC5B871A237DE558002D3916 /* Icon-App-20x20@1x.png in Resources */,
+				BC5B8718237DE558002D3916 /* Icon-App-29x29@1x.png in Resources */,
+				BC5B8726237DE558002D3916 /* Icon-App-29x29@2x.png in Resources */,
+				BC1571002384A85D00719F66 /* controllerSettings.plist in Resources */,
+				BC5B871F237DE558002D3916 /* Icon-App-20x20@2x.png in Resources */,
+				BC5B8717237DE558002D3916 /* Icon-App-76x76@2x.png in Resources */,
+				BCA596B32365EC5D008F34C4 /* LaunchScreen.storyboard in Resources */,
+				BC5B8719237DE558002D3916 /* Icon-App-40x40@1x.png in Resources */,
+				BC5B8722237DE558002D3916 /* Icon-App-60x60@3x.png in Resources */,
+				BC5B8724237DE558002D3916 /* Icon-App-76x76@1x.png in Resources */,
+				BC5B871C237DE558002D3916 /* Icon-App-20x20@3x.png in Resources */,
+				BCA596B02365EC5D008F34C4 /* Assets.xcassets in Resources */,
+				BC5B871B237DE558002D3916 /* Icon-App-83.5x83.5@2x.png in Resources */,
+				BC5B8723237DE558002D3916 /* Icon-App-60x60@2x.png in Resources */,
+				BCA596AE2365EC5C008F34C4 /* Main.storyboard in Resources */,
+				BC5B8721237DE558002D3916 /* Icon-App-40x40@2x.png in Resources */,
+				BC5B871E237DE558002D3916 /* Contents.json in Resources */,
+				BC5B8725237DE558002D3916 /* Icon-App-40x40@3x.png in Resources */,
+				BC5B871D237DE558002D3916 /* ItunesArtwork@2x.png in Resources */,
+				BC5B8720237DE558002D3916 /* Icon-App-29x29@3x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BCA596B72365EC5D008F34C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BCA596C22365EC5D008F34C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		119035CA54E907AD099C9C15 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Smart Temperature Controller UI/Pods-Smart Temperature Controller UI-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Smart Temperature Controller UI/Pods-Smart Temperature Controller UI-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Smart Temperature Controller UI/Pods-Smart Temperature Controller UI-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		49BFCCDD5BAA2EBA33491F70 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Smart Temperature Controller UI-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7135A5B9062FF841435C374E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Smart Temperature Controller UIUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		843E292C6E29EA3D68EBF83D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Smart Temperature Controller UITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BCA596A12365EC5C008F34C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCA596AB2365EC5C008F34C4 /* ViewController.swift in Sources */,
+				BCA596A92365EC5C008F34C4 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BCA596B52365EC5D008F34C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCA596BE2365EC5D008F34C4 /* Smart_Temperature_Controller_UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BCA596C02365EC5D008F34C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCA596C92365EC5D008F34C4 /* Smart_Temperature_Controller_UIUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BCA596BB2365EC5D008F34C4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BCA596A42365EC5C008F34C4 /* Smart Temperature Controller UI */;
+			targetProxy = BCA596BA2365EC5D008F34C4 /* PBXContainerItemProxy */;
+		};
+		BCA596C62365EC5D008F34C4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BCA596A42365EC5C008F34C4 /* Smart Temperature Controller UI */;
+			targetProxy = BCA596C52365EC5D008F34C4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BCA596AC2365EC5C008F34C4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BCA596AD2365EC5C008F34C4 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BCA596B12365EC5D008F34C4 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BCA596B22365EC5D008F34C4 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BCA596CB2365EC5D008F34C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BCA596CC2365EC5D008F34C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BCA596CE2365EC5D008F34C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 702A6436D6760D8142729CA4 /* Pods-Smart Temperature Controller UI.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UQ84785W8P;
+				INFOPLIST_FILE = "Smart Temperature Controller UI/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "MooseWareINK.Smart-Temperature-Controller-UI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BCA596CF2365EC5D008F34C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 207E1348F99B5E1435A04238 /* Pods-Smart Temperature Controller UI.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UQ84785W8P;
+				INFOPLIST_FILE = "Smart Temperature Controller UI/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "MooseWareINK.Smart-Temperature-Controller-UI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BCA596D12365EC5D008F34C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 785588379B74B623C438F02C /* Pods-Smart Temperature Controller UITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UQ84785W8P;
+				INFOPLIST_FILE = "Smart Temperature Controller UITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "moosewareinc.Smart-Temperature-Controller-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Smart Temperature Controller UI.app/Smart Temperature Controller UI";
+			};
+			name = Debug;
+		};
+		BCA596D22365EC5D008F34C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B28799A9D2EB2A756FE07C88 /* Pods-Smart Temperature Controller UITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UQ84785W8P;
+				INFOPLIST_FILE = "Smart Temperature Controller UITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "moosewareinc.Smart-Temperature-Controller-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Smart Temperature Controller UI.app/Smart Temperature Controller UI";
+			};
+			name = Release;
+		};
+		BCA596D42365EC5D008F34C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E29B0348728578691A533D4D /* Pods-Smart Temperature Controller UIUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UQ84785W8P;
+				INFOPLIST_FILE = "Smart Temperature Controller UIUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "moosewareinc.Smart-Temperature-Controller-UIUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Smart Temperature Controller UI";
+			};
+			name = Debug;
+		};
+		BCA596D52365EC5D008F34C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AE6001A7B2F6A1CC794A7958 /* Pods-Smart Temperature Controller UIUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UQ84785W8P;
+				INFOPLIST_FILE = "Smart Temperature Controller UIUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "moosewareinc.Smart-Temperature-Controller-UIUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Smart Temperature Controller UI";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BCA596A02365EC5C008F34C4 /* Build configuration list for PBXProject "Smart Temperature Controller UI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCA596CB2365EC5D008F34C4 /* Debug */,
+				BCA596CC2365EC5D008F34C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BCA596CD2365EC5D008F34C4 /* Build configuration list for PBXNativeTarget "Smart Temperature Controller UI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCA596CE2365EC5D008F34C4 /* Debug */,
+				BCA596CF2365EC5D008F34C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BCA596D02365EC5D008F34C4 /* Build configuration list for PBXNativeTarget "Smart Temperature Controller UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCA596D12365EC5D008F34C4 /* Debug */,
+				BCA596D22365EC5D008F34C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BCA596D32365EC5D008F34C4 /* Build configuration list for PBXNativeTarget "Smart Temperature Controller UIUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCA596D42365EC5D008F34C4 /* Debug */,
+				BCA596D52365EC5D008F34C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BCA5969D2365EC5C008F34C4 /* Project object */;
+}
