@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Smart Temperature Controller UI.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>bitcode</key>
+			<true/>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>949C2F63A58D6CFB116336A6D5D67040FC8060D2</string>
+				<key>dateExpires</key>
+				<string>11/6/20</string>
+				<key>type</key>
+				<string>Apple Distribution</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>bitcode</key>
+					<true/>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>949C2F63A58D6CFB116336A6D5D67040FC8060D2</string>
+						<key>dateExpires</key>
+						<string>11/6/20</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>Alamofire.framework</string>
+					<key>symbols</key>
+					<true/>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>UQ84785W8P</string>
+						<key>name</key>
+						<string>Fred Dunaway</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>bitcode</key>
+					<true/>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>949C2F63A58D6CFB116336A6D5D67040FC8060D2</string>
+						<key>dateExpires</key>
+						<string>11/6/20</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>SwiftyJSON.framework</string>
+					<key>symbols</key>
+					<true/>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>UQ84785W8P</string>
+						<key>name</key>
+						<string>Fred Dunaway</string>
+					</dict>
+				</dict>
+			</array>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>UQ84785W8P.MooseWareINK.Smart-Temperature-Controller-UI</string>
+				<key>beta-reports-active</key>
+				<true/>
+				<key>com.apple.developer.team-identifier</key>
+				<string>UQ84785W8P</string>
+				<key>get-task-allow</key>
+				<false/>
+				<key>keychain-access-groups</key>
+				<array>
+					<string>UQ84785W8P.MooseWareINK.Smart-Temperature-Controller-UI</string>
+				</array>
+			</dict>
+			<key>name</key>
+			<string>Smart Temperature Controller UI.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>1c89107f-afd4-4e0b-b75d-7d758d5aaf72</string>
+				<key>name</key>
+				<string>iOS Team Store Provisioning Profile: *</string>
+			</dict>
+			<key>symbols</key>
+			<true/>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>UQ84785W8P</string>
+				<key>name</key>
+				<string>Fred Dunaway</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

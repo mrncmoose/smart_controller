@@ -1,0 +1,317 @@
+2019-11-14 23:18:57 +0000  Initial pipeline context: <IDEDistributionProcessingPipelineContext: 0x7f8b041abf80; archive(resolved)='<IDEArchive: 0x7f8b013704b0>', distributionTask(resolved)='2', distributionDestination(resolved)='1', distributionMethod(resolved)='<IDEDistributionMethodiOSAppStoreDistribution: 0x7f8b03d7eab0>', team(resolved)='<IDEProvisioningDisambiguatableBasicTeam: 0x7f8b02f465c0; teamID='UQ84785W8P', teamName='Fred Dunaway', teamType='Individual', username='fred@moosewareinc.com', isFreeProvisioningTeam='0'>'>
+	Chain (12, self inclusive):
+	<IDEDistributionProcessingPipelineContext: 0x7f8b041abf80; archive = '<IDEArchive: 0x7f8b013704b0>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7f8b03d7eab0>', team='<IDEProvisioningDisambiguatableBasicTeam: 0x7f8b02f465c0; teamID='UQ84785W8P', teamName='Fred Dunaway', teamType='Individual', username='fred@moosewareinc.com', isFreeProvisioningTeam='0'>'>
+	<IDEDistributionProcessingPipelineContext: 0x7f8b0414eaf0; archive = '<IDEArchive: 0x7f8b013704b0>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7f8b03d7eab0>', team='<IDEProvisioningDisambiguatableBasicTeam: 0x7f8b02f465c0; teamID='UQ84785W8P', teamName='Fred Dunaway', teamType='Individual', username='fred@moosewareinc.com', isFreeProvisioningTeam='0'>'>
+	<IDEDistributionContext: 0x7f8b0479a940; archive = '<IDEArchive: 0x7f8b013704b0>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7f8b03d7eab0>', team='<IDEProvisioningDisambiguatableBasicTeam: 0x7f8b02f465c0; teamID='UQ84785W8P', teamName='Fred Dunaway', teamType='Individual', username='fred@moosewareinc.com', isFreeProvisioningTeam='0'>'>
+	<IDEDistributionContext: 0x7f8b045db790; archive = '<IDEArchive: 0x7f8b013704b0>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7f8b03d7eab0>', team='<IDEProvisioningDisambiguatableBasicTeam: 0x7f8b02f465c0; teamID='UQ84785W8P', teamName='Fred Dunaway', teamType='Individual', username='fred@moosewareinc.com', isFreeProvisioningTeam='0'>'>
+	<IDEDistributionContext: 0x7f8b0458b670; archive = '<IDEArchive: 0x7f8b013704b0>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7f8b03d7eab0>', team='<IDEProvisioningDisambiguatableBasicTeam: 0x7f8b02f465c0; teamID='UQ84785W8P', teamName='Fred Dunaway', teamType='Individual', username='fred@moosewareinc.com', isFreeProvisioningTeam='0'>'>
+	<IDEDistributionContext: 0x7f8b04743a70; archive = '<IDEArchive: 0x7f8b013704b0>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7f8b03d7eab0>', team='<IDEProvisioningDisambiguatableBasicTeam: 0x7f8b02f465c0; teamID='UQ84785W8P', teamName='Fred Dunaway', teamType='Individual', username='fred@moosewareinc.com', isFreeProvisioningTeam='0'>'>
+	<IDEDistributionContext: 0x7f8b04790a40; archive = '<IDEArchive: 0x7f8b013704b0>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7f8b03d7eab0>', team='<IDEProvisioningDisambiguatableBasicTeam: 0x7f8b02f465c0; teamID='UQ84785W8P', teamName='Fred Dunaway', teamType='Individual', username='fred@moosewareinc.com', isFreeProvisioningTeam='0'>'>
+	<IDEDistributionContext: 0x7f8b0472cc20; archive = '<IDEArchive: 0x7f8b013704b0>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7f8b03d7eab0>', team='<IDEProvisioningDisambiguatableBasicTeam: 0x7f8b02f465c0; teamID='UQ84785W8P', teamName='Fred Dunaway', teamType='Individual', username='fred@moosewareinc.com', isFreeProvisioningTeam='0'>'>
+	<IDEDistributionContext: 0x7f8b04569b50; archive = '<IDEArchive: 0x7f8b013704b0>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7f8b03d7eab0>', team='<IDEProvisioningDisambiguatableBasicTeam: 0x7f8b02f465c0; teamID='UQ84785W8P', teamName='Fred Dunaway', teamType='Individual', username='fred@moosewareinc.com', isFreeProvisioningTeam='0'>'>
+	<IDEDistributionContext: 0x7f8b04736c40; archive = '<IDEArchive: 0x7f8b013704b0>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7f8b03d7eab0>', team='(null)'>
+	<IDEDistributionContext: 0x7f8b03f3b4f0; archive = '<IDEArchive: 0x7f8b013704b0>', distributionMethod='<IDEDistributionMethodiOSAppStoreDistribution: 0x7f8b03d7eab0>', team='(null)'>
+	<IDEDistributionContext: 0x7f8b04705fd0; archive = '<IDEArchive: 0x7f8b013704b0>', distributionMethod='(null)', team='(null)'>
+</IDEDistributionProcessingPipelineContext: 0x7f8b041abf80>
+2019-11-14 23:18:57 +0000  Processing step: IDEDistributionCreateDestRootStep
+2019-11-14 23:18:57 +0000  Processing step: IDEDistributionCopyItemStep
+2019-11-14 23:18:57 +0000  Running /usr/bin/ditto '-V' '/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app' '/var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/Root/Payload/Smart Temperature Controller UI.app'
+2019-11-14 23:18:57 +0000  >>> Copying /Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app 
+2019-11-14 23:18:57 +0000  copying file ./_CodeSignature/CodeResources ... 
+2019-11-14 23:18:57 +0000  11365 bytes for ./_CodeSignature/CodeResources
+2019-11-14 23:18:57 +0000  copying file ./Icon-App-76x76@2x.png ... 
+2019-11-14 23:18:57 +0000  9245 bytes for ./Icon-App-76x76@2x.png
+2019-11-14 23:18:57 +0000  copying file ./Icon-App-29x29@1x.png ... 
+2019-11-14 23:18:57 +0000  1652 bytes for ./Icon-App-29x29@1x.png
+copying file ./Icon-App-40x40@1x.png ... 
+2019-11-14 23:18:57 +0000  2097 bytes for ./Icon-App-40x40@1x.png
+2019-11-14 23:18:57 +0000  copying file ./AppIcon60x60@2x.png ... 
+2019-11-14 23:18:57 +0000  4194 bytes for ./AppIcon60x60@2x.png
+2019-11-14 23:18:57 +0000  copying file ./Icon-App-20x20@1x.png ... 
+2019-11-14 23:18:57 +0000  1320 bytes for ./Icon-App-20x20@1x.png
+2019-11-14 23:18:57 +0000  copying file ./Icon-App-83.5x83.5@2x.png ... 
+2019-11-14 23:18:57 +0000  10857 bytes for ./Icon-App-83.5x83.5@2x.png
+2019-11-14 23:18:57 +0000  copying file ./Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib/objects-13.0+.nib ... 
+2019-11-14 23:18:57 +0000  1003 bytes for ./Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib/objects-13.0+.nib
+2019-11-14 23:18:57 +0000  copying file ./Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib/runtime.nib ... 
+2019-11-14 23:18:57 +0000  1003 bytes for ./Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib/runtime.nib
+2019-11-14 23:18:57 +0000  copying file ./Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib/objects-13.0+.nib ... 
+2019-11-14 23:18:57 +0000  7917 bytes for ./Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib/objects-13.0+.nib
+2019-11-14 23:18:57 +0000  copying file ./Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib/runtime.nib ... 
+2019-11-14 23:18:57 +0000  7906 bytes for ./Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib/runtime.nib
+2019-11-14 23:18:57 +0000  copying file ./Base.lproj/Main.storyboardc/Info.plist ... 
+2019-11-14 23:18:57 +0000  258 bytes for ./Base.lproj/Main.storyboardc/Info.plist
+2019-11-14 23:18:57 +0000  copying file ./Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib/objects-13.0+.nib ... 
+2019-11-14 23:18:57 +0000  1173 bytes for ./Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib/objects-13.0+.nib
+2019-11-14 23:18:57 +0000  copying file ./Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib/runtime.nib ... 
+2019-11-14 23:18:57 +0000  1173 bytes for ./Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib/runtime.nib
+2019-11-14 23:18:57 +0000  copying file ./Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib/objects-13.0+.nib ... 
+2019-11-14 23:18:57 +0000  896 bytes for ./Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib/objects-13.0+.nib
+2019-11-14 23:18:57 +0000  copying file ./Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib/runtime.nib ... 
+2019-11-14 23:18:57 +0000  896 bytes for ./Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib/runtime.nib
+2019-11-14 23:18:57 +0000  copying file ./Base.lproj/LaunchScreen.storyboardc/Info.plist ... 
+2019-11-14 23:18:57 +0000  258 bytes for ./Base.lproj/LaunchScreen.storyboardc/Info.plist
+2019-11-14 23:18:57 +0000  copying file ./Icon-App-20x20@3x.png ... 
+2019-11-14 23:18:57 +0000  2821 bytes for ./Icon-App-20x20@3x.png
+2019-11-14 23:18:57 +0000  copying file ./Assets.car ... 
+2019-11-14 23:18:57 +0000  303320 bytes for ./Assets.car
+2019-11-14 23:18:57 +0000  copying file ./ItunesArtwork@2x.png ... 
+2019-11-14 23:18:57 +0000  250863 bytes for ./ItunesArtwork@2x.png
+2019-11-14 23:18:57 +0000  copying file ./AppIcon76x76@2x~ipad.png ... 
+2019-11-14 23:18:57 +0000  9245 bytes for ./AppIcon76x76@2x~ipad.png
+2019-11-14 23:18:57 +0000  copying file ./Contents.json ... 
+2019-11-14 23:18:57 +0000  3136 bytes for ./Contents.json
+2019-11-14 23:18:57 +0000  copying file ./Icon-App-20x20@2x.png ... 
+2019-11-14 23:18:57 +0000  2097 bytes for ./Icon-App-20x20@2x.png
+2019-11-14 23:18:57 +0000  copying file ./Icon-App-29x29@3x.png ... 
+2019-11-14 23:18:57 +0000  4219 bytes for ./Icon-App-29x29@3x.png
+2019-11-14 23:18:57 +0000  copying file ./Icon-App-40x40@2x.png ... 
+2019-11-14 23:18:57 +0000  3831 bytes for ./Icon-App-40x40@2x.png
+2019-11-14 23:18:57 +0000  copying file ./Smart Temperature Controller UI ... 
+2019-11-14 23:18:57 +0000  297904 bytes for ./Smart Temperature Controller UI
+2019-11-14 23:18:57 +0000  copying file ./Frameworks/SwiftyJSON.framework/_CodeSignature/CodeResources ... 
+2019-11-14 23:18:57 +0000  1798 bytes for ./Frameworks/SwiftyJSON.framework/_CodeSignature/CodeResources
+2019-11-14 23:18:57 +0000  copying file ./Frameworks/SwiftyJSON.framework/SwiftyJSON ... 
+2019-11-14 23:18:57 +0000  1014400 bytes for ./Frameworks/SwiftyJSON.framework/SwiftyJSON
+2019-11-14 23:18:57 +0000  copying file ./Frameworks/SwiftyJSON.framework/Info.plist ... 
+2019-11-14 23:18:57 +0000  740 bytes for ./Frameworks/SwiftyJSON.framework/Info.plist
+2019-11-14 23:18:57 +0000  copying file ./Frameworks/Alamofire.framework/_CodeSignature/CodeResources ... 
+2019-11-14 23:18:57 +0000  1798 bytes for ./Frameworks/Alamofire.framework/_CodeSignature/CodeResources
+2019-11-14 23:18:57 +0000  copying file ./Frameworks/Alamofire.framework/Alamofire ... 
+2019-11-14 23:18:57 +0000  3974752 bytes for ./Frameworks/Alamofire.framework/Alamofire
+2019-11-14 23:18:57 +0000  copying file ./Frameworks/Alamofire.framework/Info.plist ... 
+2019-11-14 23:18:57 +0000  738 bytes for ./Frameworks/Alamofire.framework/Info.plist
+2019-11-14 23:18:57 +0000  copying file ./Icon-App-60x60@3x.png ... 
+2019-11-14 23:18:57 +0000  11959 bytes for ./Icon-App-60x60@3x.png
+copying file ./embedded.mobileprovision ... 
+2019-11-14 23:18:57 +0000  7417 bytes for ./embedded.mobileprovision
+2019-11-14 23:18:57 +0000  copying file ./Icon-App-60x60@2x.png ... 
+2019-11-14 23:18:57 +0000  4194 bytes for ./Icon-App-60x60@2x.png
+2019-11-14 23:18:57 +0000  copying file ./Info.plist ... 
+2019-11-14 23:18:57 +0000  1608 bytes for ./Info.plist
+2019-11-14 23:18:57 +0000  copying file ./Icon-App-76x76@1x.png ... 
+2019-11-14 23:18:57 +0000  3690 bytes for ./Icon-App-76x76@1x.png
+2019-11-14 23:18:57 +0000  copying file ./Icon-App-40x40@3x.png ... 
+2019-11-14 23:18:57 +0000  4194 bytes for ./Icon-App-40x40@3x.png
+2019-11-14 23:18:57 +0000  copying file ./PkgInfo ... 
+2019-11-14 23:18:57 +0000  8 bytes for ./PkgInfo
+2019-11-14 23:18:57 +0000  copying file ./Icon-App-29x29@2x.png ... 
+2019-11-14 23:18:57 +0000  2704 bytes for ./Icon-App-29x29@2x.png
+2019-11-14 23:18:57 +0000  /usr/bin/ditto exited with 0
+2019-11-14 23:18:57 +0000  Processing step: IDEDistributionEmbedProfileStep
+2019-11-14 23:18:57 +0000  Skipping profile for item: <IDEDistributionItem: 0x7f8b03fa36f0; bundleID='org.cocoapods.Alamofire', path='<DVTFilePath:0x7f8b03c86260:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Frameworks/Alamofire.framework'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7f8b010c1050; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7f8b03f3bfa0; name='Apple Development: Fred Dunaway (HU4M8U6VUD)', hash='AD719678F9F983BC857539EDDA1EB43DAAC3F985', serialNumber='46B05E84FEE11498', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2019-11-07 02:18:23 +0000''>', entitlements='(null)', teamID='UQ84785W8P', identifier='org.cocoapods.Alamofire', executablePath='<DVTFilePath:0x7f8b04039a20:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Frameworks/Alamofire.framework/Alamofire'>', hardenedRuntime='0'>'>
+2019-11-14 23:18:57 +0000  Skipping profile for item: <IDEDistributionItem: 0x7f8b02eeaea0; bundleID='org.cocoapods.SwiftyJSON', path='<DVTFilePath:0x7f8b03ec6610:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Frameworks/SwiftyJSON.framework'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7f8b03ef4170; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7f8b03f4e160; name='Apple Development: Fred Dunaway (HU4M8U6VUD)', hash='AD719678F9F983BC857539EDDA1EB43DAAC3F985', serialNumber='46B05E84FEE11498', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2019-11-07 02:18:23 +0000''>', entitlements='(null)', teamID='UQ84785W8P', identifier='org.cocoapods.SwiftyJSON', executablePath='<DVTFilePath:0x7f8b04135710:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Frameworks/SwiftyJSON.framework/SwiftyJSON'>', hardenedRuntime='0'>'>
+2019-11-14 23:18:57 +0000  Processing step: IDEDistributionItemRemovalStep
+2019-11-14 23:18:57 +0000  Processing step: IDEDistributionAppThinningPlistStep
+2019-11-14 23:18:57 +0000  Skipping step: IDEDistributionAppThinningPlistStep because it said so
+2019-11-14 23:18:57 +0000  Processing step: IDEDistributionCompileBitcodeStep
+2019-11-14 23:18:57 +0000  Skipping step: IDEDistributionCompileBitcodeStep because it said so
+2019-11-14 23:18:57 +0000  Processing step: IDEDistributionCodeSlimmingStep
+2019-11-14 23:18:57 +0000  Processing step: IDEDistributionCopyBCSymbolMapsStep
+2019-11-14 23:18:57 +0000  Running /usr/bin/ditto '-V' '/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/BCSymbolMaps/6662F808-D2DE-376F-9632-469411B5CCB7.bcsymbolmap' '/var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/Root/BCSymbolMaps/6662F808-D2DE-376F-9632-469411B5CCB7.bcsymbolmap'
+2019-11-14 23:18:57 +0000  >>> Copying /Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/BCSymbolMaps/6662F808-D2DE-376F-9632-469411B5CCB7.bcsymbolmap 
+2019-11-14 23:18:57 +0000  copying file ./6662F808-D2DE-376F-9632-469411B5CCB7.bcsymbolmap ... 
+2019-11-14 23:18:57 +0000  350929 bytes for ./6662F808-D2DE-376F-9632-469411B5CCB7.bcsymbolmap
+2019-11-14 23:18:57 +0000  /usr/bin/ditto exited with 0
+2019-11-14 23:18:57 +0000  Running /usr/bin/ditto '-V' '/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/BCSymbolMaps/BF20660A-13FF-3EA4-BD90-E39C66EA3618.bcsymbolmap' '/var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/Root/BCSymbolMaps/BF20660A-13FF-3EA4-BD90-E39C66EA3618.bcsymbolmap'
+2019-11-14 23:18:57 +0000  >>> Copying /Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/BCSymbolMaps/BF20660A-13FF-3EA4-BD90-E39C66EA3618.bcsymbolmap 
+2019-11-14 23:18:57 +0000  copying file ./BF20660A-13FF-3EA4-BD90-E39C66EA3618.bcsymbolmap ... 
+2019-11-14 23:18:57 +0000  92544 bytes for ./BF20660A-13FF-3EA4-BD90-E39C66EA3618.bcsymbolmap
+2019-11-14 23:18:57 +0000  /usr/bin/ditto exited with 0
+2019-11-14 23:18:57 +0000  Running /usr/bin/ditto '-V' '/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/BCSymbolMaps/5CEA5BF6-225E-3C0D-A794-84CFB19086BC.bcsymbolmap' '/var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/Root/BCSymbolMaps/5CEA5BF6-225E-3C0D-A794-84CFB19086BC.bcsymbolmap'
+2019-11-14 23:18:57 +0000  >>> Copying /Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/BCSymbolMaps/5CEA5BF6-225E-3C0D-A794-84CFB19086BC.bcsymbolmap 
+2019-11-14 23:18:57 +0000  copying file ./5CEA5BF6-225E-3C0D-A794-84CFB19086BC.bcsymbolmap ... 
+2019-11-14 23:18:57 +0000  42490 bytes for ./5CEA5BF6-225E-3C0D-A794-84CFB19086BC.bcsymbolmap
+2019-11-14 23:18:57 +0000  /usr/bin/ditto exited with 0
+2019-11-14 23:18:57 +0000  Processing step: IDEDistributionSymbolsStep
+2019-11-14 23:18:57 +0000  Excluding symbols for Alamofire.framework
+2019-11-14 23:18:57 +0000  Excluding symbols for SwiftyJSON.framework
+2019-11-14 23:18:57 +0000  Excluding symbols for Smart Temperature Controller UI.app
+2019-11-14 23:18:57 +0000  Processing step: IDEDistributionCopyAppleProvidedContentStep
+2019-11-14 23:18:57 +0000  Processing step: IDEDistributionAppThinningStep
+2019-11-14 23:18:57 +0000  Skipping step: IDEDistributionAppThinningStep because it said so
+2019-11-14 23:18:57 +0000  Processing step: IDEDistributionArchThinningStep
+2019-11-14 23:18:57 +0000  Running /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo '/var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/Root/Payload/Smart Temperature Controller UI.app/Frameworks/Alamofire.framework/Alamofire' '-verify_arch' 'arm64e'
+2019-11-14 23:18:57 +0000  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo exited with 1
+2019-11-14 23:18:57 +0000  Skipping architecture thinning for item "Alamofire" because arch "arm64e" wasn't found
+2019-11-14 23:18:57 +0000  Running /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo '/var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/Root/Payload/Smart Temperature Controller UI.app/Frameworks/SwiftyJSON.framework/SwiftyJSON' '-verify_arch' 'arm64e'
+2019-11-14 23:18:57 +0000  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo exited with 1
+2019-11-14 23:18:57 +0000  Skipping architecture thinning for item "SwiftyJSON" because arch "arm64e" wasn't found
+2019-11-14 23:18:57 +0000  Running /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo '/var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/Root/Payload/Smart Temperature Controller UI.app/Smart Temperature Controller UI' '-verify_arch' 'arm64e'
+2019-11-14 23:18:57 +0000  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo exited with 1
+2019-11-14 23:18:57 +0000  Skipping architecture thinning for item "Smart Temperature Controller UI" because arch "arm64e" wasn't found
+2019-11-14 23:18:57 +0000  Processing step: IDEDistributionODRStep
+2019-11-14 23:18:57 +0000  Processing step: IDEDistributionStripXattrsStep
+2019-11-14 23:18:57 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7f8b03fa36f0; bundleID='org.cocoapods.Alamofire', path='<DVTFilePath:0x7f8b03c86260:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Frameworks/Alamofire.framework'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7f8b010c1050; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7f8b04743590; name='Apple Development: Fred Dunaway (HU4M8U6VUD)', hash='AD719678F9F983BC857539EDDA1EB43DAAC3F985', serialNumber='46B05E84FEE11498', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2019-11-07 02:18:23 +0000''>', entitlements='(null)', teamID='UQ84785W8P', identifier='org.cocoapods.Alamofire', executablePath='<DVTFilePath:0x7f8b04039a20:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Frameworks/Alamofire.framework/Alamofire'>', hardenedRuntime='0'>'>
+2019-11-14 23:18:57 +0000  Skipping stripping extended attributes of item: <IDEDistributionItem: 0x7f8b02eeaea0; bundleID='org.cocoapods.SwiftyJSON', path='<DVTFilePath:0x7f8b03ec6610:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Frameworks/SwiftyJSON.framework'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7f8b03ef4170; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7f8b047579f0; name='Apple Development: Fred Dunaway (HU4M8U6VUD)', hash='AD719678F9F983BC857539EDDA1EB43DAAC3F985', serialNumber='46B05E84FEE11498', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2019-11-07 02:18:23 +0000''>', entitlements='(null)', teamID='UQ84785W8P', identifier='org.cocoapods.SwiftyJSON', executablePath='<DVTFilePath:0x7f8b04135710:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Frameworks/SwiftyJSON.framework/SwiftyJSON'>', hardenedRuntime='0'>'>
+2019-11-14 23:18:57 +0000  Running /usr/bin/xattr '-crs' '/var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/Root/Payload/Smart Temperature Controller UI.app'
+2019-11-14 23:18:57 +0000  /usr/bin/xattr exited with 0
+2019-11-14 23:18:57 +0000  Processing step: IDEDistributionCodesignStep
+2019-11-14 23:18:57 +0000  Entitlements for <IDEDistributionItem: 0x7f8b03fa36f0; bundleID='org.cocoapods.Alamofire', path='<DVTFilePath:0x7f8b03c86260:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Frameworks/Alamofire.framework'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7f8b010c1050; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7f8b04799910; name='Apple Development: Fred Dunaway (HU4M8U6VUD)', hash='AD719678F9F983BC857539EDDA1EB43DAAC3F985', serialNumber='46B05E84FEE11498', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2019-11-07 02:18:23 +0000''>', entitlements='(null)', teamID='UQ84785W8P', identifier='org.cocoapods.Alamofire', executablePath='<DVTFilePath:0x7f8b04039a20:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Frameworks/Alamofire.framework/Alamofire'>', hardenedRuntime='0'>'>: {
+}
+2019-11-14 23:18:57 +0000  Writing entitlements for <IDEDistributionItem: 0x7f8b03fa36f0; bundleID='org.cocoapods.Alamofire', path='<DVTFilePath:0x7f8b03c86260:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Frameworks/Alamofire.framework'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7f8b010c1050; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7f8b04787860; name='Apple Development: Fred Dunaway (HU4M8U6VUD)', hash='AD719678F9F983BC857539EDDA1EB43DAAC3F985', serialNumber='46B05E84FEE11498', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2019-11-07 02:18:23 +0000''>', entitlements='(null)', teamID='UQ84785W8P', identifier='org.cocoapods.Alamofire', executablePath='<DVTFilePath:0x7f8b04039a20:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Frameworks/Alamofire.framework/Alamofire'>', hardenedRuntime='0'>'> to: /var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/entitlements~~~gqyGFq
+2019-11-14 23:18:57 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '949C2F63A58D6CFB116336A6D5D67040FC8060D2' '--entitlements' '/var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/entitlements~~~gqyGFq' '--preserve-metadata=identifier,flags,runtime' '/var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/Root/Payload/Smart Temperature Controller UI.app/Frameworks/Alamofire.framework'
+2019-11-14 23:18:57 +0000  /var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/Root/Payload/Smart Temperature Controller UI.app/Frameworks/Alamofire.framework: signed bundle with Mach-O universal (arm64) [org.cocoapods.Alamofire]
+2019-11-14 23:18:57 +0000  /usr/bin/codesign exited with 0
+2019-11-14 23:18:57 +0000  Entitlements for <IDEDistributionItem: 0x7f8b02eeaea0; bundleID='org.cocoapods.SwiftyJSON', path='<DVTFilePath:0x7f8b03ec6610:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Frameworks/SwiftyJSON.framework'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7f8b03ef4170; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7f8b0472b010; name='Apple Development: Fred Dunaway (HU4M8U6VUD)', hash='AD719678F9F983BC857539EDDA1EB43DAAC3F985', serialNumber='46B05E84FEE11498', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2019-11-07 02:18:23 +0000''>', entitlements='(null)', teamID='UQ84785W8P', identifier='org.cocoapods.SwiftyJSON', executablePath='<DVTFilePath:0x7f8b04135710:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Frameworks/SwiftyJSON.framework/SwiftyJSON'>', hardenedRuntime='0'>'>: {
+}
+2019-11-14 23:18:57 +0000  Writing entitlements for <IDEDistributionItem: 0x7f8b02eeaea0; bundleID='org.cocoapods.SwiftyJSON', path='<DVTFilePath:0x7f8b03ec6610:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Frameworks/SwiftyJSON.framework'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7f8b03ef4170; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7f8b04730130; name='Apple Development: Fred Dunaway (HU4M8U6VUD)', hash='AD719678F9F983BC857539EDDA1EB43DAAC3F985', serialNumber='46B05E84FEE11498', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2019-11-07 02:18:23 +0000''>', entitlements='(null)', teamID='UQ84785W8P', identifier='org.cocoapods.SwiftyJSON', executablePath='<DVTFilePath:0x7f8b04135710:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Frameworks/SwiftyJSON.framework/SwiftyJSON'>', hardenedRuntime='0'>'> to: /var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/entitlements~~~Z5oKV5
+2019-11-14 23:18:57 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '949C2F63A58D6CFB116336A6D5D67040FC8060D2' '--entitlements' '/var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/entitlements~~~Z5oKV5' '--preserve-metadata=identifier,flags,runtime' '/var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/Root/Payload/Smart Temperature Controller UI.app/Frameworks/SwiftyJSON.framework'
+2019-11-14 23:18:58 +0000  /var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/Root/Payload/Smart Temperature Controller UI.app/Frameworks/SwiftyJSON.framework: signed bundle with Mach-O universal (arm64) [org.cocoapods.SwiftyJSON]
+2019-11-14 23:18:58 +0000  /usr/bin/codesign exited with 0
+2019-11-14 23:18:58 +0000  Entitlements for <IDEDistributionItem: 0x7f8b040ea990; bundleID='MooseWareINK.Smart-Temperature-Controller-UI', path='<DVTFilePath:0x7f8b02f789d0:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7f8b0411dd40; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7f8b041cc200; name='Apple Development: Fred Dunaway (HU4M8U6VUD)', hash='AD719678F9F983BC857539EDDA1EB43DAAC3F985', serialNumber='46B05E84FEE11498', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2019-11-07 02:18:23 +0000''>', entitlements='{
+    "application-identifier" = "UQ84785W8P.MooseWareINK.Smart-Temperature-Controller-UI";
+    "com.apple.developer.team-identifier" = UQ84785W8P;
+    "get-task-allow" = 1;
+    "keychain-access-groups" =     (
+        "UQ84785W8P.MooseWareINK.Smart-Temperature-Controller-UI"
+    );
+}', teamID='UQ84785W8P', identifier='MooseWareINK.Smart-Temperature-Controller-UI', executablePath='<DVTFilePath:0x7f8b04131460:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Smart Temperature Controller UI'>', hardenedRuntime='0'>'>: {
+    "application-identifier" = "UQ84785W8P.MooseWareINK.Smart-Temperature-Controller-UI";
+    "beta-reports-active" = 1;
+    "com.apple.developer.team-identifier" = UQ84785W8P;
+    "get-task-allow" = 0;
+    "keychain-access-groups" =     (
+        "UQ84785W8P.MooseWareINK.Smart-Temperature-Controller-UI"
+    );
+}
+2019-11-14 23:18:58 +0000  Writing entitlements for <IDEDistributionItem: 0x7f8b040ea990; bundleID='MooseWareINK.Smart-Temperature-Controller-UI', path='<DVTFilePath:0x7f8b02f789d0:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x7f8b0411dd40; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x7f8b0472da70; name='Apple Development: Fred Dunaway (HU4M8U6VUD)', hash='AD719678F9F983BC857539EDDA1EB43DAAC3F985', serialNumber='46B05E84FEE11498', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2019-11-07 02:18:23 +0000''>', entitlements='{
+    "application-identifier" = "UQ84785W8P.MooseWareINK.Smart-Temperature-Controller-UI";
+    "com.apple.developer.team-identifier" = UQ84785W8P;
+    "get-task-allow" = 1;
+    "keychain-access-groups" =     (
+        "UQ84785W8P.MooseWareINK.Smart-Temperature-Controller-UI"
+    );
+}', teamID='UQ84785W8P', identifier='MooseWareINK.Smart-Temperature-Controller-UI', executablePath='<DVTFilePath:0x7f8b04131460:'/Users/moose/Library/Developer/Xcode/Archives/2019-11-14/Smart Temperature Controller UI 11-14-19, 6.16 PM.xcarchive/Products/Applications/Smart Temperature Controller UI.app/Smart Temperature Controller UI'>', hardenedRuntime='0'>'> to: /var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/entitlements~~~uUpgHG
+2019-11-14 23:18:58 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '949C2F63A58D6CFB116336A6D5D67040FC8060D2' '--entitlements' '/var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/entitlements~~~uUpgHG' '--preserve-metadata=identifier,flags,runtime' '/var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/Root/Payload/Smart Temperature Controller UI.app'
+2019-11-14 23:18:58 +0000  /var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/Root/Payload/Smart Temperature Controller UI.app: signed app bundle with Mach-O thin (arm64) [MooseWareINK.Smart-Temperature-Controller-UI]
+2019-11-14 23:18:58 +0000  /usr/bin/codesign exited with 0
+2019-11-14 23:18:58 +0000  Processing step: IDEDistributionZipODRItemStep
+2019-11-14 23:18:58 +0000  Skipping step: IDEDistributionZipODRItemStep because it said so
+2019-11-14 23:18:58 +0000  Skipping step: IDEDistributionZipODRItemStep because it said so
+2019-11-14 23:18:58 +0000  Skipping step: IDEDistributionZipODRItemStep because it said so
+2019-11-14 23:18:58 +0000  Processing step: IDEDistributionCreateIPAStep
+2019-11-14 23:18:58 +0000  Running /usr/bin/ditto '-V' '-c' '-k' '--norsrc' '/var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/Root' '/var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/Packages/Smart Temperature Controller UI.ipa'
+2019-11-14 23:18:58 +0000  >>> Copying /var/folders/8w/qb2vklg97y79bg72v9xb_rcr0000gp/T/XcodeDistPipeline.~~~LturNc/Root 
+2019-11-14 23:18:58 +0000  copying file ./BCSymbolMaps/5CEA5BF6-225E-3C0D-A794-84CFB19086BC.bcsymbolmap ... 
+2019-11-14 23:18:58 +0000  42490 bytes for ./BCSymbolMaps/5CEA5BF6-225E-3C0D-A794-84CFB19086BC.bcsymbolmap
+2019-11-14 23:18:58 +0000  copying file ./BCSymbolMaps/BF20660A-13FF-3EA4-BD90-E39C66EA3618.bcsymbolmap ... 
+2019-11-14 23:18:58 +0000  92544 bytes for ./BCSymbolMaps/BF20660A-13FF-3EA4-BD90-E39C66EA3618.bcsymbolmap
+2019-11-14 23:18:58 +0000  copying file ./BCSymbolMaps/6662F808-D2DE-376F-9632-469411B5CCB7.bcsymbolmap ... 
+2019-11-14 23:18:58 +0000  350929 bytes for ./BCSymbolMaps/6662F808-D2DE-376F-9632-469411B5CCB7.bcsymbolmap
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/_CodeSignature/CodeResources ... 
+2019-11-14 23:18:58 +0000  11365 bytes for ./Payload/Smart Temperature Controller UI.app/_CodeSignature/CodeResources
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Icon-App-76x76@2x.png ... 
+2019-11-14 23:18:58 +0000  9245 bytes for ./Payload/Smart Temperature Controller UI.app/Icon-App-76x76@2x.png
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Icon-App-29x29@1x.png ... 
+2019-11-14 23:18:58 +0000  1652 bytes for ./Payload/Smart Temperature Controller UI.app/Icon-App-29x29@1x.png
+copying file ./Payload/Smart Temperature Controller UI.app/Icon-App-40x40@1x.png ... 
+2019-11-14 23:18:58 +0000  2097 bytes for ./Payload/Smart Temperature Controller UI.app/Icon-App-40x40@1x.png
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/AppIcon60x60@2x.png ... 
+2019-11-14 23:18:58 +0000  4194 bytes for ./Payload/Smart Temperature Controller UI.app/AppIcon60x60@2x.png
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Icon-App-20x20@1x.png ... 
+2019-11-14 23:18:58 +0000  1320 bytes for ./Payload/Smart Temperature Controller UI.app/Icon-App-20x20@1x.png
+copying file ./Payload/Smart Temperature Controller UI.app/Icon-App-83.5x83.5@2x.png ... 
+2019-11-14 23:18:58 +0000  10857 bytes for ./Payload/Smart Temperature Controller UI.app/Icon-App-83.5x83.5@2x.png
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib/objects-13.0+.nib ... 
+2019-11-14 23:18:58 +0000  1003 bytes for ./Payload/Smart Temperature Controller UI.app/Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib/objects-13.0+.nib
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib/runtime.nib ... 
+2019-11-14 23:18:58 +0000  1003 bytes for ./Payload/Smart Temperature Controller UI.app/Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib/runtime.nib
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib/objects-13.0+.nib ... 
+2019-11-14 23:18:58 +0000  7917 bytes for ./Payload/Smart Temperature Controller UI.app/Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib/objects-13.0+.nib
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib/runtime.nib ... 
+2019-11-14 23:18:58 +0000  7906 bytes for ./Payload/Smart Temperature Controller UI.app/Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib/runtime.nib
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Base.lproj/Main.storyboardc/Info.plist ... 
+258 bytes for ./Payload/Smart Temperature Controller UI.app/Base.lproj/Main.storyboardc/Info.plist
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib/objects-13.0+.nib ... 
+2019-11-14 23:18:58 +0000  1173 bytes for ./Payload/Smart Temperature Controller UI.app/Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib/objects-13.0+.nib
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib/runtime.nib ... 
+2019-11-14 23:18:58 +0000  1173 bytes for ./Payload/Smart Temperature Controller UI.app/Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib/runtime.nib
+copying file ./Payload/Smart Temperature Controller UI.app/Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib/objects-13.0+.nib ... 
+2019-11-14 23:18:58 +0000  896 bytes for ./Payload/Smart Temperature Controller UI.app/Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib/objects-13.0+.nib
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib/runtime.nib ... 
+2019-11-14 23:18:58 +0000  896 bytes for ./Payload/Smart Temperature Controller UI.app/Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib/runtime.nib
+copying file ./Payload/Smart Temperature Controller UI.app/Base.lproj/LaunchScreen.storyboardc/Info.plist ... 
+2019-11-14 23:18:58 +0000  258 bytes for ./Payload/Smart Temperature Controller UI.app/Base.lproj/LaunchScreen.storyboardc/Info.plist
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Icon-App-20x20@3x.png ... 
+2019-11-14 23:18:58 +0000  2821 bytes for ./Payload/Smart Temperature Controller UI.app/Icon-App-20x20@3x.png
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Assets.car ... 
+2019-11-14 23:18:58 +0000  303320 bytes for ./Payload/Smart Temperature Controller UI.app/Assets.car
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/ItunesArtwork@2x.png ... 
+2019-11-14 23:18:58 +0000  250863 bytes for ./Payload/Smart Temperature Controller UI.app/ItunesArtwork@2x.png
+copying file ./Payload/Smart Temperature Controller UI.app/AppIcon76x76@2x~ipad.png ... 
+2019-11-14 23:18:58 +0000  9245 bytes for ./Payload/Smart Temperature Controller UI.app/AppIcon76x76@2x~ipad.png
+copying file ./Payload/Smart Temperature Controller UI.app/Contents.json ... 
+2019-11-14 23:18:58 +0000  3136 bytes for ./Payload/Smart Temperature Controller UI.app/Contents.json
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Icon-App-20x20@2x.png ... 
+2019-11-14 23:18:58 +0000  2097 bytes for ./Payload/Smart Temperature Controller UI.app/Icon-App-20x20@2x.png
+copying file ./Payload/Smart Temperature Controller UI.app/Icon-App-29x29@3x.png ... 
+2019-11-14 23:18:58 +0000  4219 bytes for ./Payload/Smart Temperature Controller UI.app/Icon-App-29x29@3x.png
+copying file ./Payload/Smart Temperature Controller UI.app/Icon-App-40x40@2x.png ... 
+2019-11-14 23:18:58 +0000  3831 bytes for ./Payload/Smart Temperature Controller UI.app/Icon-App-40x40@2x.png
+copying file ./Payload/Smart Temperature Controller UI.app/Smart Temperature Controller UI ... 
+2019-11-14 23:18:58 +0000  234096 bytes for ./Payload/Smart Temperature Controller UI.app/Smart Temperature Controller UI
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Frameworks/SwiftyJSON.framework/_CodeSignature/CodeResources ... 
+2019-11-14 23:18:58 +0000  1798 bytes for ./Payload/Smart Temperature Controller UI.app/Frameworks/SwiftyJSON.framework/_CodeSignature/CodeResources
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Frameworks/SwiftyJSON.framework/SwiftyJSON ... 
+2019-11-14 23:18:58 +0000  690896 bytes for ./Payload/Smart Temperature Controller UI.app/Frameworks/SwiftyJSON.framework/SwiftyJSON
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Frameworks/SwiftyJSON.framework/Info.plist ... 
+740 bytes for ./Payload/Smart Temperature Controller UI.app/Frameworks/SwiftyJSON.framework/Info.plist
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Frameworks/Alamofire.framework/_CodeSignature/CodeResources ... 
+2019-11-14 23:18:58 +0000  1798 bytes for ./Payload/Smart Temperature Controller UI.app/Frameworks/Alamofire.framework/_CodeSignature/CodeResources
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Frameworks/Alamofire.framework/Alamofire ... 
+2019-11-14 23:18:58 +0000  2632560 bytes for ./Payload/Smart Temperature Controller UI.app/Frameworks/Alamofire.framework/Alamofire
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/Frameworks/Alamofire.framework/Info.plist ... 
+738 bytes for ./Payload/Smart Temperature Controller UI.app/Frameworks/Alamofire.framework/Info.plist
+copying file ./Payload/Smart Temperature Controller UI.app/Icon-App-60x60@3x.png ... 
+11959 bytes for ./Payload/Smart Temperature Controller UI.app/Icon-App-60x60@3x.png
+copying file ./Payload/Smart Temperature Controller UI.app/embedded.mobileprovision ... 
+7301 bytes for ./Payload/Smart Temperature Controller UI.app/embedded.mobileprovision
+copying file ./Payload/Smart Temperature Controller UI.app/Icon-App-60x60@2x.png ... 
+2019-11-14 23:18:58 +0000  4194 bytes for ./Payload/Smart Temperature Controller UI.app/Icon-App-60x60@2x.png
+copying file ./Payload/Smart Temperature Controller UI.app/Info.plist ... 
+2019-11-14 23:18:58 +0000  1608 bytes for ./Payload/Smart Temperature Controller UI.app/Info.plist
+copying file ./Payload/Smart Temperature Controller UI.app/Icon-App-76x76@1x.png ... 
+2019-11-14 23:18:58 +0000  3690 bytes for ./Payload/Smart Temperature Controller UI.app/Icon-App-76x76@1x.png
+copying file ./Payload/Smart Temperature Controller UI.app/Icon-App-40x40@3x.png ... 
+2019-11-14 23:18:58 +0000  4194 bytes for ./Payload/Smart Temperature Controller UI.app/Icon-App-40x40@3x.png
+2019-11-14 23:18:58 +0000  copying file ./Payload/Smart Temperature Controller UI.app/PkgInfo ... 
+8 bytes for ./Payload/Smart Temperature Controller UI.app/PkgInfo
+copying file ./Payload/Smart Temperature Controller UI.app/Icon-App-29x29@2x.png ... 
+2019-11-14 23:18:58 +0000  2704 bytes for ./Payload/Smart Temperature Controller UI.app/Icon-App-29x29@2x.png
+2019-11-14 23:18:58 +0000  /usr/bin/ditto exited with 0
+2019-11-14 23:18:58 +0000  Processing step: IDEDistributionAppStoreInformationStep
+2019-11-14 23:18:58 +0000  Skipping step: IDEDistributionAppStoreInformationStep because it said so
+2019-11-14 23:18:58 +0000  Processing step: IDEDistributionGenerateProcessedDistributionItems
+2019-11-14 23:18:58 +0000  Processing step: IDEDistributionCreateManifestStep
+2019-11-14 23:18:58 +0000  Skipping step: IDEDistributionCreateManifestStep because it said so
