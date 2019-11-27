@@ -1,0 +1,25 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["iot:Publish",
+      			"iot:Receive"
+      			],
+      "Resource": ["arn:aws:iot:us-east-2:669041854472:topic/${iot:Connection.Thing.ThingName}/request/response",
+      				"arn:aws:iot:us-east-2:669041854472:topic/${iot:Connection.Thing.ThingName}/request"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": "iot:Subscribe",
+      "Resource": "arn:aws:iot:us-east-2:669041854472:topicfilter/${iot:Connection.Thing.ThingName}/request"
+    },
+    {
+    	"Effect": "Allow",
+    	"Action": ["iot:Connect"],
+      	"Resource": [
+        	"arn:aws:iot:us-east-2:669041854472:client/${iot:Connection.Thing.ThingName}"
+      ]
+    }
+  ]
+}

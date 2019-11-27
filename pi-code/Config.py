@@ -13,11 +13,6 @@ MaxTemp= 30
 # Temperature control within +/-
 TempWindow= 1.0
 
-#The number of seconds of no motion detected after the set start time to shut the furnace down.
-# will want 900 (15 minutes) in prod.  Test much shorter
-#FTD 2019-10-23, moved to JSON event message
-#motionTimeOutSeconds = 45
-
 #The number of hours for a given pre-heat window.  
 #The predicted start time + this value is allowed before a motion must be sensed.
 #If not, shut down & wait for another request to heat up.
@@ -33,3 +28,18 @@ relay3 = 22
 relay4 = 10
 statusLight = 18
 motionSensorInPin = 23
+
+eventsFileName = "furnanceEvent.json"
+
+#------------------------------
+# Items needed for AWS IoT MQTT
+#------------------------------
+awsEndpoint = 'a2vbde4oiektna-ats.iot.us-east-2.amazonaws.com'
+awsRootCert = '/home/pi/AWS/root-CA.crt'
+awsThingCert = '/home/pi/AWS/7bcc9d228c-certificate.pem.crt'
+awsThingKey = '/home/pi/AWS/7bcc9d228c-private.pem.key'
+awsThingName = 'SmartThermalController-Test'
+awsClientId = awsThingName
+awsPort = 8883
+awsResponseTopic = awsThingName + '/request/response'
+awsRequestTopic = awsThingName + '/request'
