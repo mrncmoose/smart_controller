@@ -14,6 +14,11 @@
       "Action": "iot:Subscribe",
       "Resource": "arn:aws:iot:us-east-2:669041854472:topicfilter/${iot:Connection.Thing.ThingName}/request"
     },
+        {
+      "Effect": "Allow",
+      "Action": "iot:Subscribe",
+      "Resource": "arn:aws:iot:us-east-2:669041854472:topicfilter/${iot:Connection.Thing.ThingName}/request/response"
+    },    
     {
     	"Effect": "Allow",
     	"Action": ["iot:Connect"],
