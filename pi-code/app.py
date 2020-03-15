@@ -6,6 +6,7 @@ import os
 import RPi.GPIO as GPIO
 import json
 import datetime
+#import dumper
 from ThermalPrediction import PredictDeltaTemp
 
 from Config import *
@@ -60,13 +61,16 @@ def fToC(tempVal):
     return (tempVal - 32)/1.8
 
 def check_api_key(key):
+# FTD 2020-01-12  Removing API key check because the api will only be exposed on localhost, which is trusted.
+# Communications with the outside world will be handled via MQTT & GCP ore IoT.
+	return True
 #	print('Checking api key of {0} against env value of {1}'.format(key, apiKey))
-	if key is not None and key == apiKey:
-		return True
-	else:
-		return Response(	'Could not verify your access level for that URL.\n'
-	'You have to login with proper credentials', 401,
-	{'WWW-Authenticate': 'Basic realm="I dont like you"'})
+# 	if key is not None and key == apiKey:
+# 		return True
+# 	else:
+# 		return Response(	'Could not verify your access level for that URL.\n'
+# 	'You have to login with proper credentials', 401,
+# 	{'WWW-Authenticate': 'Basic realm="I dont like you"'})
 		
 def check_auth(username, password):
     """This function is called to check if a username /
@@ -125,6 +129,7 @@ def get_time_to_temp():
 		secondsToTemp = tCalc.secondsToTemp(dT)
 		return jsonify({'seconds_to_temp': secondsToTemp, 'temperature set point': setTemp, 'current temp': currentTemp})
 	return res
+
 @app.route('/thermal/api/v1.0/events', methods=['GET'])
 #@requires_auth
 def get_events():
@@ -157,15 +162,23 @@ def create_events():
 	if res == True:
 		if not request.json:
 		    abort(400)
-		events = request.json['events']
+		events = None
+		if isinstance(request.json, str):
+			events = json.loads(request.json)
+		else:
+			raise TypeError('Error working with requested JSON of type {0}'.format(type(request.json)))
 		for event in events:
 			try:
-				onDate = datetime.datetime.strptime(str(event['on']['when']), "%Y-%m-%d %H:%M")
+				try:
+					#onDate = datetime.datetime.strptime(str(event['on']['when']), "%Y-%m-%d %H:%M:%S")
+					onDate = datetime.datetime.strptime(str(event['on']['when']), "%Y-%m-%dT%H:%M:%SZ")
+				except ValueError:
+ 					onDate = datetime.datetime.strptime(str(event['on']['when']), "%Y-%m-%d %H:%M")
 				onTemp = float(event['on']['temperature'])
 				offTemp = float(event['off']['temperature'])
 				motionDelaySecs = int(event['on']['motion_delay_seconds'])			
 			except:
-				print('Data type problem with json message.')
+				print('Data type problem with json message: \n{0}\n\n'.format(json.dumps(event)))
 				abort(410)
 		with open(eventsFileName, 'w') as json_data_file:
 	            try:
@@ -189,6 +202,7 @@ def get_furnance_on():
 			return jsonify({'isFurnanceOn': 'False'})
 		return jsonify({'isFurnanceOn': 'True'})
 	return res
+
 @app.route('/thermal/api/v1.0/isMotion', methods=['GET'])
 # @requires_auth
 def get_motion():
@@ -201,4 +215,4 @@ def get_motion():
 	return res
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port=5001)
+	app.run(host='127.0.0.1', port=5001)

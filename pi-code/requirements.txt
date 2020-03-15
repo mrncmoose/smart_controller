@@ -1,3 +1,7 @@
+requests
 configparser
+cryptography
 pyopenssl
-AWSIoTPythonSDK
+PyJWT
+paho-mqtt
+Dumper

@@ -1,0 +1,15 @@
+{
+	"ActionRequests": {
+		"actionType": {
+			"verb": "heat"
+		}
+	},
+	"actionValue": {
+		"temp": 20,
+		"on": "1942-12-07 08:00:00",
+		"motion_delay_seconds": 120
+	}
+}
+
+'{\"ActionRequests\":{\"actionType\":{\"verb\":\"heat\"},\"actionValue\": {\"temp\":20, \"on\":\"1942-12-07 08:00:00\", \"motion_delay_seconds\":120}}}'
+

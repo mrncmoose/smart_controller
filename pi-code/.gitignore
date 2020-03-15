@@ -1,0 +1,3 @@
+/certs/
+/gcp_venv/
+*.pyc

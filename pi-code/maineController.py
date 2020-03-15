@@ -22,7 +22,6 @@ parser.add_argument("--log_level",
                     default="INFO", 
                     choices=['DEBUG', 'INFO', 'WARNING', 'ERROR'])
 args = parser.parse_args()
-print('Arg passed in: {0}'.format(args.log_level))
 
 # load the kernel modules needed to handle the sensor
 os.system('modprobe w1-gpio')
@@ -130,7 +129,7 @@ def getCurrentTemp(sensorPath):
         eventLogger.info("Temperature\t " + str(tempVal))
         tempRetVal = tempVal
     else:
-        eventLogger.warn("Got bad crc reading temperature sensor")
+        eventLogger.warning("Got bad crc reading temperature sensor")
     return tempRetVal;
 
 def resetEvents():
@@ -139,12 +138,12 @@ def resetEvents():
         {
             'on':
             {
-                'when':u'1999-04-01 18:00',
+                'when':u'1999-04-01T18:00:00Z',
                  'temperature':-42,
                  'motion_delay_seconds':30
              },
              'off':{
-                'when':u'2017-04-01 18:00',
+                'when':u'2017-04-01T18:00:00Z',
                  'temperature':-42
              },
         'current_timestamp':u'2020-03-27 14:41:00'
@@ -173,7 +172,12 @@ def getSetTemp(eventsJsonFile):
         eventLogger.error("Unable to open events file w/ setpoints with exception " + str(e))
     now = datetime.datetime.now()
     for e in data:
-        onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%d %H:%M")
+        onDate = None
+        try:
+            #onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%d %H:%M")
+            onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%dT%H:%M:%SZ")
+        except ValueError:
+            onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%d %H:%M:%S")
         setTempOn = float(e['on']['temperature'])
         setTempOff = float(e['off']['temperature'])
         try:
@@ -220,7 +224,7 @@ while (True):
         FurnaceState = False
     if tempVal >= MaxTemp:
         FurnaceState = False
-        eventLogger.warn("Max temperature exceeded!")
+        eventLogger.warning("Max temperature exceeded!")
 #    eventLogger.debug("Motion detected flag: {0}".format(isMotionDetected))
         
     if FurnaceState:
