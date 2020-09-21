@@ -5,3 +5,5 @@ pyopenssl
 PyJWT
 paho-mqtt
 Dumper
+Flask
+uwsgi

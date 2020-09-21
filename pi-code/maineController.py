@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# 2020-03-29  BUG:  upper time for furnance turn on time is getting incorrectly calcuated.
+
 import os
 import sys
 import time

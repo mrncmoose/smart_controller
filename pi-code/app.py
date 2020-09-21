@@ -6,6 +6,8 @@ import os
 import RPi.GPIO as GPIO
 import json
 import datetime
+import logging
+import logging.handlers
 #import dumper
 from ThermalPrediction import PredictDeltaTemp
 
@@ -22,6 +24,20 @@ GPIO.setup(statusLight, GPIO.OUT)
 GPIO.setup(motionSensorInPin, GPIO.IN)
 
 apiKey = os.environ['API_KEY']
+
+lg = logging.getLogger(__name__)
+lg.setLevel(level = 'INFO')
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+LOG_FILENAME = 'webAPI.log'
+eventLogger = logging.getLogger('EventLogger')
+eventLogger.setLevel(level = 'INFO')
+logFormatter = logging.Formatter('%(levelname)s\t%(asctime)s\t%(message)s')
+logHandler = logging.handlers.RotatingFileHandler(LOG_FILENAME, maxBytes=20000000, backupCount=2 )
+logHandler.setFormatter(logFormatter)
+lg.addHandler(logHandler)
+
+lg.info("Starting web API server...")
 
 app = Flask(__name__)
 
@@ -108,11 +124,11 @@ def getCurrentTemp(sensorPath):
     tempVal = round(float(tempStr[1])/1000, 1)
     tempRetVal = 0
     if "YES" in crc:
-        print("Temperature: " + str(tempVal) + " C")
+        lg.debug("Temperature: " + str(tempVal) + " C")
         tempRetVal = tempVal
     else:
         tempRetVal = -99
-        print("Got bad crc reading temperture sensor")
+        lg.error("Got bad crc reading temperture sensor")
     return tempRetVal;
 
 @app.route('/thermal/api/v1.0/time_to_temp', methods=['GET'])
@@ -146,12 +162,17 @@ def get_events():
 # @requires_auth
 def get_current_temp():
 #    current_temp = getCurrentTemp('/sys/bus/w1/devices/28-04167527baff')
-	api_key = request.args.get("api_id")
-	res = check_api_key(api_key)
-	if res == True:
-		tempPath = TempSensorId
-		current_temp = getCurrentTemp(tempPath)
-		return jsonify({'current_temp': current_temp})
+	try:
+		api_key = request.args.get("api_id")
+		res = check_api_key(api_key)
+		if res == True:
+			tempPath = TempSensorId
+			current_temp = getCurrentTemp(tempPath)
+			return jsonify({'current_temp': current_temp})
+	except Exception as e:
+		lg.error('Unable to get current temperature for reason: {}'.format(e))
+		return Response('Unable to get current temperature for reason {}'.format(e), 501)
+	
 	return res
 
 @app.route('/thermal/api/v1.0/events', methods=['POST'])
@@ -178,13 +199,14 @@ def create_events():
 				offTemp = float(event['off']['temperature'])
 				motionDelaySecs = int(event['on']['motion_delay_seconds'])			
 			except:
-				print('Data type problem with json message: \n{0}\n\n'.format(json.dumps(event)))
+				lg.error('Data type problem with json message: \n{0}\n\n'.format(json.dumps(event)))
 				abort(410)
 		with open(eventsFileName, 'w') as json_data_file:
 	            try:
 	                json.dump(events, json_data_file, ensure_ascii=False)
-	            except:
-	                abort(500)
+	            except Exception as e:
+	            	lg.error('Error reading events filename {} with error: {}'.format(eventsFileName, e))
+	            	abort(500)
 		json_data_file.close()
 	#	currentTimeStamp = events[0]['current_timestamp']
 	#	print("Setting date to: " + currentTimeStamp)
@@ -215,4 +237,5 @@ def get_motion():
 	return res
 
 if __name__ == '__main__':
+#	app.debug = True
 	app.run(host='127.0.0.1', port=5001)

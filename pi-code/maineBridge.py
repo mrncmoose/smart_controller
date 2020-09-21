@@ -19,7 +19,7 @@ if __name__ == '__main__':
     lg.setLevel(level = args.log_level)
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
-    LOG_FILENAME = 'themeralController.log'
+    LOG_FILENAME = 'http_bridge.log'
     eventLogger = logging.getLogger('EventLogger')
     eventLogger.setLevel(level = args.log_level)
     logFormatter = logging.Formatter('%(levelname)s\t%(asctime)s\t%(message)s')
@@ -36,4 +36,4 @@ if __name__ == '__main__':
     myBridge.blogger.setLevel(level = args.log_level)
 #    myBridge.blogger.addHandler(ch)
     myBridge.blogger.addHandler(logHandler)
-    myBridge.run(loopDelay=int(args.loopDelay))
+    myBridge.run(loopDelay=float(args.loopDelay))
