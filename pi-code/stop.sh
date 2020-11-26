@@ -4,7 +4,7 @@ kill $pid
 pid=$(<maineController.pid)
 kill $pid
 pid=$(<webApp.pid)
-sudo kill $pid
+sudo kill -9 $pid
 rm maineController.pid
 rm webApp.pid
 rm maineBridge.pid

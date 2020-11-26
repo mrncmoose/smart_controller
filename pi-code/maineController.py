@@ -67,6 +67,8 @@ Determines if we are in pre-heat mode.
 targetTime is when the system is expected to be at the set temperature
 setTemp is the targeted temperature.
 '''
+
+# TODO:  make sure an old setting does not incorrectly trigger a new pre-heat.
 def preHeatCheck(targetTime, setTemp):
     global PreHeatHours
     now = datetime.datetime.now()
@@ -158,20 +160,33 @@ def resetEvents():
     except Exception as e:
         eventLogger.error('Unable to update the events file with error: {0}'.format(e))
         raise Exception(e)
+
+#Problem:  When the system enters an Off state from a heating state, it may read the value from the IoT site and re-enter heating state.
         
 def getSetTemp(eventsJsonFile):
     global isMotionDetected
     global machineState
     global motionTimeOutSeconds
     
-    try:
-        with open(eventsJsonFile) as json_data_file:
-            data = json.load(json_data_file)
-        json_data_file.close()
-    except:
+    #TODO:  There may be a file lock condition while the bridge is updating the file.
+    # Short term:  Retry up to 3 times w/ a 1 second delay between attempts
+    # Long term:  Use either Redis or MQTT to transmit/hold the setpoints.
+    retryCount = 0
+    for i in range(0, 2):        
+        try:
+            with open(eventsJsonFile) as json_data_file:
+                data = json.load(json_data_file)
+            json_data_file.close()
+            break
+        except Exception as e:
+            eventLogger.error("Unable to open events file w/ setpoints with exception " + str(e))
+            eventLogger.error("Waiting 2 seconds to try again.")
+            retryCount += 1
+            time.sleep(2)   
+    if retryCount > 1:
         GPIO.output(relay1, GPIO.HIGH)
-        e = sys.exc_info()[0]
-        eventLogger.error("Unable to open events file w/ setpoints with exception " + str(e))
+        eventLogger.critical('Maximum number of retries to open the setpoints file exceeded!')
+
     now = datetime.datetime.now()
     for e in data:
         onDate = None

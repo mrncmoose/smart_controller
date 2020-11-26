@@ -24,8 +24,11 @@ TempWindow= 1.0
 PreHeatHours = 2
 
 #TempSensorId= '/sys/bus/w1/devices/28-04167527baff'
-TempSensorId = '/sys/bus/w1/devices/28-0118410e8eff'
+# TempSensorId = '/sys/bus/w1/devices/28-0118410e8eff'
+TempSensorId = '/sys/bus/w1/devices/28-0118410baaff'
 # TempSensorId: /home/pi/thermal_controller/temp
+
+#TODO:  Add sensor calibration values
 
 relay1 = 17
 relay2 = 27
@@ -48,7 +51,8 @@ privateKeyFile = certDir + '/rsa_private.pem'
 ca_certs = certDir + '/roots.pem'
 algorithm = 'RS256'
 #The id/key assigned to this thing via the central server.  Each thing Id is unique.
-ourThingId = 2
+#ourThingId = 2   #Training building is id = 2
+ourThingId = 3    #Marie thing for test.
 
 #API URI's for local API
 localApiUser = 'admin'
