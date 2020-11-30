@@ -54,6 +54,7 @@ class HttpBridge(object):
     def getEvents(self):
         try:
             url = centralServer['baseURL'] + centralServer['eventURI']
+            isEventInPast = False
             res = requests.get(url, auth=HTTPBasicAuth(os.environ['THING_OWNER'], os.environ['THING_PASSWORD']), verify=True)
             if re.search(r'4\d+|5\d+', str(res.status_code)):
                 raise Exception('Unable to get events from central server with HTTP return code of {}'.format(res.status_code))
@@ -63,18 +64,25 @@ class HttpBridge(object):
                 url = baseURL + eventURI
                 localEvents = []
                 for ev in events:
-                    lEv = {'on':{
-                              'motion_delay_seconds':ev['on_motion_delay_seconds'],
-                              'when': ev['on_when'],
-                              'temperature': ev['on_temperature']                              
-                              },
-                             'off': {'temperature': ev['off_temperature']}
-                        }
-                    localEvents.append(lEv)
-                jsonMess = json.dumps(localEvents)
-                resp = requests.post(url, json=jsonMess, auth=HTTPBasicAuth(localApiUser, localApiPass), verify=True)
-                if re.search(r'4\d+|5\d+', str(resp.status_code)):
-                    raise Exception('Unable to send event to local server.  HTTP return code: {}'.format(resp.status_code))
+                    now = datetime.datetime.now()
+                    setDate = datetime.datetime.strptime(ev['on_when'], "%Y-%m-%dT%H:%M:%SZ")
+                    if setDate >= now:
+                        lEv = {'on':{
+                                  'motion_delay_seconds':ev['on_motion_delay_seconds'],
+                                  'when': ev['on_when'],
+                                  'temperature': ev['on_temperature']                              
+                                  },
+                                 'off': {'temperature': ev['off_temperature']}
+                            }
+                        localEvents.append(lEv)
+                    else:
+                        self.blogger.info('Set point datetime is in the past.')
+                        isEventInPast = True
+                if not isEventInPast:
+                    jsonMess = json.dumps(localEvents)
+                    resp = requests.post(url, json=jsonMess, auth=HTTPBasicAuth(localApiUser, localApiPass), verify=True)
+                    if re.search(r'4\d+|5\d+', str(resp.status_code)):
+                        raise Exception('Unable to send event to local server.  HTTP return code: {}'.format(resp.status_code))
                 return True
             else:
                 self.blogger.debug('No events fetched from central server at URL: {}'.format(url))
