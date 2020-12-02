@@ -68,7 +68,6 @@ targetTime is when the system is expected to be at the set temperature
 setTemp is the targeted temperature.
 '''
 
-# TODO:  make sure an old setting does not incorrectly trigger a new pre-heat.
 def preHeatCheck(targetTime, setTemp):
     global PreHeatHours
     now = datetime.datetime.now()
@@ -84,22 +83,32 @@ def preHeatCheck(targetTime, setTemp):
 
     return now + datetime.timedelta(hours=12)
 
-#TODO:  change to an interupt including debounce time.
-def motionAction(motionStartTime):
+#This method is called when the motion detector activates for at least 500 ms.
+#Find other calls and fix...
+def motionAction(channel):
+    global isMotionDetected
+    global deltaTime
+    global motionStartTime
+    
+    eventLogger.info("-------->> Motion detected! <<------------")
+    eventLogger.debug('isMotionDetected value: {}'.format(isMotionDetected))
+    motionStartTime = datetime.datetime.now()
+    deltaTime = 0
+    isMotionDetected = True
+    GPIO.output(statusLight, GPIO.HIGH)
+#    motionStartTime = doMotionAction(motionStartTime)
+
+    
+def doMotionAction():
     global isMotionDetected
     global deltaTime
     global machineState
     global motionTimeOutSeconds
-    
-    if GPIO.input(motionSensorInPin)==1:
-        eventLogger.info("-------->> Motion detected! <<------------")
-        motionStartTime = datetime.datetime.now()
-        deltaTime = 0
-        isMotionDetected = True
-        GPIO.output(statusLight, GPIO.HIGH)
-    else:
+    global motionStartTime
+
+    if isMotionDetected:
         deltaTime = (datetime.datetime.now()-motionStartTime).total_seconds()
-        eventLogger.info("Seconds between motion: {0} with timeout of {1} seconds".format(deltaTime, motionTimeOutSeconds))
+#        motionStartTime = datetime.datetime.now()
             
     if deltaTime >= motionTimeOutSeconds:
         GPIO.output(statusLight, GPIO.LOW)
@@ -110,7 +119,8 @@ def motionAction(motionStartTime):
         deltaTime = 0
         motionStartTime = datetime.datetime.now()        
 
-    return motionStartTime
+    eventLogger.info("Motion Flag of {0}. Seconds between motion: {1} with timeout of {2} seconds".format(isMotionDetected, deltaTime, motionTimeOutSeconds))
+
 
 def getSecondsToTemp(setTemp, currentTemp):
     # updating to correct method
@@ -161,17 +171,12 @@ def resetEvents():
     except Exception as e:
         eventLogger.error('Unable to update the events file with error: {0}'.format(e))
         raise Exception(e)
-
-#Problem:  When the system enters an Off state from a heating state, it may read the value from the IoT site and re-enter heating state.
         
 def getSetTemp(eventsJsonFile):
     global isMotionDetected
     global machineState
     global motionTimeOutSeconds
     
-    #TODO:  There may be a file lock condition while the bridge is updating the file.
-    # Short term:  Retry up to 3 times w/ a 1 second delay between attempts
-    # Long term:  Use either Redis or MQTT to transmit/hold the setpoints.
     retryCount = 0
     for i in range(0, 2):        
         try:
@@ -192,7 +197,6 @@ def getSetTemp(eventsJsonFile):
     for e in data:
         onDate = None
         try:
-            #onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%d %H:%M")
             onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%dT%H:%M:%SZ")
         except ValueError:
             onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%d %H:%M:%S")
@@ -207,8 +211,8 @@ def getSetTemp(eventsJsonFile):
         targetOnTime = preHeatCheck(onDate, setTempOn)
         currentState = machineState.getCurrentState()
 
-        eventLogger.debug("on temp: {0}C\t On time: {1}\t Target Time: {2}".format(setTemp, setTempOn, onDate, targetOnTime))
-        eventLogger.debug("Current machine state: {0}".format(currentState))
+        eventLogger.debug("on temp: {0}C\t Set on temp: {1}\t Target Time: {2}".format(setTemp, setTempOn, onDate, targetOnTime))
+        eventLogger.info("Current machine state: {0}".format(currentState))
         
         if currentState == 'Heating' and not isMotionDetected:
             resetEvents()
@@ -230,13 +234,17 @@ def getSetTemp(eventsJsonFile):
                  
     return setTemp
         
- 
+GPIO.add_event_detect(motionSensorInPin, GPIO.RISING, callback=motionAction, bouncetime=500)
+global  currentState
+currentState = 'Off'
+FurnaceState = False
+
 while (True):
     tempVal = getCurrentTemp(TempSensorId)
-    startTime = motionAction(startTime)    
+    doMotionAction()    
     onTemp = getSetTemp("furnanceEvent.json")
     eventLogger.info("Temperature set point\t{0}".format(onTemp))
-    if (tempVal < (onTemp - TempWindow)): 
+    if (tempVal < (onTemp - TempWindow)) and currentState != 'Off': 
         FurnaceState = True
     if tempVal > (onTemp + TempWindow):
         FurnaceState = False

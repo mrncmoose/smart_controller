@@ -1,1 +1,1 @@
-[{"on": {"motion_delay_seconds": "120", "when": "2019-10-16 13:07", "temperature": "24.42"}, "off": {"temperature": "-42.78"}}]
+[{"on": {"motion_delay_seconds": "120", "when": "2019-10-16T13:07:00Z", "temperature": "24.42"}, "off": {"temperature": "-42.78"}}]

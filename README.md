@@ -85,7 +85,7 @@ Basic article on controlling the relays:
 <https://elementztechblog.wordpress.com/2014/09/09/controlling-relay-boards-using-raspberrypi/>
 
 Quick & dirty how to get the temperature value:
-<http://raspberrywebserver.com/gpio/connecting-a-temperature-sensor-to-gpio.html>
+<https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/ds18b20>
 
 ##Security setups:
 ###Fail2ban:
