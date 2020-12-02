@@ -53,7 +53,7 @@ GPIO.setup(relay2, GPIO.OUT)
 GPIO.setup(relay3, GPIO.OUT)
 GPIO.setup(relay4, GPIO.OUT)
 GPIO.setup(statusLight, GPIO.OUT)
-GPIO.setup(motionSensorInPin, GPIO.IN)
+GPIO.setup(motionSensorInPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
  
 #initialize to off
 GPIO.output(relay1, GPIO.HIGH)
@@ -84,6 +84,7 @@ def preHeatCheck(targetTime, setTemp):
 
     return now + datetime.timedelta(hours=12)
 
+#TODO:  change to an interupt including debounce time.
 def motionAction(motionStartTime):
     global isMotionDetected
     global deltaTime
