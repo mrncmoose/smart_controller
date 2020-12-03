@@ -38,6 +38,9 @@ eventLogger.addHandler(logHandler)
 startTime = datetime.datetime.now()
 isMotionDetected = False
 isMotionTimedOut = False
+global machineState
+global motionStartTime
+
 machineState = MachineState()
 machineState.changeState('Off')
 # A boolean of if the Furnace should be turned on/off.  False -->  off
@@ -61,6 +64,8 @@ GPIO.output(relay2, GPIO.HIGH)
 GPIO.output(relay3, GPIO.HIGH)
 GPIO.output(relay4, GPIO.HIGH)
 GPIO.output(statusLight, GPIO.LOW)
+
+motionStartTime = datetime.datetime.now()
 
 '''
 Determines if we are in pre-heat mode.
@@ -106,9 +111,12 @@ def doMotionAction():
     global motionTimeOutSeconds
     global motionStartTime
 
+    #The interrupt does not handle the case of continuously on.
+    if GPIO.input(motionSensorInPin) == 1:
+        motionAction(motionSensorInPin)
+
     if isMotionDetected:
         deltaTime = (datetime.datetime.now()-motionStartTime).total_seconds()
-#        motionStartTime = datetime.datetime.now()
             
     if deltaTime >= motionTimeOutSeconds:
         GPIO.output(statusLight, GPIO.LOW)
@@ -209,50 +217,48 @@ def getSetTemp(eventsJsonFile):
             motionTimeOutSeconds = 300
         setTemp = setTempOff        
         targetOnTime = preHeatCheck(onDate, setTempOn)
-        currentState = machineState.getCurrentState()
 
-        eventLogger.debug("on temp: {0}C\t Set on temp: {1}\t Target Time: {2}".format(setTemp, setTempOn, onDate, targetOnTime))
-        eventLogger.info("Current machine state: {0}".format(currentState))
+        eventLogger.debug("Set on temp: {0}\t On date: {1}\t Target on time: {2}".format(setTempOn, onDate, targetOnTime))
+        eventLogger.info("Current machine state: {0}".format(machineState.getCurrentState()))
         
-        if currentState == 'Heating' and not isMotionDetected:
+        if machineState.getCurrentState() == 'Heating' and not isMotionDetected:
             resetEvents()
             machineState.changeState("Off")
             eventLogger.info("Machine state to off")
             return setTempOff
 
-        if currentState == 'Off' and targetOnTime <= now:
+        if machineState.getCurrentState() == 'Off' and targetOnTime <= now:
             machineState.changeState('Preheating')
             eventLogger.info("Machine state change to preheating")
             return setTempOn
         
-        if currentState == 'Preheating' and now >= onDate:
+        if machineState.getCurrentState() == 'Preheating' and now >= onDate:
             machineState.changeState('Heating')
             eventLogger.info("Machine state change to heating")
             return setTempOn
-        if currentState == 'Preheating' or currentState == 'Heating':
+        if machineState.getCurrentState() == 'Preheating' or machineState.getCurrentState() == 'Heating':
             return setTempOn
                  
     return setTemp
         
 GPIO.add_event_detect(motionSensorInPin, GPIO.RISING, callback=motionAction, bouncetime=500)
-global  currentState
-currentState = 'Off'
 FurnaceState = False
 
 while (True):
     tempVal = getCurrentTemp(TempSensorId)
-    doMotionAction()    
+    if machineState.getCurrentState() != 'Off':
+        doMotionAction()    
     onTemp = getSetTemp("furnanceEvent.json")
     eventLogger.info("Temperature set point\t{0}".format(onTemp))
-    if (tempVal < (onTemp - TempWindow)) and currentState != 'Off': 
+    if tempVal < (onTemp - TempWindow) and machineState.getCurrentState() != 'Off': 
         FurnaceState = True
     if tempVal > (onTemp + TempWindow):
         FurnaceState = False
     if tempVal >= MaxTemp:
         FurnaceState = False
         eventLogger.warning("Max temperature exceeded!")
-#    eventLogger.debug("Motion detected flag: {0}".format(isMotionDetected))
-        
+
+    eventLogger.debug('Maine loop current state {} and furnance state {}'.format(machineState.getCurrentState(), FurnaceState))        
     if FurnaceState:
         eventLogger.info("Furnace ON")
         GPIO.output(relay1, GPIO.LOW)
