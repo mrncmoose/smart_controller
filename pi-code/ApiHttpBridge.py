@@ -6,6 +6,8 @@ import time
 import re
 import json
 import datetime
+from pytz import timezone
+import pytz
 
 from requests.auth import HTTPBasicAuth
 
@@ -18,6 +20,8 @@ class HttpBridge(object):
         
     def putReadings(self):
         res = None
+        #localTz = timezone('US/Eastern')
+        utc = pytz.utc
         try:
             url = baseURL + tempertureURI
             res = requests.get(url, auth=HTTPBasicAuth(localApiUser, localApiPass), verify=True)
@@ -30,7 +34,7 @@ class HttpBridge(object):
         try:
             url = centralServer['baseURL'] + centralServer['currentReadingURI']
             tempMes = res.json()
-            d = datetime.datetime.now(timezone.utc)
+            d = datetime.datetime.now(utc)
             thingOwner = os.environ['THING_OWNER']
             thingPass = os.environ['THING_PASSWORD']
             reading = {
