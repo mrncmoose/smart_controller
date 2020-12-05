@@ -30,7 +30,7 @@ class HttpBridge(object):
         try:
             url = centralServer['baseURL'] + centralServer['currentReadingURI']
             tempMes = res.json()
-            d = datetime.datetime.now()
+            d = datetime.datetime.now(timezone.utc)
             thingOwner = os.environ['THING_OWNER']
             thingPass = os.environ['THING_PASSWORD']
             reading = {
