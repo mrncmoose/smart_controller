@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-# 2020-03-29  BUG:  upper time for furnance turn on time is getting incorrectly calcuated.
+# 20210126:  BUG  Unit not shutting down after people have left the building.
+# conditions:  set temp is not reached.
 
 import os
 import sys
@@ -74,6 +75,7 @@ setTemp is the targeted temperature.
 '''
 
 def preHeatCheck(targetTime, setTemp):
+    #TODO:  PreHeatHours is set in Config.py.  Change so it is not global
     global PreHeatHours
     now = datetime.datetime.now()
     secondsToTemp = getSecondsToTemp(setTemp, getCurrentTemp(TempSensorId))
