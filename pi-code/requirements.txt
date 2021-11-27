@@ -1,2 +1,10 @@
+requests
 configparser
+cryptography
 pyopenssl
+PyJWT
+paho-mqtt
+Dumper
+Flask
+uwsgi
+pytz

@@ -1,0 +1,4 @@
+/certs/
+/gcp_venv/
+*.pyc
+/themeralController.log.1

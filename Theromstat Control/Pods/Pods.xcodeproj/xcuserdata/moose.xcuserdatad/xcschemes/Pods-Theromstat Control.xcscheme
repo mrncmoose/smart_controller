@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4141F53C1DE7FF26307356DB327214CB"
+               BlueprintIdentifier = "CFCDEF748638846E05E73A227E0CF51B"
                BuildableName = "Pods_Theromstat_Control.framework"
                BlueprintName = "Pods-Theromstat Control"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4141F53C1DE7FF26307356DB327214CB"
+            BlueprintIdentifier = "CFCDEF748638846E05E73A227E0CF51B"
             BuildableName = "Pods_Theromstat_Control.framework"
             BlueprintName = "Pods-Theromstat Control"
             ReferencedContainer = "container:Pods.xcodeproj">
