@@ -17,32 +17,87 @@ class HttpBridge(object):
     
     def __init__(self, *args, **kwargs):       
         self.blogger = logging.getLogger(__name__)
+        self.currentTemp = -42.0
+        self.isMotion = False
+        self.isFurnanceOn = False
         
+    def getIsMotion(self):
+        res = None
+        try:
+            url = baseURL + motionURI
+            res = requests.get(url, auth=HTTPBasicAuth(localApiUser, localApiPass), verify=True)
+            if re.search(r'4\d+|5\d+', str(res.status_code)):
+                raise Exception('Unable to get motion from controller with HTTP return code of {}'.format(res.status_code))
+            reading = res.json()
+            self.isMotion = reading['isMotion']
+        except Exception as e:
+            self.blogger.error('Unable to get reading from local controller for reason: {}'.format(e))
+            return False        
+        return True
+    
+    def getIsFurnanceOn(self):
+        res = None
+        try:
+            url = baseURL + runningURI
+            res = requests.get(url, auth=HTTPBasicAuth(localApiUser, localApiPass), verify=True)
+            if re.search(r'4\d+|5\d+', str(res.status_code)):
+                raise Exception('Unable to get furnance running from controller with HTTP return code of {}'.format(res.status_code))
+            reading = res.json()
+            self.isFurnanceOn = reading['isFurnanceOn']
+        except Exception as e:
+            self.blogger.error('Unable to get reading from local controller for reason: {}'.format(e))
+            return False        
+        return True               
+    
+    def getTemperature(self):
+        url = baseURL + tempertureURI
+        try:
+            res = requests.get(url, auth=HTTPBasicAuth(localApiUser, localApiPass), verify=True)
+            if re.search(r'4\d+|5\d+', str(res.status_code)):
+                raise Exception('Unable to get temperature from controller with HTTP return code of {}'.format(res.status_code))        
+            reading = res.json()
+            self.currentTemp = reading['current_temp']
+            return self.currentTemp
+        except Exception as e:
+            self.blogger.error('Unable to get tempature reading from local controller for reason: {}'.format(e))
+        return -42.0
+    
     def putReadings(self):
         res = None
         #localTz = timezone('US/Eastern')
         utc = pytz.utc
         try:
-            url = baseURL + tempertureURI
-            res = requests.get(url, auth=HTTPBasicAuth(localApiUser, localApiPass), verify=True)
-            if re.search(r'4\d+|5\d+', str(res.status_code)):
-                raise Exception('Unable to get temperature from controller with HTTP return code of {}'.format(res.status_code))
-            
+            temp = self.getTemperature()
+            motion = self.getIsMotion()
+            isHeating = self.getIsFurnanceOn()
         except Exception as e:
             self.blogger.error('Unable to get readings from local controller for reason: {}'.format(e))
             return False
         try:
             url = centralServer['baseURL'] + centralServer['currentReadingURI']
-            tempMes = res.json()
             d = datetime.datetime.now(utc)
             thingOwner = os.environ['THING_OWNER']
             thingPass = os.environ['THING_PASSWORD']
-            reading = {
-                    'ttReadTime': '{}'.format(d.strftime('%Y-%m-%dT%H:%M:%SZ')),
-                    'sensorType': 1,
-                   'dataValue': '{}'.format(tempMes['current_temp']),
-                   'thing': ourThingId
-                }
+            reading =[
+                        {
+                            'ttReadTime': '{}'.format(d.strftime('%Y-%m-%dT%H:%M:%SZ')),
+                            'sensorType': sensorTypes['temperature'],
+                            'dataValue': '{}'.format(temp),
+                            'thing': ourThingId
+                        },
+                        {
+                            'ttReadTime': '{}'.format(d.strftime('%Y-%m-%dT%H:%M:%SZ')),
+                            'sensorType': sensorTypes['motion'],
+                            'dataValue': '{}'.format(motion),
+                            'thing': ourThingId                            
+                        },
+                        {
+                            'ttReadTime': '{}'.format(d.strftime('%Y-%m-%dT%H:%M:%SZ')),
+                            'sensorType': sensorTypes['furnance'],
+                            'dataValue': '{}'.format(isHeating),
+                            'thing': ourThingId                                 
+                        }
+            ]
             mes = json.dumps(reading)
             res = requests.post(url, json=reading, auth=HTTPBasicAuth(thingOwner, thingPass), verify=True)
             self.blogger.debug('Post current reading status code: {0}\n for message: {1}\nTo URL: {2}'.format(res.status_code, mes, url))

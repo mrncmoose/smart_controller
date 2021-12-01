@@ -54,6 +54,13 @@ algorithm = 'RS256'
 #ourThingId = 2   #Training building is id = 2
 ourThingId = 3    #Marie thing for test.
 
+# Sensor types
+sensorTypes = {
+    'temperature': 1,
+    'motion': 5,
+    'furnance': 3
+}
+
 #API URI's for local API
 localApiUser = 'admin'
 localApiPass = 'secret'
@@ -61,6 +68,7 @@ baseURL = 'http://127.0.0.1:5001'
 tempertureURI = '/thermal/api/v1.0/current_temp'
 eventURI = '/thermal/api/v1.0/events'
 runningURI = '/thermal/api/v1.0/isFurnaceOn'
+motionURI = '/thermal/api/v1.0/isMotion'
 
 #The server the 'world' will interact with via it's API's.
 #Polling isn't the best way to do this, but HTTP is currently the only protocol working.
