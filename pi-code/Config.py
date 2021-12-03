@@ -28,8 +28,6 @@ PreHeatHours = 2
 TempSensorId = '/sys/bus/w1/devices/28-0118410baaff'
 # TempSensorId: /home/pi/thermal_controller/temp
 
-#TODO:  Add sensor calibration values
-
 relay1 = 17
 relay2 = 27
 relay3 = 22
