@@ -38,17 +38,13 @@ logHandler = logging.handlers.RotatingFileHandler(LOG_FILENAME, maxBytes=2000000
 logHandler.setFormatter(logFormatter)
 eventLogger.addHandler(logHandler)
 startTime = datetime.datetime.now()
-isMotionDetected = False
-isMotionTimedOut = False
-global machineState
-global motionStartTime
 
 machineState = MachineState()
 machineState.changeState('Off')
 # A boolean of if the Furnace should be turned on/off.  False -->  off
 FurnaceState = False
 deltaTime = 0
-motionTimeOutSeconds = 900
+motionTimeOutSeconds = 30
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
@@ -146,6 +142,7 @@ def resetEvents():
         
 def getSetTemp(eventsJsonFile):
     retryCount = 0
+    oldMotionDelay = 0
     for i in range(0, 2):        
         try:
             with open(eventsJsonFile) as json_data_file:
@@ -168,10 +165,14 @@ def getSetTemp(eventsJsonFile):
             onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%dT%H:%M:%SZ")
         except ValueError:
             onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%d %H:%M:%S")
+            
         setTempOn = float(e['on']['temperature'])
         setTempOff = float(e['off']['temperature'])
         try:
-            mac.setTimerValue(int(e['on']['motion_delay_seconds']))
+            newMotionDelay = int(e['on']['motion_delay_seconds'])
+            if oldMotionDelay != newMotionDelay:
+                oldMotionDelay = newMotionDelay
+                mac.setTimerValue(newMotionDelay)
         except:
             eventLogger.error('Unable to read motion time out seconds value.  Using value of 300.')
             mac.setTimerValue(300)
