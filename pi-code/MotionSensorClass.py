@@ -14,7 +14,7 @@ class MotionAction:
     def __init__(self, 
             percentOn:float=100.0, 
             timeOutSeconds:int=299, 
-            sensorInPin:int=24, 
+            sensorInPin:int=23, 
             onMotionCallBack = None,
             onMotionTimeOutCallBack = None,
             logger=None) -> None:
@@ -43,7 +43,8 @@ class MotionAction:
         GPIO.add_event_detect(self.sensorInPin, GPIO.RISING, callback=self.motionAction, bouncetime=self.bounceTime_ms)
         self.logger.info('Timer values reset to {} seconds and debounce {} ms'.format(self.timeOutSeconds, self.bounceTime_ms))
     
-    #This method is called when the motion detector activates for at least self.bounceTime_ms.
+    # This method is called when the motion detector activates for at least self.bounceTime_ms.
+    # It also calls the motion action function that was registered.
     def motionAction(self, channel):
         self.logger.info("-------->> Motion detected! <<------------")
         self.logger.debug('Motion on channel {}'.format(channel))
@@ -82,55 +83,55 @@ class MotionAction:
 
 #-------------- End of class definition, start of test harness.
 
-def timeOutCallBack():
-    print('Motion timed out callback')
+# def timeOutCallBack():
+#     print('Motion timed out callback')
 
-def motionSensedCallBack():
-    print('Motion event call back!')
+# def motionSensedCallBack():
+#     print('Motion event call back!')
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--log_level", 
-                    help="The level of log messages to log", 
-                    default="INFO", 
-                    choices=['DEBUG', 'INFO', 'WARNING', 'ERROR'])
-parser.add_argument("--motionTimeOutSeconds",
-                    help="The number of seconds to wait before logging no motion", 
-                    default=900 )
-parser.add_argument("--percentToOn",
-                    help="The ration of on to off within the motion time out value to turn on.", 
-                    default=1000 )
-parser.add_argument("--motionSensorPin",
-                    help="The GPIO pin the motion sensor is wired to.", 
-                    default=24 )
-args = parser.parse_args()
+# parser = argparse.ArgumentParser()
+# parser.add_argument("--log_level", 
+#                     help="The level of log messages to log", 
+#                     default="INFO", 
+#                     choices=['DEBUG', 'INFO', 'WARNING', 'ERROR'])
+# parser.add_argument("--motionTimeOutSeconds",
+#                     help="The number of seconds to wait before logging no motion", 
+#                     default=900 )
+# parser.add_argument("--percentToOn",
+#                     help="The ration of on to off within the motion time out value to turn on.", 
+#                     default=1000 )
+# parser.add_argument("--motionSensorPin",
+#                     help="The GPIO pin the motion sensor is wired to.", 
+#                     default=23 )
+# args = parser.parse_args()
 
-# load the kernel modules needed to handle the sensor
-os.system('modprobe w1-gpio')
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
-LOG_FILENAME = 'motionSensorTest.log'
-eventLogger = logging.getLogger('EventLogger')
-eventLogger.setLevel(level = args.log_level)
-logFormatter = logging.Formatter('%(levelname)s\t%(asctime)s\t%(message)s')
-logHandler = logging.handlers.RotatingFileHandler(LOG_FILENAME, maxBytes=20000000, backupCount=2 )
-logHandler.setFormatter(logFormatter)
-eventLogger.addHandler(logHandler)
+# # load the kernel modules needed to handle the sensor
+# os.system('modprobe w1-gpio')
+# GPIO.setwarnings(False)
+# GPIO.setmode(GPIO.BCM)
+# LOG_FILENAME = 'motionSensorTest.log'
+# eventLogger = logging.getLogger('EventLogger')
+# eventLogger.setLevel(level = args.log_level)
+# logFormatter = logging.Formatter('%(levelname)s\t%(asctime)s\t%(message)s')
+# logHandler = logging.handlers.RotatingFileHandler(LOG_FILENAME, maxBytes=20000000, backupCount=2 )
+# logHandler.setFormatter(logFormatter)
+# eventLogger.addHandler(logHandler)
 
-mac = MotionAction(timeOutSeconds=int(args.motionTimeOutSeconds),
-    sensorInPin=int(args.motionSensorPin),
-    onMotionCallBack = motionSensedCallBack,
-    onMotionTimeOutCallBack = timeOutCallBack,
-    logger=eventLogger)
-print('Running motion class')
-startTime = datetime.datetime.now()
-halfHour = 60*60/2
-currentTimeOut = int(args.motionTimeOutSeconds)
-while True:
-    mac.checkForTimeOut()
-    sleep(2)
-    secondsRun = (datetime.datetime.now()-startTime).total_seconds()
-    if secondsRun > halfHour:
-        startTime = datetime.datetime.now()
-        currentTimeOut -= 1
-        eventLogger.info('Reseting timeout to {}'.format(currentTimeOut))
-        mac.setTimerValue(currentTimeOut)
+# mac = MotionAction(timeOutSeconds=int(args.motionTimeOutSeconds),
+#     sensorInPin=int(args.motionSensorPin),
+#     onMotionCallBack = motionSensedCallBack,
+#     onMotionTimeOutCallBack = timeOutCallBack,
+#     logger=eventLogger)
+# print('Running motion class')
+# startTime = datetime.datetime.now()
+# halfHour = 60*60/2
+# currentTimeOut = int(args.motionTimeOutSeconds)
+# while True:
+#     mac.checkForTimeOut()
+#     sleep(2)
+#     secondsRun = (datetime.datetime.now()-startTime).total_seconds()
+#     if secondsRun > halfHour:
+#         startTime = datetime.datetime.now()
+#         currentTimeOut -= 1
+#         eventLogger.info('Reseting timeout to {}'.format(currentTimeOut))
+#         mac.setTimerValue(currentTimeOut)

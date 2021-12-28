@@ -28,6 +28,10 @@ PreHeatHours = 2
 TempSensorId = '/sys/bus/w1/devices/28-0118410baaff'
 # TempSensorId: /home/pi/thermal_controller/temp
 
+# Temperature sensor calibration
+tempSensorSlope = 1.0
+# tempSensorOffset = -3.2   # the farm sensor reads ~5 C too high.
+
 relay1 = 17
 relay2 = 27
 relay3 = 22
@@ -70,13 +74,13 @@ motionURI = '/thermal/api/v1.0/isMotion'
 
 #The server the 'world' will interact with via it's API's.
 #Polling isn't the best way to do this, but HTTP is currently the only protocol working.
-centralServer = { 'baseURL': 'https://iotsmartcontroller.appspot.com',
-                 'eventURI': '/iot/api/thermal-events/',
-                 'currentReadingURI': '/iot/api/thing-data/',
-                 'thingsURI': '/iot/api/things/'
-                 }
-# centralServer = { 'baseURL': 'http://10.0.0.9:8000',
+# centralServer = { 'baseURL': 'https://iotsmartcontroller.appspot.com',
 #                  'eventURI': '/iot/api/thermal-events/',
 #                  'currentReadingURI': '/iot/api/thing-data/',
 #                  'thingsURI': '/iot/api/things/'
 #                  }
+centralServer = { 'baseURL': 'http://10.0.0.29:8000',
+                 'eventURI': '/iot/api/thermal-events/',
+                 'currentReadingURI': '/iot/api/thing-data/',
+                 'thingsURI': '/iot/api/things/'
+                 }

@@ -58,7 +58,7 @@ GPIO.setup(relay2, GPIO.OUT)
 GPIO.setup(relay3, GPIO.OUT)
 GPIO.setup(relay4, GPIO.OUT)
 GPIO.setup(statusLight, GPIO.OUT)
-GPIO.setup(motionSensorInPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+# GPIO.setup(motionSensorInPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # Will be set up in the Motion sensor class.
  
 #initialize to off
 GPIO.output(relay1, GPIO.HIGH)
@@ -67,8 +67,6 @@ GPIO.output(relay3, GPIO.HIGH)
 GPIO.output(relay4, GPIO.HIGH)
 GPIO.output(statusLight, GPIO.LOW)
 
-motionStartTime = datetime.datetime.now()
-
 '''
 Determines if we are in pre-heat mode.
 targetTime is when the system is expected to be at the set temperature
@@ -76,8 +74,6 @@ setTemp is the targeted temperature.
 '''
 
 def preHeatCheck(targetTime, setTemp):
-    #TODO:  PreHeatHours is set in Config.py.  Change so it is not global
-    global PreHeatHours
     now = datetime.datetime.now()
     secondsToTemp = getSecondsToTemp(setTemp, getCurrentTemp(TempSensorId))
     timeToTemp = targetTime - datetime.timedelta(seconds=secondsToTemp)
@@ -91,50 +87,15 @@ def preHeatCheck(targetTime, setTemp):
 
     return now + datetime.timedelta(hours=12)
 
-#This method is called when the motion detector activates for at least 500 ms.
-#Find other calls and fix...
-def motionAction(channel):
-    global isMotionDetected
-    global deltaTime
-    global motionStartTime
-    
-    eventLogger.info("-------->> Motion detected! <<------------")
-    eventLogger.debug('isMotionDetected value: {}'.format(isMotionDetected))
-    motionStartTime = datetime.datetime.now()
-    deltaTime = 0
-    isMotionDetected = True
-    GPIO.output(statusLight, GPIO.HIGH)
-#    motionStartTime = doMotionAction(motionStartTime)
-
+def timeoutAction():
+    if machineState.getCurrentState() != 'Preheating':
+        machineState.changeState('Off')
+        GPIO.output(statusLight, GPIO.LOW)
     
 def doMotionAction():
-    global isMotionDetected
-    global deltaTime
-    global machineState
-    global motionTimeOutSeconds
-    global motionStartTime
-
-    #The interrupt does not handle the case of continuously on.
-    if GPIO.input(motionSensorInPin) == 1:
-        motionAction(motionSensorInPin)
-
-    if isMotionDetected:
-        deltaTime = (datetime.datetime.now()-motionStartTime).total_seconds()
-            
-    if deltaTime >= motionTimeOutSeconds:
-        GPIO.output(statusLight, GPIO.LOW)
-        isMotionDetected = False
-    #If preheating, always show motion.
-    if machineState.getCurrentState() == 'Preheating':
-        isMotionDetected = True
-        deltaTime = 0
-        motionStartTime = datetime.datetime.now()        
-
-    eventLogger.info("Motion Flag of {0}. Seconds between motion: {1} with timeout of {2} seconds".format(isMotionDetected, deltaTime, motionTimeOutSeconds))
-
+    GPIO.output(statusLight, GPIO.HIGH)
 
 def getSecondsToTemp(setTemp, currentTemp):
-    # updating to correct method
     dT = setTemp - currentTemp
     return thermalCalculations.secondsToTemp(dTemp=dT)
     
@@ -149,7 +110,7 @@ def getCurrentTemp(sensorPath):
     crc = myRegex.split(lines[0])
     crc = crc[1][3:-1]
     tempStr = myRegex.split(lines[1])
-    tempVal = round(float(tempStr[1])/1000, 1)
+    tempVal = round(((float(tempStr[1])/1000) * tempSensorSlope) + tempSensorOffset, 1)
     tempRetVal = 30
     if "YES" in crc:
         eventLogger.info("Temperature\t " + str(tempVal))
@@ -184,10 +145,6 @@ def resetEvents():
         raise Exception(e)
         
 def getSetTemp(eventsJsonFile):
-    global isMotionDetected
-    global machineState
-    global motionTimeOutSeconds
-    
     retryCount = 0
     for i in range(0, 2):        
         try:
@@ -214,17 +171,17 @@ def getSetTemp(eventsJsonFile):
         setTempOn = float(e['on']['temperature'])
         setTempOff = float(e['off']['temperature'])
         try:
-            motionTimeOutSeconds = int(e['on']['motion_delay_seconds'])
+            mac.setTimerValue(int(e['on']['motion_delay_seconds']))
         except:
             eventLogger.error('Unable to read motion time out seconds value.  Using value of 300.')
-            motionTimeOutSeconds = 300
+            mac.setTimerValue(300)
         setTemp = setTempOff        
         targetOnTime = preHeatCheck(onDate, setTempOn)
 
         eventLogger.debug("Set on temp: {0}\t On date: {1}\t Target on time: {2}".format(setTempOn, onDate, targetOnTime))
         eventLogger.info("Current machine state: {0}".format(machineState.getCurrentState()))
         
-        if machineState.getCurrentState() == 'Heating' and not isMotionDetected:
+        if machineState.getCurrentState() == 'Heating' and not mac.isMotionDetected:
             resetEvents()
             machineState.changeState("Off")
             eventLogger.info("Machine state to off")
@@ -244,13 +201,17 @@ def getSetTemp(eventsJsonFile):
                  
     return setTemp
         
-GPIO.add_event_detect(motionSensorInPin, GPIO.RISING, callback=motionAction, bouncetime=500)
+motionStartTime = datetime.datetime.now()
+mac = MotionAction(timeOutSeconds=int(motionTimeOutSeconds),
+    sensorInPin=int(motionSensorInPin),
+    onMotionCallBack = doMotionAction,
+    onMotionTimeOutCallBack = timeoutAction,
+    logger=eventLogger)
 FurnaceState = False
 
 while (True):
     tempVal = getCurrentTemp(TempSensorId)
-    if machineState.getCurrentState() != 'Off':
-        doMotionAction()    
+    mac.checkForTimeOut()
     onTemp = getSetTemp("furnanceEvent.json")
     eventLogger.info("Temperature set point\t{0}".format(onTemp))
     if tempVal < (onTemp - TempWindow) and machineState.getCurrentState() != 'Off': 
@@ -265,7 +226,6 @@ while (True):
     if FurnaceState:
         eventLogger.info("Furnace ON")
         GPIO.output(relay1, GPIO.LOW)
-#         GPIO.output(statusLight, GPIO.LOW)
     else:
         eventLogger.debug("Furnace off")
         GPIO.output(relay1, GPIO.HIGH)
