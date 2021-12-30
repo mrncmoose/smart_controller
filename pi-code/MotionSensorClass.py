@@ -27,21 +27,27 @@ class MotionAction:
         self.percentToOn = percentOn # ratio of motion events to possible motion events
         self.logger = logger
         self.sensorInPin = sensorInPin
-        self.timeOutSeconds = timeOutSeconds
-        self.bounceTime_ms = (timeOutSeconds+1)*1000
+        if timeOutSeconds > 0:
+            self.timeOutSeconds = timeOutSeconds
+        else:
+            self.timeOutSeconds = 299
+        self.bounceTime_ms = (self.timeOutSeconds+1)*1000
         GPIO.setup(self.sensorInPin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.add_event_detect(self.sensorInPin, GPIO.RISING, callback=self.motionAction, bouncetime=self.bounceTime_ms)
 
     def setTimerValue(self, timeOutSeconds:int):
-        self.timeOutSeconds = timeOutSeconds
-        self.bounceTime_ms = (timeOutSeconds+1)*1000
-        self.deltaTime = 0
-        self.isMotionDetected = True
-        self.deltaTime = None
-        self.startTime = datetime.datetime.now()  
-        GPIO.remove_event_detect(self.sensorInPin)
-        GPIO.add_event_detect(self.sensorInPin, GPIO.RISING, callback=self.motionAction, bouncetime=self.bounceTime_ms)
-        self.logger.info('Timer values reset to {} seconds and debounce {} ms'.format(self.timeOutSeconds, self.bounceTime_ms))
+        if self.timeOutSeconds != timeOutSeconds:
+            self.timeOutSeconds = timeOutSeconds
+            self.bounceTime_ms = (timeOutSeconds+1)*1000
+            self.deltaTime = 0
+            self.isMotionDetected = True
+            self.deltaTime = None
+            self.startTime = datetime.datetime.now()  
+            GPIO.remove_event_detect(self.sensorInPin)
+            GPIO.add_event_detect(self.sensorInPin, GPIO.RISING, callback=self.motionAction, bouncetime=self.bounceTime_ms)
+            self.logger.info('Timer values reset to {} seconds and debounce {} ms'.format(self.timeOutSeconds, self.bounceTime_ms))
+        else:
+            self.logger.debug('Same timeout value sent as current timout value.')
     
     # This method is called when the motion detector activates for at least self.bounceTime_ms.
     # It also calls the motion action function that was registered.

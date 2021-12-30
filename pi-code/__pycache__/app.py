@@ -61,7 +61,7 @@ def getCurrentTemp(sensorPath):
     tempVal = round(float(tempStr[1])/1000, 1)
     tempRetVal = 0
     if "YES" in crc:
-        print("Temperature: " + str(tempVal) + " C")
+        # print("Temperature: " + str(tempVal) + " C")
         tempRetVal = tempVal
     else:
         tempRetVal = -99
@@ -101,15 +101,16 @@ def create_events():
             except:
                 abort(500)
 	json_data_file.close()
-	currentTimeStamp = events[0]['current_timestamp']
-	print("Setting date to: " + currentTimeStamp)
-	os.system('sudo date --set=\'' + currentTimeStamp + '\'')
+	# FTD 20211230  Current time is no longer sent in the message.  Use internet time.
+	# currentTimeStamp = events[0]['current_timestamp']
+	# print("Setting date to: " + currentTimeStamp)
+	# os.system('sudo date --set=\'' + currentTimeStamp + '\'')
 	return jsonify({'events': events});
 
 @app.route('/thermal/api/v1.0/isFurnaceOn', methods=['GET'])
 def get_furnance_status():
 	furnanceOn =  GPIO.input(relay1)
-	if furnanceOn == 1:
+	if furnanceOn == 0:
 		return jsonify({'isFurnanceOn': 'False'})
 	return jsonify({'isFurnanceOn': 'True'})
 

@@ -13,11 +13,6 @@ MaxTemp= 30
 # Temperature control within +/-
 TempWindow= 1.0
 
-#The number of seconds of no motion detected after the set start time to shut the furnace down.
-# will want 900 (15 minutes) in prod.  Test much shorter
-#FTD 2019-10-23, moved to JSON event message
-#motionTimeOutSeconds = 45
-
 #The number of hours for a given pre-heat window.  
 #The predicted start time + this value is allowed before a motion must be sensed.
 #If not, shut down & wait for another request to heat up.
@@ -31,6 +26,7 @@ TempSensorId = '/sys/bus/w1/devices/28-0118410baaff'
 # Temperature sensor calibration
 tempSensorSlope = 1.0
 # tempSensorOffset = -3.2   # the farm sensor reads ~5 C too high.
+tempSensorOffset = 0.0
 
 relay1 = 17
 relay2 = 27

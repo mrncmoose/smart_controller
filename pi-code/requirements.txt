@@ -8,3 +8,4 @@ Dumper
 Flask
 uwsgi
 pytz
+tzlocal

@@ -1,4 +1,5 @@
-#import http.client
+# TODO:  Date time values are way off.  Time zone issue?
+# Convert everything to use aware date time.
 import logging
 import requests
 import os
@@ -6,9 +7,6 @@ import time
 import re
 import json
 import datetime
-from pytz import timezone
-import pytz
-
 from requests.auth import HTTPBasicAuth
 
 from Config import *
@@ -64,8 +62,6 @@ class HttpBridge(object):
     
     def putReadings(self):
         res = None
-        #localTz = timezone('US/Eastern')
-        utc = pytz.utc
         try:
             temp = self.getTemperature()
             motion = self.getIsMotion()
@@ -75,24 +71,24 @@ class HttpBridge(object):
             return False
         try:
             url = centralServer['baseURL'] + centralServer['currentReadingURI']
-            d = datetime.datetime.now(utc)
+            d = datetime.datetime.now()
             thingOwner = os.environ['THING_OWNER']
             thingPass = os.environ['THING_PASSWORD']
             reading =[
                         {
-                            'ttReadTime': '{}'.format(d.strftime('%Y-%m-%dT%H:%M:%SZ')),
+                            'ttReadTime': '{}'.format(d.strftime('%Y-%m-%dT%H:%M:%S')),
                             'sensorType': sensorTypes['temperature'],
                             'dataValue': '{}'.format(temp),
                             'thing': ourThingId
                         },
                         {
-                            'ttReadTime': '{}'.format(d.strftime('%Y-%m-%dT%H:%M:%SZ')),
+                            'ttReadTime': '{}'.format(d.strftime('%Y-%m-%dT%H:%M:%S')),
                             'sensorType': sensorTypes['motion'],
                             'dataValue': '{}'.format(motion),
                             'thing': ourThingId                            
                         },
                         {
-                            'ttReadTime': '{}'.format(d.strftime('%Y-%m-%dT%H:%M:%SZ')),
+                            'ttReadTime': '{}'.format(d.strftime('%Y-%m-%dT%H:%M:%S')),
                             'sensorType': sensorTypes['furnance'],
                             'dataValue': '{}'.format(isHeating),
                             'thing': ourThingId                                 
@@ -124,7 +120,7 @@ class HttpBridge(object):
                 localEvents = []
                 for ev in events:
                     now = datetime.datetime.now()
-                    setDate = datetime.datetime.strptime(ev['on_when'], "%Y-%m-%dT%H:%M:%SZ")
+                    setDate = datetime.datetime.strptime(ev['on_when'], "%Y-%m-%dT%H:%M:%S")
                     if setDate >= now:
                         lEv = {'on':{
                                   'motion_delay_seconds':ev['on_motion_delay_seconds'],
@@ -135,7 +131,7 @@ class HttpBridge(object):
                             }
                         localEvents.append(lEv)
                     else:
-                        self.blogger.info('Set point datetime is in the past.')
+                        self.blogger.warn('Set point datetime is in the past.  Current date: {}\tSetpoint date: {}'.format(now, setDate))
                         isEventInPast = True
                 if not isEventInPast:
                     jsonMess = json.dumps(localEvents)

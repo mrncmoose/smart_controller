@@ -79,9 +79,8 @@ def preHeatCheck(targetTime, setTemp):
     
     if targetTime >= lowerTimeLimit and timeToTemp < now:
         eventLogger.debug('Preheat zone reached with time to temp: {0}'.format(timeToTemp))
-        return timeToTemp
-
-    return now + datetime.timedelta(hours=12)
+    
+    return timeToTemp
 
 def timeoutAction():
     if machineState.getCurrentState() != 'Preheating':
@@ -121,15 +120,15 @@ def resetEvents():
         {
             'on':
             {
-                'when':u'1999-04-01T18:00:00Z',
+                'when':u'1999-04-01T18:00:00',
                  'temperature':-42,
-                 'motion_delay_seconds':30
+                 'motion_delay_seconds':42
              },
              'off':{
-                'when':u'2017-04-01T18:00:00Z',
+                'when':u'2017-04-01T18:00:00',
                  'temperature':-42
              },
-        'current_timestamp':u'2020-03-27 14:41:00'
+        'current_timestamp':u'2020-03-27 14:42:00'
          },
     ]
     try:
@@ -142,7 +141,6 @@ def resetEvents():
         
 def getSetTemp(eventsJsonFile):
     retryCount = 0
-    oldMotionDelay = 0
     for i in range(0, 2):        
         try:
             with open(eventsJsonFile) as json_data_file:
@@ -162,43 +160,50 @@ def getSetTemp(eventsJsonFile):
     for e in data:
         onDate = None
         try:
-            onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%dT%H:%M:%SZ")
+            onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%dT%H:%M:%S")
         except ValueError:
-            onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%d %H:%M:%S")
+            eventLogger.error('Unable to parse on Date of {} using template of %Y-%m-%dT%H:%M:%S'.format(e['on']['when']))
+        if onDate != None:
+            try:
+                onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%d %H:%M:%S")
+            except ValueError:
+                eventLogger.error('Unable to parse on Date of {} using template of %Y-%m-%d %H:%M:%S'.format(e['on']['when']))
+            
             
         setTempOn = float(e['on']['temperature'])
         setTempOff = float(e['off']['temperature'])
         try:
             newMotionDelay = int(e['on']['motion_delay_seconds'])
-            if oldMotionDelay != newMotionDelay:
-                oldMotionDelay = newMotionDelay
-                mac.setTimerValue(newMotionDelay)
+            eventLogger.debug('Motion Delay value: {}'.format(newMotionDelay))
+            mac.setTimerValue(newMotionDelay)
         except:
             eventLogger.error('Unable to read motion time out seconds value.  Using value of 300.')
             mac.setTimerValue(300)
-        setTemp = setTempOff        
-        targetOnTime = preHeatCheck(onDate, setTempOn)
+        setTemp = setTempOff
+        if onDate != None:      
+            targetOnTime = preHeatCheck(onDate, setTempOn)
+            eventLogger.debug("Set on temp: {0}\t On date: {1}\t Target on time: {2}".format(setTempOn, onDate, targetOnTime))
 
-        eventLogger.debug("Set on temp: {0}\t On date: {1}\t Target on time: {2}".format(setTempOn, onDate, targetOnTime))
-        eventLogger.info("Current machine state: {0}".format(machineState.getCurrentState()))
-        
-        if machineState.getCurrentState() == 'Heating' and not mac.isMotionDetected:
-            resetEvents()
-            machineState.changeState("Off")
-            eventLogger.info("Machine state to off")
-            return setTempOff
+    eventLogger.info("Current machine state: {0}".format(machineState.getCurrentState()))
 
-        if machineState.getCurrentState() == 'Off' and targetOnTime <= now:
-            machineState.changeState('Preheating')
-            eventLogger.info("Machine state change to preheating")
-            return setTempOn
-        
-        if machineState.getCurrentState() == 'Preheating' and now >= onDate:
-            machineState.changeState('Heating')
-            eventLogger.info("Machine state change to heating")
-            return setTempOn
-        if machineState.getCurrentState() == 'Preheating' or machineState.getCurrentState() == 'Heating':
-            return setTempOn
+#TODO:  Machine state may not be evaluating on dates in the past correctly and put the state into heating incorrectly.  
+    if machineState.getCurrentState() == 'Heating' and not mac.isMotionDetected:
+        resetEvents()
+        machineState.changeState("Off")
+        eventLogger.info("Machine state to off")
+        return setTempOff
+
+    if machineState.getCurrentState() == 'Off' and targetOnTime >= now:
+        machineState.changeState('Preheating')
+        eventLogger.info("Machine state change to preheating")
+        return setTempOn
+    
+    if machineState.getCurrentState() == 'Preheating' and now >= onDate:
+        machineState.changeState('Heating')
+        eventLogger.info("Machine state change to heating")
+        return setTempOn
+    if machineState.getCurrentState() == 'Preheating' or machineState.getCurrentState() == 'Heating':
+        return setTempOn
                  
     return setTemp
         

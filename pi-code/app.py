@@ -13,6 +13,9 @@ from ThermalPrediction import PredictDeltaTemp
 
 from Config import *
 
+# TODO:  Include temperature calibration & other config items found in Config.py
+# TODO:  figure out better way to get isMotion and furnanceState instaead of attempting to read values from GPIO.
+
 # load the kernel modules needed to handle the sensor
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
@@ -121,7 +124,7 @@ def getCurrentTemp(sensorPath):
     crc = myRegex.split(lines[0])
     crc = crc[1][3:-1]
     tempStr = myRegex.split(lines[1])
-    tempVal = round(float(tempStr[1])/1000, 1)
+    tempVal = round(((float(tempStr[1])/1000) * tempSensorSlope) + tempSensorOffset, 1) 
     tempRetVal = 0
     if "YES" in crc:
         lg.debug("Temperature: " + str(tempVal) + " C")
@@ -161,7 +164,6 @@ def get_events():
 @app.route('/thermal/api/v1.0/current_temp', methods=['GET'])
 # @requires_auth
 def get_current_temp():
-#    current_temp = getCurrentTemp('/sys/bus/w1/devices/28-04167527baff')
 	try:
 		api_key = request.args.get("api_id")
 		res = check_api_key(api_key)
@@ -191,8 +193,8 @@ def create_events():
 		for event in events:
 			try:
 				try:
-					#onDate = datetime.datetime.strptime(str(event['on']['when']), "%Y-%m-%d %H:%M:%S")
-					onDate = datetime.datetime.strptime(str(event['on']['when']), "%Y-%m-%dT%H:%M:%SZ")
+					onDate = datetime.datetime.strptime(str(event['on']['when']), "%Y-%m-%dT%H:%M:%S")
+					# onDate = datetime.datetime.strptime(str(event['on']['when']), "%Y-%m-%dT%H:%M:%SZ")
 				except ValueError:
  					onDate = datetime.datetime.strptime(str(event['on']['when']), "%Y-%m-%d %H:%M")
 				onTemp = float(event['on']['temperature'])
