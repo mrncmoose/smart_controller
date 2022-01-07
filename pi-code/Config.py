@@ -75,7 +75,7 @@ motionURI = '/thermal/api/v1.0/isMotion'
 #                  'currentReadingURI': '/iot/api/thing-data/',
 #                  'thingsURI': '/iot/api/things/'
 #                  }
-centralServer = { 'baseURL': 'http://10.0.0.29:8000',
+centralServer = { 'baseURL': 'http://10.0.0.10:8000',
                  'eventURI': '/iot/api/thermal-events/',
                  'currentReadingURI': '/iot/api/thing-data/',
                  'thingsURI': '/iot/api/things/'

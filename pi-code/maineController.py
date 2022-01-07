@@ -205,6 +205,9 @@ def getSetTemp(eventsJsonFile):
 
     if machineState.getCurrentState() == 'Preheating' and onDate <= now:
         machineState.changeState('Heating')
+        # fake a motion action so the timers think motion time starts now
+        eventLogger.info('Sending fake motion action. <------------')
+        mac.motionAction(motionSensorInPin)
         eventLogger.info("Machine state change to heating")
         return setTempOn
     if machineState.getCurrentState() == 'Preheating' or machineState.getCurrentState() == 'Heating':

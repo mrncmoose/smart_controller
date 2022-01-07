@@ -222,7 +222,7 @@ def get_furnance_on():
 	api_key = request.args.get("api_id")
 	res = check_api_key(api_key)
 	if res == True:
-		if GPIO.input(relay1) == 1:
+		if GPIO.input(relay1) == 0:
 			return jsonify({'isFurnanceOn': 'False'})
 		return jsonify({'isFurnanceOn': 'True'})
 	return res
