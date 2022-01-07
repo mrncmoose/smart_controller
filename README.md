@@ -14,13 +14,17 @@ Security is physical.  The steel sided building is basically a Faraday cage and 
 ## Version 2
 The unit is intended to be connected to the internet.  The API is hidden behind a reverse proxy.  An industrial hardened reverse proxy is added such that the API is not directly exposed to the internet.
 
-## Version 3
-Add RabbitMQ for offline and scalability
-Add Dynamic regression analysis for thermal rise calcs.
-
 To make things as simple as possible, new features
 * A predictive thermal rise curve is used to calculate the time to temperature.  The unit turns on the amount of time predicted before the use date time.  No more guessing at when to turn the heat on to to pre-heat the building and no wasted fuel if building isn't used.
 * A motion sensor is used to detect if there is any motion in the building.  If there is no motion by the motion time out value, the unit turns off.
+* Note:  A PIR motion sensor does *not* work with an infrared heater.  The sensor will give false motion readings as the heater is running.  Switched to a microwave based motion sensor.
+
+
+## Version 3
+* Add Dynamic regression analysis for thermal rise calcs.
+
+### Steps to register device with IoT web app
+* TODO.
 
 The same idea could be used for controlling air conditioning.  However, the relays used are not capable of handling the load of an AC unit.  An additional relay and some AC wiring would be required.
 
@@ -30,7 +34,7 @@ Parts list:
 1. Raspberry PI model B or Zero W with Raspbian Buster
 1. DS18B20 temperature sensor (others may be substituted). This project used SunFounder’s PC board to eliminate the need for a breadboard or other circuit board to hold the DS18B20.
 1. Jbtek 4 Channel DC 5V Relay module.  Make sure these are contact style.
-1. HC-SR501 PIR MOTION DETECTOR
+1. RCWL-0516 Motion Detector
 1. (20) Jumper wires 
 1. (2) 5mm Blue LED
 1. 270 ohm 1/4 Watt resistor
@@ -50,7 +54,7 @@ Pin out:
 |--------------|----------|---------------------------------|
 | 1            |          | DS18b20 temperature: VCC (3.3V) |
 | 2            |          | Relay board VCC (5V)            |
-| 4            |          | PIR motion sensor 5V+           |
+| 4            |          | Motion sensor 5V+ supply input  |
 | 6            |          | Relay board GND |
 | 7            | GPIO4    | DS18b20 temperature: SIG |
 | 9            |          | DS18b20 temperature: GND |
@@ -59,9 +63,9 @@ Pin out:
 | 13           | GPIO27   | Relay board: IN2 |
 | 14           |          | Status LED GND |
 | 15           | GPIO22   | Relay board: IN3 |
-| 16           | GPIO23   | PIR motion sensor |
+| 16           | GPIO23   | Motion sensor signal |
 | 19           | GPIO10   | Relay board: IN4 |
-| 20           |          | PIR motion sensor GND |
+| 20           |          | Motion sensor GND |
 
 Pinout of Raspberry PI:
 <https://www.raspberrypi.org/documentation/usage/gpio/>
@@ -81,7 +85,7 @@ Basic article on controlling the relays:
 <https://elementztechblog.wordpress.com/2014/09/09/controlling-relay-boards-using-raspberrypi/>
 
 Quick & dirty how to get the temperature value:
-<http://raspberrywebserver.com/gpio/connecting-a-temperature-sensor-to-gpio.html>
+<https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/ds18b20>
 
 ##Security setups:
 ###Fail2ban:
@@ -104,3 +108,6 @@ Installed and working:
 A screen shot of the User Interface (UI)
 ![](http://moosewareinc.com//portfolio/images/Screenshot_1491054776.png)
 
+## Main merge history
+* 2021-11-28: Merging API into main
+* 

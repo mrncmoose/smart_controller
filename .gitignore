@@ -1,2 +1,3 @@
 /bin/
-*.log
+/pi-code/*.log
+.project
