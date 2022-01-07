@@ -110,4 +110,4 @@ A screen shot of the User Interface (UI)
 
 ## Main merge history
 * 2021-11-28: Merging API into main
-* 
+* 2022-01-07: Merging Senor UI into main
