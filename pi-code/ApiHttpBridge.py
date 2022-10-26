@@ -16,8 +16,8 @@ class HttpBridge(object):
     def __init__(self, *args, **kwargs):       
         self.blogger = logging.getLogger(__name__)
         self.currentTemp = -42.0
-        self.isMotion = False
-        self.isFurnanceOn = False
+        self.isMotion = 'Unknown'
+        self.isFurnanceOn = 'Unknown'
         
     def getIsMotion(self):
         res = None
@@ -30,8 +30,8 @@ class HttpBridge(object):
             self.isMotion = reading['isMotion']
         except Exception as e:
             self.blogger.error('Unable to get reading from local controller for reason: {}'.format(e))
-            return False        
-        return True
+            return 'Unknown'        
+        return self.isMotion
     
     def getIsFurnanceOn(self):
         res = None
@@ -44,8 +44,8 @@ class HttpBridge(object):
             self.isFurnanceOn = reading['isFurnanceOn']
         except Exception as e:
             self.blogger.error('Unable to get reading from local controller for reason: {}'.format(e))
-            return False        
-        return True               
+            return 'Unknown'        
+        return self.isFurnanceOn               
     
     def getTemperature(self):
         url = baseURL + tempertureURI

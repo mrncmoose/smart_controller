@@ -223,9 +223,9 @@ def get_furnance_on():
 	res = check_api_key(api_key)
 	if res == True:
 		if GPIO.input(relay1) == 0:
-			return jsonify({'isFurnanceOn': 'False'})
-		return jsonify({'isFurnanceOn': 'True'})
-	return res
+			return jsonify({'isFurnanceOn': 'ON'})
+		return jsonify({'isFurnanceOn': 'Off'})
+	return 'Unknown'
 
 @app.route('/thermal/api/v1.0/isMotion', methods=['GET'])
 # @requires_auth
@@ -234,9 +234,9 @@ def get_motion():
 	res = check_api_key(api_key)
 	if res == True:
 		if GPIO.input(motionSensorInPin) == 1:
-			return jsonify({'isMotion': 'False'})
-		return jsonify({'isMotion': 'True'})
-	return res
+			return jsonify({'isMotion': 'Off'})
+		return jsonify({'isMotion': 'ON'})
+	return 'Unknown'
 
 if __name__ == '__main__':
 #	app.debug = True
