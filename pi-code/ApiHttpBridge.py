@@ -116,11 +116,11 @@ class HttpBridge(object):
             events = res.json()
             self.blogger.debug('Got events from central server: {}'.format(events))
             if len(events) > 0:
-                url = baseURL + eventURI
+                url = baseURL + eventURI    # the local host
                 localEvents = []
                 for ev in events:
                     now = datetime.datetime.now()
-                    setDate = datetime.datetime.strptime(ev['on_when'], "%Y-%m-%dT%H:%M:%S")
+                    setDate = datetime.datetime.strptime(ev['on_when'], "%Y-%m-%dT%H:%M:%SZ")
                     if setDate >= now:
                         lEv = {'on':{
                                   'motion_delay_seconds':ev['on_motion_delay_seconds'],
@@ -137,12 +137,12 @@ class HttpBridge(object):
                     jsonMess = json.dumps(localEvents)
                     resp = requests.post(url, json=jsonMess, auth=HTTPBasicAuth(localApiUser, localApiPass), verify=True)
                     if re.search(r'4\d+|5\d+', str(resp.status_code)):
-                        raise Exception('Unable to send event to local server.  HTTP return code: {}'.format(resp.status_code))
+                        raise Exception('Unable to send event to local server at url {}.  HTTP return code: {}'.format(url, resp.status_code))
                 return True
             else:
                 self.blogger.debug('No events fetched from central server at URL: {}'.format(url))
         except Exception as e:
-            self.blogger.error('Unable to send event for reason: {}'.format(e))
+            self.blogger.error('Unable to send event to url {} for reason: {}'.format(url, e))
             
         return False
             

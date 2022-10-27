@@ -184,35 +184,28 @@ def create_events():
 	res = check_api_key(api_key)
 	if res == True:
 		if not request.json:
-		    abort(400)
-		events = None
+			abort(400)
+		else:
+			events = None
+     
 		if isinstance(request.json, str):
 			events = json.loads(request.json)
 		else:
 			raise TypeError('Error working with requested JSON of type {0}'.format(type(request.json)))
 		for event in events:
 			try:
-				try:
-					onDate = datetime.datetime.strptime(str(event['on']['when']), "%Y-%m-%dT%H:%M:%S")
-					# onDate = datetime.datetime.strptime(str(event['on']['when']), "%Y-%m-%dT%H:%M:%SZ")
-				except ValueError:
- 					onDate = datetime.datetime.strptime(str(event['on']['when']), "%Y-%m-%d %H:%M")
-				onTemp = float(event['on']['temperature'])
-				offTemp = float(event['off']['temperature'])
-				motionDelaySecs = int(event['on']['motion_delay_seconds'])			
-			except:
-				lg.error('Data type problem with json message: \n{0}\n\n'.format(json.dumps(event)))
-				abort(410)
+					# onDate = datetime.datetime.strptime(str(event['on']['when']), "%Y-%m-%dT%H:%M:%S")
+				onDate = datetime.datetime.strptime(str(event['on']['when']), "%Y-%m-%dT%H:%M:%SZ")
+			except ValueError:
+				onDate = datetime.datetime.strptime(str(event['on']['when']), "%Y-%m-%d %H:%M")
+
 		with open(eventsFileName, 'w') as json_data_file:
-	            try:
-	                json.dump(events, json_data_file, ensure_ascii=False)
-	            except Exception as e:
-	            	lg.error('Error reading events filename {} with error: {}'.format(eventsFileName, e))
-	            	abort(500)
+			try:
+				json.dump(events, json_data_file, ensure_ascii=False)
+			except Exception as e:
+				lg.error('Error reading events filename {} with error: {}'.format(eventsFileName, e))
+				abort(500)
 		json_data_file.close()
-	#	currentTimeStamp = events[0]['current_timestamp']
-	#	print("Setting date to: " + currentTimeStamp)
-	#	os.system('sudo date --set=\'' + currentTimeStamp + '\'')
 		return jsonify({'events': events});
 	return res
 
