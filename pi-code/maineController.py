@@ -164,15 +164,16 @@ def getSetTemp(eventsJsonFile):
     now = datetime.datetime.now()
     for e in data:
         onDate = None
+        dateTemplate = "%Y-%m-%dT%H:%M:%SZ"
         try:
-            onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%dT%H:%M:%S")
+            onDate = datetime.datetime.strptime(str(e['on']['when']), dateTemplate)
         except ValueError:
-            eventLogger.error('Unable to parse on Date of {} using template of %Y-%m-%dT%H:%M:%S'.format(e['on']['when']))
+            eventLogger.error('Unable to parse on Date of {} using template of {}'.format(e['on']['when'], dateTemplate))
         if onDate == None:
             try:
-                onDate = datetime.datetime.strptime(str(e['on']['when']), "%Y-%m-%d %H:%M:%S")
+                onDate = datetime.datetime.strptime(str(e['on']['when']), dateTemplate)
             except ValueError:
-                eventLogger.error('Unable to parse on Date of {} using template of %Y-%m-%d %H:%M:%S'.format(e['on']['when']))
+                eventLogger.error('Unable to parse on Date of {} using template of {}'.format(e['on']['when'], dateTemplate))
             
         setTempOn = float(e['on']['temperature'])
         setTempOff = float(e['off']['temperature'])
