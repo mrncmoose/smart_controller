@@ -23,6 +23,17 @@ To make things as simple as possible, new features
 ## Version 3
 * Add Dynamic regression analysis for thermal rise calcs.
 
+## Version 4
+* Add MQTT for status messages.
+  
+  Currently, the bridge reads the values of the Pi's pins to determine state.  Change to use
+  MQTT channels to provide state machine values in addition to the pin status.
+
+  TODO
+  * install Rabitt MQ on the Pi
+  * Create queues/chanells for state machine messages
+  * Add state machine messages to WebUI and Webservice.
+
 ### Steps to register device with IoT web app
 * TODO.
 
