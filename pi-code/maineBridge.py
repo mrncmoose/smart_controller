@@ -25,10 +25,6 @@ if __name__ == '__main__':
     logFormatter = logging.Formatter('%(levelname)s\t%(asctime)s\t%(message)s')
     logHandler = logging.handlers.RotatingFileHandler(LOG_FILENAME, maxBytes=20000000, backupCount=2 )
     logHandler.setFormatter(logFormatter)
-    
-#     ch = logging.StreamHandler()
-#     ch.setFormatter(formatter)
-#     lg.addHandler(ch)
     lg.addHandler(logHandler)
     
     lg.info("Starting bridge...")

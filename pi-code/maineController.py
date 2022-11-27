@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-# 20210126:  BUG  Unit not shutting down after people have left the building.
-# conditions:  set temp is not reached.
+#TODO:  Write state, temperature and motion values to MQTT channel.
 
 import os
 import sys

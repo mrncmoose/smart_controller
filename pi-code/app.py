@@ -11,6 +11,8 @@ import logging.handlers
 #import dumper
 from ThermalPrediction import PredictDeltaTemp
 
+# TODO:  Read an MQTT channel for thermal values and motion status.
+
 from Config import *
 
 # TODO:  Include temperature calibration & other config items found in Config.py
