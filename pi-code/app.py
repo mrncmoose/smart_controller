@@ -10,6 +10,7 @@ import logging
 import logging.handlers
 #import dumper
 from ThermalPrediction import PredictDeltaTemp
+import pika
 
 # TODO:  Read an MQTT channel for thermal values and motion status.
 

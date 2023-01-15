@@ -67,6 +67,10 @@ tempertureURI = '/thermal/api/v1.0/current_temp'
 eventURI = '/thermal/api/v1.0/events'
 runningURI = '/thermal/api/v1.0/isFurnaceOn'
 motionURI = '/thermal/api/v1.0/isMotion'
+#TODO:  Move these to secured environment vars
+mqttUser = 'moose'
+mqttPass = 'Mo%905ose'
+mqttServer = 'localhost'
 
 #The server the 'world' will interact with via it's API's.
 #Polling isn't the best way to do this, but HTTP is currently the only protocol working.
@@ -80,3 +84,22 @@ centralServer = { 'baseURL': 'http://10.0.0.10:8000',
                  'currentReadingURI': '/iot/api/thing-data/',
                  'thingsURI': '/iot/api/things/'
                  }
+mqttConfig = {
+    'ques': {
+        'motion': {
+            'qName': 'motionQ',
+            'exchange': 'motionEx',
+            'routingKey': 'motionKey'
+        },
+        'machineState': {
+            'qName': 'machineStateQ',
+            'exchange': 'machineStateEx',
+            'routingKey': 'machineStateKey'
+        },
+
+    },
+  'user': mqttUser,
+  'passWd': mqttPass,
+  'mqttServer': mqttServer,
+
+  }

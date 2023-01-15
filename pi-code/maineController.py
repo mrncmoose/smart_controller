@@ -18,6 +18,7 @@ from ThermalPrediction.PredictDeltaTemp import thermalCalculations
 from Config import *
 from StateKlass import MachineState
 from MotionSensorClass import MotionAction
+import pika
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--log_level", 
